@@ -1,15 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
 
 public class PlayerInteraction : MonoBehaviour {
-    string _ItemText;
-    bool _ItemDisplay;
+    public string _ItemText;
+    public bool _ItemDisplay;
+    public int _playerId = 0;
+
+    private Player _player;
 
 	// Use this for initialization
 	void Start () {
         _ItemText = "Hello World";
-	}
+        _player = ReInput.players.GetPlayer(_playerId);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -26,7 +31,7 @@ public class PlayerInteraction : MonoBehaviour {
     {
         Debug.Log("In Zone");
         //if (Input.GetButton("Pickup"))
-        if (Input.GetKeyDown(KeyCode.E))
+        if (_player.GetButtonDown("Interact"))
         {
             _ItemDisplay = true;
             //Pick Up or interact with Item
