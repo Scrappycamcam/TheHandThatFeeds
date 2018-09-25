@@ -164,7 +164,7 @@ public class AIMovement : MonoBehaviour {
         //lerpingWeapon
         if(!_showingTheTell)
         {
-            _enemyAgent.isStopped = true;
+             _enemyAgent.isStopped = true;
             c0 = _swordPos;
             c1 = _swordPos + Vector3.up;
             _startAttackTime = Time.time;
