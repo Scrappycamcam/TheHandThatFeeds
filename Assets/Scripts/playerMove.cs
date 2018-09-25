@@ -85,6 +85,7 @@ public class playerMove : MonoBehaviour
     {   // Process movement
         if (_moveVector.x != 0.0f || _moveVector.z != 0.0f) //move player
         {
+            transform.rotation = Quaternion.LookRotation(_moveVector);
             _cc.Move(_moveVector.normalized * _moveSpeed * Time.deltaTime * _sprinting);
             _LastMove = _moveVector.normalized;
         }

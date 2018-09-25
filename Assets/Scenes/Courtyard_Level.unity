@@ -1006,6 +1006,16 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 0.001
       objectReference: {fileID: 0}
+    - target: {fileID: 223218171210586452, guid: 1a084058ac7a3ad49bf63b03c5a3b738,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 222796498002337708, guid: 1a084058ac7a3ad49bf63b03c5a3b738,
+        type: 2}
+      propertyPath: m_CullTransparentMesh
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a084058ac7a3ad49bf63b03c5a3b738, type: 2}
   m_IsPrefabAsset: 0
