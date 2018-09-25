@@ -6,17 +6,26 @@ using Rewired;
 public class playerMove : MonoBehaviour
 {
 
-    public int _playerId = 0; // The Rewired player id of this character
+    private int _playerId = 0; // The Rewired player id of this character
 
-    public float _moveSpeed = 3.0f;
-    public float _dashspeed = 8f;
-    public float _dashDelay = 0.8f;
-    public bool _canMove = true;
+    [SerializeField]
+    float _moveSpeed = 3.0f;
+    [SerializeField]
+    float _dashspeed = 8f;
+    [SerializeField]
+    float _dashDelay = 0.8f;
+    [SerializeField]
+    bool _canMove = true;
+    [SerializeField]
+    float missDamage;
+    [SerializeField]
+    float _gravity;
 
     public Attack _BaseAttack;
     private Attack _LastAttack;
     private Attack _NextAttack;
 
+    private PlayerStats _pStats;
     private Player _player; // The Rewired Player
     private CharacterController _cc;
     private Vector3 _moveVector = Vector3.zero;
@@ -30,6 +39,8 @@ public class playerMove : MonoBehaviour
 
     void Awake()
     {
+        _pStats = GetComponent<PlayerStats>();
+
         _LastAttack = _BaseAttack;
 
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
@@ -41,6 +52,7 @@ public class playerMove : MonoBehaviour
 
     void Update()
     {
+        CheckFall();
         GetAttack();
         ProcessAttack();
         if (_canMove)
@@ -50,13 +62,21 @@ public class playerMove : MonoBehaviour
         }
     }
 
+    private void CheckFall()
+    {
+        RaycastHit hit;
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, 1f)){
+            _cc.Move(Vector3.down * _gravity);
+        }
+    }
+
     private void GetInput()
     {
         // Get the input from the Rewired Player. All controllers that the Player owns will contribute, so it doesn't matter
         // whether the input is coming from a joystick, the keyboard, mouse, or a custom controller.
         
-        _moveVector.x = _player.GetAxis("Move Horizontal"); // get input by name
-        _moveVector.z = _player.GetAxis("Move Vertical");
+        _moveVector.x = _player.GetAxisRaw("Move Horizontal"); // get input by name
+        _moveVector.z = _player.GetAxisRaw("Move Vertical");
         _dash = _player.GetButtonDown("Dash");
         _sprint = _player.GetButtonDown("Sprint");
     }
@@ -94,12 +114,18 @@ public class playerMove : MonoBehaviour
     {
         if (_HeavyAttack)
         {
-            _LastAttack.MakeAttack(_LastMove);
+            if (!_LastAttack.MakeAttack(_LastMove))
+            {
+                _pStats.PDamage(missDamage);
+            }
             _canMove = false;
         }
         else if (_LightAttack)
         {
-            _LastAttack.MakeAttack(_LastMove);
+            if (!_LastAttack.MakeAttack(_LastMove))
+            {
+                _pStats.PDamage(missDamage);
+            }
             _canMove = false;
         }
         _canMove = true;
