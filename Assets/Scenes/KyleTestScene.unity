@@ -112,7 +112,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 3fec5f3867e35c547b593d5e90bfedac, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: e96e64ac453d6344ba4a4330254b00b4, type: 2}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 586479116}
   - component: {fileID: 586479115}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -454,13 +454,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 586479114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b529bc61cd34b14389a8ff3f75ac0e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightDistance: 0
-  sightArea: 0
-  followThreshold: 0
-  patrolPoints:
+  _sightDistance: 5
+  _sightArea: 90
+  _numOfCasts: 13
+  _debugVision: 0
+  _followDistanceThreshold: 10
+  _attackDistanceThreshold: 4
+  _attackSpeed: 1
+  _patrolPoints:
   - {fileID: 1204564548}
   - {fileID: 1093566937}
   - {fileID: 875928194}
@@ -719,7 +723,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1204564548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.21, y: 0, z: 4.6}
+  m_LocalPosition: {x: -1.5, y: 0, z: 9.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 586479120}
@@ -1197,7 +1201,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d01800b217fdb1d40bb3ee6e026987c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

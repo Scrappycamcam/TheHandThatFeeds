@@ -5,42 +5,65 @@ using UnityEngine.AI;
 
 public class AIMovement : MonoBehaviour {
 
-    NavMeshAgent enemyAgent;
+    NavMeshAgent _enemyAgent;
 
-    Vector3 startPoint;
+    Vector3 _startPoint;
     [SerializeField]
-    float sightDistance;
+    float _sightDistance;
     [SerializeField]
-    float sightArea;
+    float _sightArea;
     [SerializeField]
-    float followThreshold;
+    int _numOfCasts;
     [SerializeField]
-    List<GameObject> patrolPoints;
-    List<Vector3> patrolRoute;
-    int currPath;
-    bool alerted;
+    bool _debugVision = false;
 
-    //TestingSightScript target;
+    [SerializeField]
+    float _followDistanceThreshold;
+    [SerializeField]
+    float _attackDistanceThreshold;
+    bool _attacking = false;
+    bool _showingTheTell = false;
+    bool _waiting = false;
+    float _startAttackTime;
+    float _currentAttackTime;
+    [SerializeField]
+    float _attackSpeed;
+    Vector3 c0, c1;
+
+    GameObject _sword;
+    Vector3 _swordPos;
+
+    [SerializeField]
+    List<GameObject> _patrolPoints;
+    List<Vector3> _patrolRoute;
+    int _currPath;
+    bool _alerted = false;
+
+    RaycastHit hit;
+    playerMove _player;
 
 	// Use this for initialization
 	void Start () {
-        enemyAgent = GetComponent<NavMeshAgent>();
-        patrolRoute = new List<Vector3>(); 
-        for (int point = 0; point < patrolPoints.Count; point++)
+        _enemyAgent = GetComponent<NavMeshAgent>();
+        _patrolRoute = new List<Vector3>(); 
+        for (int point = 0; point < _patrolPoints.Count; point++)
         {
-            patrolRoute.Add(patrolPoints[point].gameObject.transform.position);
+            _patrolRoute.Add(_patrolPoints[point].gameObject.transform.position);
         }
-        startPoint = gameObject.transform.position;
-        patrolRoute.Add(startPoint);
-        currPath = 0;
-        alerted = false;
+        _startPoint = gameObject.transform.position;
+        _patrolRoute.Add(_startPoint);
+        _currPath = 0;
+
+        _sword = transform.GetChild(0).gameObject;
+        _swordPos = _sword.transform.localPosition;
+        _sword.SetActive(false);
 
         //target = TestingSightScript.tester;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        if(!alerted)
+
+    // Update is called once per frame
+    void Update () {
+        if(!_alerted)
         {
             PatrolState();
         }
@@ -53,50 +76,199 @@ public class AIMovement : MonoBehaviour {
 
     private void PatrolState()
     {
-        if(!enemyAgent.hasPath)
+        if (LookingForPlayer())
         {
-            enemyAgent.SetDestination(patrolRoute[currPath]);
-            if (currPath < patrolRoute.Count - 1)
+            _sword.SetActive(true);
+            _alerted = true;
+        }
+
+        if (!_enemyAgent.hasPath)
+        {
+            _enemyAgent.SetDestination(_patrolRoute[_currPath]);
+            if (_currPath < _patrolRoute.Count - 1)
             {
-                currPath++;
+                _currPath++;
             }
             else
             {
-                currPath = 0;
+                _currPath = 0;
             }
         }
 
-        if(LookingForPlayer())
-        {
 
-        }
     }
 
     private bool LookingForPlayer()
     {
+        for (int currCast = 0; currCast < _numOfCasts; currCast++)
+        {
+            Vector3 _castDir = transform.forward + (transform.right * ((_sightArea - ((_sightArea/((_numOfCasts-1)/2)) * currCast)) / 100));
+            if(_debugVision)
+            {
+                Debug.DrawLine(transform.position, transform.position + (_castDir * _sightDistance));
+            }
 
+            if (Physics.Raycast(transform.position, _castDir, out hit, _sightDistance))
+            {
+                if(hit.collider.GetComponent<playerMove>())
+                {
+                    _player = hit.collider.GetComponent<playerMove>();
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     private void CombatStrats()
     {
-       /* if(Vector3.Distance(transform.position, target.transform.position) <= followThreshold)
+        if(Vector3.Distance(transform.position, _player.transform.position) <= _followDistanceThreshold)
         {
-            FollowPlayer();
+            if(Vector3.Distance(transform.position, _player.transform.position) <= _attackDistanceThreshold)
+            {
+                if(!_attacking)
+                {
+                    AttackTell();
+                }
+                else
+                {
+                    AttackPlayer();
+                }
+            }
+            else
+            {
+                FollowPlayer();
+            }
         }
         else
         {
             LostSightOfPlayer();
-        }*/
+        }
     }
 
     private void FollowPlayer()
     {
-
+        if(_attacking || _waiting || _showingTheTell)
+        {
+            _showingTheTell = false;
+            _sword.transform.localPosition = _swordPos;
+            _attacking = false;
+            _waiting = false;
+            _enemyAgent.isStopped = false;
+        }
+        _enemyAgent.SetDestination(_player.transform.position);
     }
 
-    private void LostSightOfPlayer()
-    { 
+    private void AttackTell()
+    {   
+        //lerpingWeapon
+        if(!_showingTheTell)
+        {
+            _enemyAgent.isStopped = true;
+            c0 = _swordPos;
+            c1 = _swordPos + Vector3.up;
+            _startAttackTime = Time.time;
+            _showingTheTell = true;
+        }
+        else
+        {
+            _currentAttackTime = (Time.time - _startAttackTime) / _attackSpeed;
 
+            if (_currentAttackTime > 1)
+            {
+                _currentAttackTime = 1;
+
+                c0 = transform.position;
+                c1 = _player.transform.position - transform.forward;
+                _attacking = true;
+                _sword.transform.localPosition = _swordPos;
+                _startAttackTime = Time.time;
+            }
+            else
+            {
+                Vector3 p01;
+
+                p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
+
+                _sword.transform.localPosition = p01;
+            }
+        }
+    }
+
+    private void AttackPlayer()
+    {
+        if (_waiting)
+        {
+            Debug.Log("waiting");
+            _currentAttackTime = (Time.time - _startAttackTime) / _attackSpeed;
+
+            if(_currentAttackTime > 1)
+            {
+                _currentAttackTime = 1;
+
+                _waiting = false;
+                _attacking = false;
+                _showingTheTell = false;
+            }
+
+            Vector3 p01;
+
+            p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
+
+            transform.position = p01;
+        }
+        else
+        {
+            Debug.Log("attacking");
+            //transform.LookAt(_player.transform.position);
+            _currentAttackTime = (Time.time - _startAttackTime) / _attackSpeed;
+
+            if (_currentAttackTime > 1)
+            {
+                _currentAttackTime = 1;
+
+                _waiting = true;
+                c0 = transform.position;
+                c1 = transform.position;
+                _startAttackTime = Time.time;
+            }
+            else
+            {
+                transform.LookAt(_player.transform.position);
+                if(Physics.Raycast(transform.position, transform.forward, out hit, 1f))
+                {
+                    if(hit.collider.GetComponent<playerMove>())
+                    {
+                        Debug.Log("hit player");
+                        _waiting = true;
+                        c0 = transform.position;
+                        c1 = transform.position;
+                        _startAttackTime = Time.time;
+                    }
+                }
+            }
+
+            Vector3 p01;
+
+            p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
+
+            transform.position = p01;
+        }
+    }
+
+
+    private void LostSightOfPlayer()
+    {
+        _alerted = false;
+        if (_attacking || _waiting || _showingTheTell)
+        {
+            _showingTheTell = false;
+            _sword.transform.localPosition = _swordPos;
+            _attacking = false;
+            _waiting = false;
+            _enemyAgent.isStopped = false;
+        }
+        _sword.SetActive(false);
+        _enemyAgent.SetDestination(_patrolRoute[_currPath]);
     }
 }
