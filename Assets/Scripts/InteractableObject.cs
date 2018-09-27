@@ -45,7 +45,9 @@ public class InteractableObject : MonoBehaviour {
             case TypeOfObject.DOOR:
                 break;
             case TypeOfObject.POTION:
+                Debug.Log("Got hit");
                 _player.GetPlayerStats.PHeal(20);
+                Destroy(gameObject);
                 break;
             case TypeOfObject.PUZZLE:
                 break;

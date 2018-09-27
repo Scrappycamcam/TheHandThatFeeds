@@ -6,7 +6,7 @@ using Rewired;
 public class PlayerInteraction : MonoBehaviour {
     public string _ItemText;
     public bool _ItemDisplay;
-    private float _maxDist;
+    private float _maxDist = 10f;
     public Transform _PlayerPos;
     public int _playerId = 0;
 
@@ -45,17 +45,17 @@ public class PlayerInteraction : MonoBehaviour {
     private void ShootRay()
     {
         RaycastHit hit;
-        if (Physics.Raycast(_PlayerPos.transform.position, _PlayerPos.transform.forward, out hit, _maxDist))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, _maxDist))
         {
-            Debug.Log("Hit" + hit.transform.position);
-            if(hit.transform.tag == "Sign")
+            GameObject thingHit = hit.collider.gameObject;
+            Debug.Log(thingHit);
+            if (thingHit.GetComponent<InteractableObject>())
             {
+                Debug.Log("Hit" + hit.transform.position);
+                thingHit.GetComponent<InteractableObject>().Interact();
                 _ItemDisplay = true;
             }
-            else
-            {
-                _ItemDisplay = false;
-            }
+
         }
     }
 
