@@ -98,7 +98,7 @@ public class AIMovement : MonoBehaviour {
                 }
                 else
                 {
-                    //CombatStrats();
+                    CombatStrats();
                 }
             }
             else

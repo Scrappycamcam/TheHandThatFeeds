@@ -160,12 +160,14 @@ public class KyleplayerMove : MonoBehaviour
             _nextComboTransform = _myLightComboPos[_currComboNum];
             Debug.Log(_nextComboTransform);
             _attacking = true;
+            _canMove = false;
         }
         else if (_HeavyAttack)
         {
             _currComboNum = 0;
             _nextComboTransform = _myHeavyComboPos[_currComboNum];
             _attacking = true;
+            _canMove = false;
         }
     }
 
@@ -195,12 +197,12 @@ public class KyleplayerMove : MonoBehaviour
             {
                 _currSwingDuration = _lightSwingDuration;               
             }
-            else if(_nextComboTransform == _myHeavyComboPos[_currComboNum])
+            else if (_nextComboTransform == _myHeavyComboPos[_currComboNum])
             {
                 _currSwingDuration = _heavySwingDuration;
             }
 
-            Debug.Log(_currComboNum);
+            Debug.Log(_currSwingDuration);
 
             _currComboNum++;
             if (_nextComboTransform != null)
@@ -210,7 +212,7 @@ public class KyleplayerMove : MonoBehaviour
                 c1 = ((_sword.transform.localPosition + _currComboTransform.localPosition) / 2) + transform.forward;
                 c2 = _currComboTransform.localPosition;
                 _nextComboTransform = null;
-                Debug.Log(_currComboTransform);
+                //Debug.Log(_currComboTransform);
                 _startComboTime = Time.time;
                 _swinging = true;
             }
@@ -230,7 +232,7 @@ public class KyleplayerMove : MonoBehaviour
 
             if (_currComboTime < 1)
             {
-                if(Physics.Raycast(_sword.transform.position, _sword.transform.forward, out hit, _swordDetectDistance))
+                if(Physics.Raycast(_sword.transform.position, _sword.transform.up, out hit, _swordDetectDistance))
                 {
                     if(hit.collider.GetComponent<AIMovement>())
                     {
@@ -251,7 +253,7 @@ public class KyleplayerMove : MonoBehaviour
 
                 if (!_hitSomething)
                 {
-                    //put damage here
+                    _pStats.PDamage(missDamage);
                 }
             }
             
@@ -268,14 +270,16 @@ public class KyleplayerMove : MonoBehaviour
 
     private void ResetSword()
     {
-        Debug.Log("Sword Reset");
+        //Debug.Log("Sword Reset");
         _attacking = false;
         _comboing = false;
         _swinging = false;
+        _hitSomething = false;
         _sword.transform.localPosition = _swordReset;
         _currComboNum = 0;
         _nextComboTransform = null;
         _currComboTransform = null;
+        _canMove = true;
     }
 
 
