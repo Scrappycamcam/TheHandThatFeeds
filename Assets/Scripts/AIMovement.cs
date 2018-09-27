@@ -39,8 +39,10 @@ public class AIMovement : MonoBehaviour {
     int _currPath;
     bool _alerted = false;
 
+
+
     RaycastHit hit;
-    playerMove _player;
+    KyleplayerMove _player;
 
 	// Use this for initialization
 	void Start () {
@@ -63,6 +65,7 @@ public class AIMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        //if(!_)
         if(!_alerted)
         {
             PatrolState();
@@ -94,8 +97,6 @@ public class AIMovement : MonoBehaviour {
                 _currPath = 0;
             }
         }
-
-
     }
 
     private bool LookingForPlayer()
@@ -110,9 +111,9 @@ public class AIMovement : MonoBehaviour {
 
             if (Physics.Raycast(transform.position, _castDir, out hit, _sightDistance))
             {
-                if(hit.collider.GetComponent<playerMove>())
+                if(hit.collider.GetComponent<KyleplayerMove>())
                 {
-                    _player = hit.collider.GetComponent<playerMove>();
+                    _player = hit.collider.GetComponent<KyleplayerMove>();
                     return true;
                 }
             }
@@ -180,6 +181,7 @@ public class AIMovement : MonoBehaviour {
 
                 c0 = transform.position;
                 c1 = _player.transform.position - transform.forward;
+                c1.y = transform.position.y;
                 _attacking = true;
                 _sword.transform.localPosition = _swordPos;
                 _startAttackTime = Time.time;
@@ -199,7 +201,7 @@ public class AIMovement : MonoBehaviour {
     {
         if (_waiting)
         {
-            Debug.Log("waiting");
+            //Debug.Log("waiting");
             _currentAttackTime = (Time.time - _startAttackTime) / _attackSpeed;
 
             if(_currentAttackTime > 1)
@@ -219,7 +221,7 @@ public class AIMovement : MonoBehaviour {
         }
         else
         {
-            Debug.Log("attacking");
+            //Debug.Log("attacking");
             //transform.LookAt(_player.transform.position);
             _currentAttackTime = (Time.time - _startAttackTime) / _attackSpeed;
 
@@ -237,7 +239,7 @@ public class AIMovement : MonoBehaviour {
                 transform.LookAt(_player.transform.position);
                 if(Physics.Raycast(transform.position, transform.forward, out hit, 1f))
                 {
-                    if(hit.collider.GetComponent<playerMove>())
+                    if(hit.collider.GetComponent<KyleplayerMove>())
                     {
                         Debug.Log("hit player");
                         _waiting = true;
@@ -268,7 +270,14 @@ public class AIMovement : MonoBehaviour {
             _waiting = false;
             _enemyAgent.isStopped = false;
         }
+
         _sword.SetActive(false);
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
+    }
+
+    //For Update 2
+    public void GotHit()
+    {
+        
     }
 }

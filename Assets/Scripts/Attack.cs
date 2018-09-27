@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Attack : MonoBehaviour {
+
     public Attack[] _nextAttacks;
     public bool _isHeavy;
     public bool _hasHit;

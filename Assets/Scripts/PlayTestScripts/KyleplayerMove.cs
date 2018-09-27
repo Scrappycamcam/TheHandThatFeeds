@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Rewired;
 
 [RequireComponent(typeof(CharacterController))]
-public class playerMove : MonoBehaviour
+public class KyleplayerMove : MonoBehaviour
 {
 
     private int _playerId = 0; // The Rewired player id of this character
@@ -37,6 +38,29 @@ public class playerMove : MonoBehaviour
     private float _sprinting = 1f;
     private float _nextDash = 0f; // keeps track of when next dash can take place
 
+    bool _attacking = false;
+    bool _comboing = false;
+    bool _lookingForNext = false;
+    Vector3 c0, c1, c2;
+    [SerializeField]
+    List<Transform> _myLightComboPos;
+    [SerializeField]
+    List<Transform> _myHeavyComboPos;
+
+    GameObject _sword;
+    Transform _swordReset;
+    int _currComboNum = 0;
+    Transform _currComboTransform;
+    Transform _nextComboTransform;
+
+    float _startComboTime;
+    float _currComboTime;
+    [SerializeField]
+    float _lightSwingDuration;
+    [SerializeField]
+    float _heavySwingDuration;
+    float _currSwingDuration;
+
     void Awake()
     {
         _pStats = GetComponent<PlayerStats>();
@@ -48,13 +72,29 @@ public class playerMove : MonoBehaviour
 
         // Get the character controller
         _cc = GetComponent<CharacterController>();
+
+        _sword = transform.GetChild(0).gameObject;
+        _swordReset = _sword.transform;
     }
 
     void Update()
     {
         CheckFall();
-        GetAttack();
-        ProcessAttack();
+
+        if(!_attacking)
+        {
+            CheckForAttack();
+        }
+        else
+        {
+            CheckForCombo();
+        }
+
+        Attack();
+
+        //GetAttack();
+        //ProcessAttack();
+
         if (_canMove)
         {
             GetInput();
@@ -104,7 +144,95 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private void GetAttack()
+    private void CheckForAttack()
+    {
+        _LightAttack = _player.GetButtonDown("LightAttack");
+        _HeavyAttack = _player.GetButtonDown("HeavyAttack");
+
+        if (_LightAttack)
+        {
+            _currComboNum = 0;
+            _nextComboTransform = _myLightComboPos[_currComboNum];
+            _attacking = true;
+        }
+        else if (_HeavyAttack)
+        {
+            _currComboNum = 0;
+            _nextComboTransform = _myHeavyComboPos[_currComboNum];
+            _attacking = true;
+        }
+    }
+
+    private void CheckForCombo()
+    {
+        _LightAttack = _player.GetButtonDown("LightAttack");
+        _HeavyAttack = _player.GetButtonDown("HeavyAttack");
+
+        if (_LightAttack)
+        {
+            _nextComboTransform = _myLightComboPos[_currComboNum];
+        }
+        else if (_HeavyAttack)
+        {
+            _nextComboTransform = _myHeavyComboPos[_currComboNum];
+        }
+    }
+
+    private void Attack()
+    {
+        if(!_comboing && _attacking)
+        {
+            if(_LightAttack)
+            {
+                _currSwingDuration = _lightSwingDuration;
+                _currComboNum++;
+                if (_currComboNum >= _myLightComboPos.Count)
+                {
+                    _attacking = false;
+                }
+            }
+            else if(_HeavyAttack)
+            {
+                _currSwingDuration = _heavySwingDuration;
+                _currComboNum++;
+                if (_currComboNum >= _myHeavyComboPos.Count)
+                {
+                    _attacking = false;
+                }
+            }
+            _currComboTransform = _nextComboTransform;
+            c0 = _sword.transform.localPosition;
+            c1 = ((_sword.transform.localPosition + _currComboTransform.localPosition)/2) + transform.forward; 
+            c2 = _currComboTransform.localPosition;
+            _startComboTime = Time.time;
+            _comboing = true;
+        }
+        else if(_comboing)
+        {
+            _currComboTime = (Time.time - _startComboTime) / _currSwingDuration;
+
+            if(_currComboTime >= 1)
+            {
+                _currComboTime = 1;
+
+                _comboing = false;
+
+            }
+
+            Vector3 p01, p12, p012;
+            p01 = (1 - _currComboTime) * c0 + _currComboTime * c1;
+            p12 = (1 - _currComboTime) * c1 + _currComboTime * c2;
+
+            p012 = (1 - _currComboTime) * p01 + _currComboTime * p12;
+
+            _sword.transform.localPosition = p012;
+            _sword.transform.localRotation = _currComboTransform.localRotation;
+        }
+
+    }
+
+
+    /*private void GetAttack()
     {
         _LightAttack = _player.GetButtonDown("LightAttack");
         _HeavyAttack = _player.GetButtonDown("HeavyAttack");
@@ -129,5 +257,5 @@ public class playerMove : MonoBehaviour
             _canMove = false;
         }
         _canMove = true;
-    }
+    }*/
 }
