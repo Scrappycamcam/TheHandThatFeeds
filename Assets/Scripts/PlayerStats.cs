@@ -5,18 +5,17 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
 
+   
+
+
     public Image _currentHealthBar;
     public Text _HealthDisplay;
     public float _PHealth = 100;
     private float _PmaxHealth = 100;
  
-
-
-
-
-
-    private void Start()
+    private void Awake()
     {
+       
         //PDamage(15);
     }
 

@@ -273,7 +273,7 @@ public class AIMovement : MonoBehaviour {
                     if(hit.collider.GetComponent<PlayerStats>())
                     {
                         hit.collider.GetComponent<PlayerStats>().PDamage(_enemyDamage);
-                        Debug.Log("hit player");
+                        //Debug.Log("hit player");
                         _waiting = true;
                         c0 = transform.position;
                         c1 = transform.position;
@@ -316,7 +316,7 @@ public class AIMovement : MonoBehaviour {
     {
         if(_canTakeDamage)
         {
-            Debug.Log("hit");
+            //Debug.Log("hit");
             _canTakeDamage = false;
 
             _startAttackTime = Time.time;
@@ -346,7 +346,7 @@ public class AIMovement : MonoBehaviour {
         }
         else if(_currentAttackTime >= .4f)
         {
-            Debug.Log("can get hit again");
+            //Debug.Log("can get hit again");
             _canTakeDamage = true;
         }
 
