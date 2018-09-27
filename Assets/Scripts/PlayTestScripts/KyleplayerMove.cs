@@ -8,7 +8,8 @@ public class KyleplayerMove : MonoBehaviour
 {
 
     private int _playerId = 0; // The Rewired player id of this character
-
+    [SerializeField]
+    float _playerDamage = 1;
     [SerializeField]
     float _moveSpeed = 3.0f;
     [SerializeField]
@@ -40,7 +41,9 @@ public class KyleplayerMove : MonoBehaviour
 
     bool _attacking = false;
     bool _comboing = false;
-    bool _lookingForNext = false;
+    bool _swinging = false;
+    bool _hitSomething = false;
+    RaycastHit hit;
     Vector3 c0, c1, c2;
     [SerializeField]
     List<Transform> _myLightComboPos;
@@ -48,7 +51,9 @@ public class KyleplayerMove : MonoBehaviour
     List<Transform> _myHeavyComboPos;
 
     GameObject _sword;
-    Transform _swordReset;
+    Vector3 _swordReset;
+    [SerializeField]
+    float _swordDetectDistance;
     int _currComboNum = 0;
     Transform _currComboTransform;
     Transform _nextComboTransform;
@@ -74,7 +79,7 @@ public class KyleplayerMove : MonoBehaviour
         _cc = GetComponent<CharacterController>();
 
         _sword = transform.GetChild(0).gameObject;
-        _swordReset = _sword.transform;
+        _swordReset = _sword.transform.localPosition;
     }
 
     void Update()
@@ -88,9 +93,9 @@ public class KyleplayerMove : MonoBehaviour
         else
         {
             CheckForCombo();
+            Attack();
         }
 
-        Attack();
 
         //GetAttack();
         //ProcessAttack();
@@ -153,6 +158,7 @@ public class KyleplayerMove : MonoBehaviour
         {
             _currComboNum = 0;
             _nextComboTransform = _myLightComboPos[_currComboNum];
+            Debug.Log(_nextComboTransform);
             _attacking = true;
         }
         else if (_HeavyAttack)
@@ -168,56 +174,50 @@ public class KyleplayerMove : MonoBehaviour
         _LightAttack = _player.GetButtonDown("LightAttack");
         _HeavyAttack = _player.GetButtonDown("HeavyAttack");
 
-        if (_LightAttack)
+        if(_comboing && (_currComboNum < _myLightComboPos.Count || _currComboNum < _myHeavyComboPos.Count))
         {
-            _nextComboTransform = _myLightComboPos[_currComboNum];
-        }
-        else if (_HeavyAttack)
-        {
-            _nextComboTransform = _myHeavyComboPos[_currComboNum];
+            if (_LightAttack)
+            {
+                _nextComboTransform = _myLightComboPos[_currComboNum];
+            }
+            else if (_HeavyAttack)
+            {
+                _nextComboTransform = _myHeavyComboPos[_currComboNum];
+            }
         }
     }
 
     private void Attack()
     {
-        if(!_comboing && _attacking)
+        if(!_swinging)
         {
-            if(_LightAttack)
+            if(_nextComboTransform == _myLightComboPos[_currComboNum])
             {
-                _currSwingDuration = _lightSwingDuration;
-                _currComboNum++;
-                if (_currComboNum >= _myLightComboPos.Count)
-                {
-                    _attacking = false;
-                }
+                _currSwingDuration = _lightSwingDuration;               
             }
-            else if(_HeavyAttack)
+            else if(_nextComboTransform == _myHeavyComboPos[_currComboNum])
             {
                 _currSwingDuration = _heavySwingDuration;
-                _currComboNum++;
-                if (_currComboNum >= _myHeavyComboPos.Count)
-                {
-                    _attacking = false;
-                }
             }
-            _currComboTransform = _nextComboTransform;
-            c0 = _sword.transform.localPosition;
-            c1 = ((_sword.transform.localPosition + _currComboTransform.localPosition)/2) + transform.forward; 
-            c2 = _currComboTransform.localPosition;
-            _startComboTime = Time.time;
-            _comboing = true;
+
+            Debug.Log(_currComboNum);
+
+            _currComboNum++;
+            if (_nextComboTransform != null)
+            {
+                _currComboTransform = _nextComboTransform;
+                c0 = _sword.transform.localPosition;
+                c1 = ((_sword.transform.localPosition + _currComboTransform.localPosition) / 2) + transform.forward;
+                c2 = _currComboTransform.localPosition;
+                _nextComboTransform = null;
+                Debug.Log(_currComboTransform);
+                _startComboTime = Time.time;
+                _swinging = true;
+            }
         }
-        else if(_comboing)
+        else
         {
             _currComboTime = (Time.time - _startComboTime) / _currSwingDuration;
-
-            if(_currComboTime >= 1)
-            {
-                _currComboTime = 1;
-
-                _comboing = false;
-
-            }
 
             Vector3 p01, p12, p012;
             p01 = (1 - _currComboTime) * c0 + _currComboTime * c1;
@@ -227,8 +227,55 @@ public class KyleplayerMove : MonoBehaviour
 
             _sword.transform.localPosition = p012;
             _sword.transform.localRotation = _currComboTransform.localRotation;
-        }
 
+            if (_currComboTime < 1)
+            {
+                if(Physics.Raycast(_sword.transform.position, _sword.transform.forward, out hit, _swordDetectDistance))
+                {
+                    if(hit.collider.GetComponent<AIMovement>())
+                    {
+                        hit.collider.GetComponent<AIMovement>().GotHit(_playerDamage, transform.forward);
+                        _hitSomething = true;
+                    }
+                }
+            }
+            else
+            {
+                _currComboTime = 1;
+
+                if(_nextComboTransform == null || _currComboNum > _myLightComboPos.Count)
+                {
+                    ResetSword();
+                }
+                _swinging = false;
+
+                if (!_hitSomething)
+                {
+                    //put damage here
+                }
+            }
+            
+            if(_currComboTime >= .7f && _currComboTime <= .95f)
+            {
+                _comboing = true;
+            }
+            else
+            {
+                _comboing = false;
+            }
+        }
+    }
+
+    private void ResetSword()
+    {
+        Debug.Log("Sword Reset");
+        _attacking = false;
+        _comboing = false;
+        _swinging = false;
+        _sword.transform.localPosition = _swordReset;
+        _currComboNum = 0;
+        _nextComboTransform = null;
+        _currComboTransform = null;
     }
 
 

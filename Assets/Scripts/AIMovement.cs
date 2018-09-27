@@ -7,7 +7,16 @@ public class AIMovement : MonoBehaviour {
 
     NavMeshAgent _enemyAgent;
 
+    [Header("Enemy Stats")]
+    [SerializeField]
+    float _enemyHealth;
+    [SerializeField]
+    float _enemyDamage;
+    [SerializeField]
+    float _damageDistance;
     Vector3 _startPoint;
+
+    [Header("Vision Variables")]
     [SerializeField]
     float _sightDistance;
     [SerializeField]
@@ -17,6 +26,7 @@ public class AIMovement : MonoBehaviour {
     [SerializeField]
     bool _debugVision = false;
 
+    [Header("Player Tracking Variables")]
     [SerializeField]
     float _followDistanceThreshold;
     [SerializeField]
@@ -24,23 +34,36 @@ public class AIMovement : MonoBehaviour {
     bool _attacking = false;
     bool _showingTheTell = false;
     bool _waiting = false;
+    bool _hit = false;
+    bool _canTakeDamage = true;
+    bool _dead = false;
+    Vector3 _deadLook;
     float _startAttackTime;
     float _currentAttackTime;
+    Vector3 c0, c1, c2;
+
+    [Header("Time Variables")]
     [SerializeField]
-    float _attackSpeed;
-    Vector3 c0, c1;
+    float _attackTellDuration;
+    [SerializeField]
+    float _attackSwingDuration;
+    [SerializeField]
+    float _durationBetweenAttacks;
+    [SerializeField]
+    float _knockedBackDuration;
+    [SerializeField]
+    float _deathDuration;
 
     GameObject _sword;
     Vector3 _swordPos;
 
+    [Header("Patrol Variables")]
     [SerializeField]
     List<GameObject> _patrolPoints;
     List<Vector3> _patrolRoute;
     int _currPath;
     bool _alerted = false;
-
-
-
+    
     RaycastHit hit;
     KyleplayerMove _player;
 
@@ -65,16 +88,28 @@ public class AIMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        //if(!_)
-        if(!_alerted)
+        if(!_dead)
         {
-            PatrolState();
+            if (!_hit)
+            {
+                if (!_alerted)
+                {
+                    PatrolState();
+                }
+                else
+                {
+                    //CombatStrats();
+                }
+            }
+            else
+            {
+                KnockedBack();
+            }           
         }
         else
         {
-            CombatStrats();
+            Die();
         }
-        
 	}
 
     private void PatrolState()
@@ -151,11 +186,7 @@ public class AIMovement : MonoBehaviour {
     {
         if(_attacking || _waiting || _showingTheTell)
         {
-            _showingTheTell = false;
-            _sword.transform.localPosition = _swordPos;
-            _attacking = false;
-            _waiting = false;
-            _enemyAgent.isStopped = false;
+            ResetState();
         }
         _enemyAgent.SetDestination(_player.transform.position);
     }
@@ -173,7 +204,7 @@ public class AIMovement : MonoBehaviour {
         }
         else
         {
-            _currentAttackTime = (Time.time - _startAttackTime) / _attackSpeed;
+            _currentAttackTime = (Time.time - _startAttackTime) / _attackTellDuration;
 
             if (_currentAttackTime > 1)
             {
@@ -202,7 +233,7 @@ public class AIMovement : MonoBehaviour {
         if (_waiting)
         {
             //Debug.Log("waiting");
-            _currentAttackTime = (Time.time - _startAttackTime) / _attackSpeed;
+            _currentAttackTime = (Time.time - _startAttackTime) / _durationBetweenAttacks;
 
             if(_currentAttackTime > 1)
             {
@@ -223,7 +254,7 @@ public class AIMovement : MonoBehaviour {
         {
             //Debug.Log("attacking");
             //transform.LookAt(_player.transform.position);
-            _currentAttackTime = (Time.time - _startAttackTime) / _attackSpeed;
+            _currentAttackTime = (Time.time - _startAttackTime) / _attackSwingDuration;
 
             if (_currentAttackTime > 1)
             {
@@ -237,10 +268,11 @@ public class AIMovement : MonoBehaviour {
             else
             {
                 transform.LookAt(_player.transform.position);
-                if(Physics.Raycast(transform.position, transform.forward, out hit, 1f))
+                if(Physics.Raycast(transform.position, transform.forward, out hit, _damageDistance))
                 {
-                    if(hit.collider.GetComponent<KyleplayerMove>())
+                    if(hit.collider.GetComponent<PlayerStats>())
                     {
+                        hit.collider.GetComponent<PlayerStats>().PDamage(_enemyDamage);
                         Debug.Log("hit player");
                         _waiting = true;
                         c0 = transform.position;
@@ -258,26 +290,117 @@ public class AIMovement : MonoBehaviour {
         }
     }
 
-
     private void LostSightOfPlayer()
     {
         _alerted = false;
         if (_attacking || _waiting || _showingTheTell)
         {
-            _showingTheTell = false;
-            _sword.transform.localPosition = _swordPos;
-            _attacking = false;
-            _waiting = false;
-            _enemyAgent.isStopped = false;
+            ResetState();
         }
 
         _sword.SetActive(false);
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
     }
 
-    //For Update 2
-    public void GotHit()
+    private void ResetState()
     {
+        _showingTheTell = false;
+        _sword.transform.localPosition = _swordPos;
+        _attacking = false;
+        _waiting = false;
+        _enemyAgent.isStopped = false;
+    }
+
+    //For Update 2
+    public void GotHit(float _damageRecieved, Vector3 _flydir)
+    {
+        if(_canTakeDamage)
+        {
+            Debug.Log("hit");
+            _canTakeDamage = false;
+
+            _startAttackTime = Time.time;
+            c0 = transform.position;
+            c1 = transform.position + _flydir;
+
+            _hit = true;
+
+            _enemyHealth -= _damageRecieved;
+            if (_enemyHealth <= 0)
+            {
+                DeadActivate(_flydir);
+            }
+        }
+    }
+
+    private void KnockedBack()
+    {
+        _currentAttackTime = (Time.time - _startAttackTime) / _knockedBackDuration;
+
+        if (_currentAttackTime >= 1)
+        {
+            _currentAttackTime = 1;
+
+            ResetState();
+            _hit = false;
+        }
+        else if(_currentAttackTime >= .4f)
+        {
+            Debug.Log("can get hit again");
+            _canTakeDamage = true;
+        }
+
+        if(_currentAttackTime < 1)
+        {
+            if(Physics.Raycast(transform.position, -transform.forward, _damageDistance))
+            {
+                ResetState();
+                _canTakeDamage = true;
+                _hit = false;
+            }
+        }
+
+        Vector3 p01;
+
+        p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
+
+        transform.position = p01;
+    }
+
+    private void DeadActivate(Vector3 _dirToDie)
+    {
+        _showingTheTell = false;
+        _attacking = false;
+        _waiting = false;
+        _enemyAgent.isStopped = false;
+        _canTakeDamage = false;
         
+        c0 = transform.position;
+        c1 = transform.position + _dirToDie;
+        c2 = transform.position + _dirToDie + (Vector3.down);
+        _startAttackTime = Time.time;
+        _enemyAgent.enabled = false;
+        _dead = true;
+    }
+
+    private void Die()
+    {
+        _currentAttackTime = (Time.time - _startAttackTime) / _deathDuration;
+
+        if(_currentAttackTime >= 1)
+        {
+            _currentAttackTime = 1;
+
+            gameObject.SetActive(false);
+        }
+
+        Vector3 p01, p12, p012;
+
+        p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
+        p12 = (1 - _currentAttackTime) * c1 + _currentAttackTime * c2;
+        p012 = (1 - _currentAttackTime) * p01 + _currentAttackTime * p12;
+
+        transform.position = p012;
+        transform.rotation = Quaternion.Euler(-90, transform.rotation.y, transform.rotation.z);
     }
 }
