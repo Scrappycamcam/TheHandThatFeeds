@@ -5,10 +5,14 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
 
-    public Image _currentHealthBar;
-    public Text _HealthDisplay;
-    public float _PHealth = 100;
+    [SerializeField]
+    Image _currentHealthBar;
+    [SerializeField]
+    Text _HealthDisplay;
+    [SerializeField]
+    float _PHealth = 100;
     private float _PmaxHealth = 100;
+    Vector3 startPos;
  
 
 
@@ -17,7 +21,13 @@ public class PlayerStats : MonoBehaviour {
 
     private void Start()
     {
-        //PDamage(15);
+        startPos = transform.position;
+        //PDamage(100);
+    }
+
+    public void ResetStartPos()
+    {
+        startPos = transform.position;
     }
 
     private void OnGUI()
@@ -41,6 +51,9 @@ public class PlayerStats : MonoBehaviour {
         else
         {
             _PHealth = 0;
+            LevelSelection_Script myscript = FindObjectOfType<LevelSelection_Script>();
+            myscript.ReloadScene();
+            _PHealth = _PmaxHealth;
         }
 
         return _PHealth;

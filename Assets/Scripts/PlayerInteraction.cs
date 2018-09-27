@@ -6,6 +6,8 @@ using Rewired;
 public class PlayerInteraction : MonoBehaviour {
     public string _ItemText;
     public bool _ItemDisplay;
+    private float _maxDist;
+    public Transform _PlayerPos;
     public int _playerId = 0;
 
     private Player _player;
@@ -18,8 +20,11 @@ public class PlayerInteraction : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (_player.GetButtonDown("Interact"))
+        {
+            ShootRay();
+        }
+    }
 
     private void OnGUI()
     {
@@ -27,24 +32,30 @@ public class PlayerInteraction : MonoBehaviour {
             DisplayInfo(_ItemText);
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        Debug.Log("In Zone");
-        //if (Input.GetButton("Pickup"))
-        if (_player.GetButtonDown("Interact"))
-        {
-            _ItemDisplay = true;
-            //Pick Up or interact with Item
-            Debug.Log("Picked up Item");
-          
-        }
-    }
+
 
     private void OnTriggerExit(Collider other)
     {
         if (_ItemDisplay)
         {
             _ItemDisplay = false;
+        }
+    }
+
+    private void ShootRay()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(_PlayerPos.transform.position, _PlayerPos.transform.forward, out hit, _maxDist))
+        {
+            Debug.Log("Hit" + hit.transform.position);
+            if(hit.transform.tag == "Sign")
+            {
+                _ItemDisplay = true;
+            }
+            else
+            {
+                _ItemDisplay = false;
+            }
         }
     }
 
