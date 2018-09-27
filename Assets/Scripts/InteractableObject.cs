@@ -17,8 +17,11 @@ public class InteractableObject : MonoBehaviour {
 
     string _ItemText;
 
+    KyleplayerMove _player;
+
     // Use this for initialization
     void Start () {
+        _player = KyleplayerMove.Instance;
         switch (_whatAmI)
         {
             case TypeOfObject.DOOR:
@@ -29,6 +32,22 @@ public class InteractableObject : MonoBehaviour {
                 break;
             case TypeOfObject.PUZZLE:
                 _ItemText = "Puzzle";
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void Interact()
+    {
+        switch (_whatAmI)
+        {
+            case TypeOfObject.DOOR:
+                break;
+            case TypeOfObject.POTION:
+                _player.GetPlayerStats.PHeal(20);
+                break;
+            case TypeOfObject.PUZZLE:
                 break;
             default:
                 break;

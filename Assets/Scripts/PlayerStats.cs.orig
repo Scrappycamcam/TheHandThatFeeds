@@ -5,17 +5,27 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
 
+<<<<<<< HEAD
     [SerializeField]
     Image _currentHealthBar;
     [SerializeField]
     Text _HealthDisplay;
     [SerializeField]
     float _PHealth = 100;
+=======
+   
+
+
+    public Image _currentHealthBar;
+    public Text _HealthDisplay;
+    public float _PHealth = 100;
+>>>>>>> 5515fe8acbb05e41cc361547f56666b1069b501b
     private float _PmaxHealth = 100;
     Vector3 startPos;
  
     private void Awake()
     {
+<<<<<<< HEAD
         startPos = transform.position;
         //PDamage(100);
     }
@@ -23,6 +33,10 @@ public class PlayerStats : MonoBehaviour {
     public void ResetStartPos()
     {
         startPos = transform.position;
+=======
+       
+        //PDamage(15);
+>>>>>>> 5515fe8acbb05e41cc361547f56666b1069b501b
     }
 
     private void OnGUI()

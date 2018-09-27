@@ -6,6 +6,14 @@ using Rewired;
 [RequireComponent(typeof(CharacterController))]
 public class KyleplayerMove : MonoBehaviour
 {
+    private static KyleplayerMove _instance;
+    public static KyleplayerMove Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
 
     private int _playerId = 0; // The Rewired player id of this character
     [SerializeField]
@@ -68,6 +76,16 @@ public class KyleplayerMove : MonoBehaviour
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         _pStats = GetComponent<PlayerStats>();
 
         _LastAttack = _BaseAttack;
@@ -158,14 +176,16 @@ public class KyleplayerMove : MonoBehaviour
         {
             _currComboNum = 0;
             _nextComboTransform = _myLightComboPos[_currComboNum];
-            Debug.Log(_nextComboTransform);
+            //Debug.Log(_nextComboTransform);
             _attacking = true;
+            _canMove = false;
         }
         else if (_HeavyAttack)
         {
             _currComboNum = 0;
             _nextComboTransform = _myHeavyComboPos[_currComboNum];
             _attacking = true;
+            _canMove = false;
         }
     }
 
@@ -195,12 +215,12 @@ public class KyleplayerMove : MonoBehaviour
             {
                 _currSwingDuration = _lightSwingDuration;               
             }
-            else if(_nextComboTransform == _myHeavyComboPos[_currComboNum])
+            else if (_nextComboTransform == _myHeavyComboPos[_currComboNum])
             {
                 _currSwingDuration = _heavySwingDuration;
             }
 
-            Debug.Log(_currComboNum);
+            //Debug.Log(_currSwingDuration);
 
             _currComboNum++;
             if (_nextComboTransform != null)
@@ -210,7 +230,7 @@ public class KyleplayerMove : MonoBehaviour
                 c1 = ((_sword.transform.localPosition + _currComboTransform.localPosition) / 2) + transform.forward;
                 c2 = _currComboTransform.localPosition;
                 _nextComboTransform = null;
-                Debug.Log(_currComboTransform);
+                //Debug.Log(_currComboTransform);
                 _startComboTime = Time.time;
                 _swinging = true;
             }
@@ -230,7 +250,7 @@ public class KyleplayerMove : MonoBehaviour
 
             if (_currComboTime < 1)
             {
-                if(Physics.Raycast(_sword.transform.position, _sword.transform.forward, out hit, _swordDetectDistance))
+                if(Physics.Raycast(_sword.transform.position, _sword.transform.up, out hit, _swordDetectDistance))
                 {
                     if(hit.collider.GetComponent<AIMovement>())
                     {
@@ -251,11 +271,11 @@ public class KyleplayerMove : MonoBehaviour
 
                 if (!_hitSomething)
                 {
-                    //put damage here
+                    _pStats.PDamage(missDamage);
                 }
             }
             
-            if(_currComboTime >= .7f && _currComboTime <= .95f)
+            if(_currComboTime >= .6f && _currComboTime <= .95f)
             {
                 _comboing = true;
             }
@@ -268,14 +288,16 @@ public class KyleplayerMove : MonoBehaviour
 
     private void ResetSword()
     {
-        Debug.Log("Sword Reset");
+        //Debug.Log("Sword Reset");
         _attacking = false;
         _comboing = false;
         _swinging = false;
+        _hitSomething = false;
         _sword.transform.localPosition = _swordReset;
         _currComboNum = 0;
         _nextComboTransform = null;
         _currComboTransform = null;
+        _canMove = true;
     }
 
 
@@ -305,4 +327,13 @@ public class KyleplayerMove : MonoBehaviour
         }
         _canMove = true;
     }*/
+
+    public PlayerStats GetPlayerStats
+    {
+        get
+        {
+            return _pStats;
+        }
+    }
+
 }
