@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 114800310715636262}
   m_Layer: 9
   m_Name: PlayerModeled
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +237,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915487573322032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.43, y: 0.026, z: 6}
+  m_LocalPosition: {x: -2.43, y: 0.17, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4384589547783558}
@@ -352,7 +352,7 @@ MonoBehaviour:
   _canMove: 1
   missDamage: 10
   _gravity: 0.2
-  _BaseAttack: {fileID: 0}
+  _lastPos: {x: 0, y: 0, z: 0}
   _myLightComboPos:
   - {fileID: 4384585931168458}
   - {fileID: 4862077337185536}
@@ -378,6 +378,8 @@ MonoBehaviour:
   _currentHealthBar: {fileID: 0}
   _HealthDisplay: {fileID: 0}
   _PHealth: 100
+  _VictoryDisplay: {fileID: 0}
+  _DefeatDisplay: {fileID: 0}
 --- !u!114 &114800310715636262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -409,4 +411,4 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.88, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}

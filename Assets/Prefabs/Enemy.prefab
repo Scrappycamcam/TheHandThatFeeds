@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyHealth: 1
-  _enemyDamage: 1
+  _enemyDamage: 10
   _damageDistance: 1
   _sightDistance: 5
   _sightArea: 90

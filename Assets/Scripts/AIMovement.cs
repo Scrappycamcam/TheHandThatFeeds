@@ -267,7 +267,7 @@ public class AIMovement : MonoBehaviour {
             }
             else
             {
-                transform.LookAt(_player.transform.position);
+                transform.LookAt(c1);
                 if(Physics.Raycast(transform.position, transform.forward, out hit, _damageDistance))
                 {
                     if(hit.collider.GetComponent<PlayerStats>())

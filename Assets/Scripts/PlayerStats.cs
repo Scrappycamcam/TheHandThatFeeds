@@ -11,6 +11,10 @@ public class PlayerStats : MonoBehaviour {
     Text _HealthDisplay;
     [SerializeField]
     float _PHealth = 100;
+    [SerializeField]
+    GameObject _VictoryDisplay;
+    [SerializeField]
+    GameObject _DefeatDisplay;
     private float _PmaxHealth = 100;
     Vector3 startPos;
  
@@ -46,9 +50,7 @@ public class PlayerStats : MonoBehaviour {
         else
         {
             _PHealth = 0;
-            LevelSelection_Script myscript = FindObjectOfType<LevelSelection_Script>();
-            myscript.ReloadScene();
-            _PHealth = _PmaxHealth;
+            Defeat();
         }
 
         return _PHealth;
@@ -67,6 +69,30 @@ public class PlayerStats : MonoBehaviour {
         return _PHealth;
     }
 
-    
+    public void Victory()
+    {
+        _VictoryDisplay.SetActive(true);
+        LevelSelection_Script myscript = FindObjectOfType<LevelSelection_Script>();
+        myscript.ReloadScene();
+    }
+    public void Defeat()
+    {
+        _DefeatDisplay.SetActive(true);
+        _PHealth = _PmaxHealth;
+        LevelSelection_Script myscript = FindObjectOfType<LevelSelection_Script>();
+        myscript.ReloadScene();
+        
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Im In the Area");
+        if(other.tag == "EndOfLevel")
+        {
+            Debug.Log("Level Complete!");
+            Victory();
+        }
+    }
 
 }

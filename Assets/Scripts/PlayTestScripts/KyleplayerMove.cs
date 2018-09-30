@@ -31,21 +31,21 @@ public class KyleplayerMove : MonoBehaviour
     [SerializeField]
     float _gravity;
 
-    public Attack _BaseAttack;
-    private Attack _LastAttack;
-    private Attack _NextAttack;
+    //public Attack _BaseAttack;
+    //private Attack _LastAttack;
+    //private Attack _NextAttack;
 
     private PlayerStats _pStats;
     private Player _player; // The Rewired Player
     private CharacterController _cc;
     private Vector3 _moveVector = Vector3.zero;
-    private Vector3 _LastMove;
     private bool _dash;
     private bool _sprint;
     private bool _LightAttack;
     private bool _HeavyAttack;
     private float _sprinting = 1f;
-    private float _nextDash = 0f; // keeps track of when next dash can take place
+    private float _nextDash = 0f; // keeps track of when next dash can take place\
+    private Vector3 _lastPos;
 
     bool _attacking = false;
     bool _comboing = false;
@@ -79,7 +79,7 @@ public class KyleplayerMove : MonoBehaviour
         if (Instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -88,7 +88,7 @@ public class KyleplayerMove : MonoBehaviour
 
         _pStats = GetComponent<PlayerStats>();
 
-        _LastAttack = _BaseAttack;
+        //_LastAttack = _BaseAttack;
 
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         _player = ReInput.players.GetPlayer(_playerId);
@@ -128,8 +128,19 @@ public class KyleplayerMove : MonoBehaviour
     private void CheckFall()
     {
         RaycastHit hit;
-        if (!Physics.Raycast(transform.position, Vector3.down, out hit, 1f)){
-            _cc.Move(Vector3.down * _gravity);
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, .2f)){ //if there is nothing below the player
+            _cc.Move(Vector3.down * _gravity);//fall at rate gravity
+        }
+        else //if there is something below the player
+        {
+            if (hit.transform.tag == "Death")//if it is not meant to kill you
+            {
+                checkPoint(); //teleport to last position
+            }
+            else //it is meant to kill you
+            {
+                _lastPos = transform.position;   //set the last position
+            }
         }
     }
 
@@ -150,7 +161,6 @@ public class KyleplayerMove : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(_moveVector);
             _cc.Move(_moveVector.normalized * _moveSpeed * Time.deltaTime * _sprinting);
-            _LastMove = _moveVector.normalized;
         }
         if (_moveVector == Vector3.zero) //set sprinting to 1 if not moving
         {
@@ -254,6 +264,7 @@ public class KyleplayerMove : MonoBehaviour
                 {
                     if(hit.collider.GetComponent<AIMovement>())
                     {
+                        Debug.Log("hit");
                         hit.collider.GetComponent<AIMovement>().GotHit(_playerDamage, transform.forward);
                         _hitSomething = true;
                     }
@@ -262,17 +273,19 @@ public class KyleplayerMove : MonoBehaviour
             else
             {
                 _currComboTime = 1;
+                if (!_hitSomething)
+                {
+                    Debug.Log("missed");
+                    _pStats.PDamage(missDamage);
+                }
 
-                if(_nextComboTransform == null || _currComboNum > _myLightComboPos.Count)
+                if (_nextComboTransform == null || _currComboNum > _myLightComboPos.Count)
                 {
                     ResetSword();
                 }
                 _swinging = false;
 
-                if (!_hitSomething)
-                {
-                    _pStats.PDamage(missDamage);
-                }
+                
             }
             
             if(_currComboTime >= .6f && _currComboTime <= .95f)
@@ -336,4 +349,9 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+    private void checkPoint()
+    {
+        transform.position = _lastPos;
+        _pStats.PDamage(missDamage);
+    }
 }
