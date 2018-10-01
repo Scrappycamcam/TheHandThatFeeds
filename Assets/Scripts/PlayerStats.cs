@@ -16,6 +16,7 @@ public class PlayerStats : MonoBehaviour {
     [SerializeField]
     GameObject _DefeatDisplay;
     private float _PmaxHealth = 100;
+    private int _NextLevel;
     Vector3 startPos;
  
     private void Awake()
@@ -73,7 +74,7 @@ public class PlayerStats : MonoBehaviour {
     {
         _VictoryDisplay.SetActive(true);
         LevelSelection_Script myscript = FindObjectOfType<LevelSelection_Script>();
-        myscript.ReloadScene();
+        myscript.LoadScene(LevelSelection_Script.WhatLevel.Level2);
     }
     public void Defeat()
     {
