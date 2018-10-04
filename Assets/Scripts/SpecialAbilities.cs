@@ -15,6 +15,7 @@ public class SpecialAbilities : MonoBehaviour {
     float cycloneHealthBurden;
     [SerializeField]
     float stealHealthBurden;
+    bool _usingSpecial = false;
     SpecialAbility _myability = SpecialAbility.NONE;
 
     PlayerStats _pStats;
@@ -34,6 +35,7 @@ public class SpecialAbilities : MonoBehaviour {
         switch (_myability)
         {
             case SpecialAbility.NONE:
+                _usingSpecial = false;
                 break;
             case SpecialAbility.CYCLONE:
                 if(cycloneHealthBurden >= _pStats.GetHealth)
@@ -42,11 +44,18 @@ public class SpecialAbilities : MonoBehaviour {
                 }
                 else
                 {
-
+                    _myability = SpecialAbility.NONE;
                 }
                 break;
             case SpecialAbility.THEGOODSUCC:
-                GiveEmTheGoodSucc();
+                if (stealHealthBurden >= _pStats.GetHealth)
+                {
+                    GiveEmTheGoodSucc();
+                }
+                else
+                {
+                    _myability = SpecialAbility.NONE;
+                }                
                 break;
             default:
                 break;
@@ -55,7 +64,7 @@ public class SpecialAbilities : MonoBehaviour {
 
     private void UsingCyclone()
     {
-
+        
     }
 
     private void GiveEmTheGoodSucc()
