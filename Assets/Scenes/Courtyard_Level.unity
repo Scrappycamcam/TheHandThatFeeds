@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657856, g: 0.49641317, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657892, g: 0.49641377, b: 0.5748188, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -50810,7 +50810,7 @@ Transform:
   m_PrefabInternal: {fileID: 1649036253}
 --- !u!4 &1650936484 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4871863176803846, guid: 216c316387ba78549b074f0d90d146e3,
+  m_CorrespondingSourceObject: {fileID: 4639556952521070, guid: 363fee2d1443bba42955c9932f1043d9,
     type: 2}
   m_PrefabInternal: {fileID: 1828222564}
 --- !u!1001 &1651468042
@@ -56576,68 +56576,59 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4871863176803846, guid: 216c316387ba78549b074f0d90d146e3, type: 2}
+    - target: {fileID: 4639556952521070, guid: 363fee2d1443bba42955c9932f1043d9, type: 2}
       propertyPath: m_LocalPosition.x
       value: -2.696893
       objectReference: {fileID: 0}
-    - target: {fileID: 4871863176803846, guid: 216c316387ba78549b074f0d90d146e3, type: 2}
+    - target: {fileID: 4639556952521070, guid: 363fee2d1443bba42955c9932f1043d9, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0.05541935
       objectReference: {fileID: 0}
-    - target: {fileID: 4871863176803846, guid: 216c316387ba78549b074f0d90d146e3, type: 2}
+    - target: {fileID: 4639556952521070, guid: 363fee2d1443bba42955c9932f1043d9, type: 2}
       propertyPath: m_LocalPosition.z
       value: 6.237681
       objectReference: {fileID: 0}
-    - target: {fileID: 4871863176803846, guid: 216c316387ba78549b074f0d90d146e3, type: 2}
+    - target: {fileID: 4639556952521070, guid: 363fee2d1443bba42955c9932f1043d9, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4871863176803846, guid: 216c316387ba78549b074f0d90d146e3, type: 2}
+    - target: {fileID: 4639556952521070, guid: 363fee2d1443bba42955c9932f1043d9, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4871863176803846, guid: 216c316387ba78549b074f0d90d146e3, type: 2}
+    - target: {fileID: 4639556952521070, guid: 363fee2d1443bba42955c9932f1043d9, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4871863176803846, guid: 216c316387ba78549b074f0d90d146e3, type: 2}
+    - target: {fileID: 4639556952521070, guid: 363fee2d1443bba42955c9932f1043d9, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4871863176803846, guid: 216c316387ba78549b074f0d90d146e3, type: 2}
+    - target: {fileID: 4639556952521070, guid: 363fee2d1443bba42955c9932f1043d9, type: 2}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1915487573322032, guid: 216c316387ba78549b074f0d90d146e3, type: 2}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 114800310715636262, guid: 216c316387ba78549b074f0d90d146e3,
-        type: 2}
-      propertyPath: _PlayerPos
-      value: 
-      objectReference: {fileID: 1650936484}
-    - target: {fileID: 114642032395977338, guid: 216c316387ba78549b074f0d90d146e3,
+    - target: {fileID: 114337170365148712, guid: 363fee2d1443bba42955c9932f1043d9,
         type: 2}
       propertyPath: _currentHealthBar
       value: 
       objectReference: {fileID: 1715568028}
-    - target: {fileID: 114642032395977338, guid: 216c316387ba78549b074f0d90d146e3,
+    - target: {fileID: 114337170365148712, guid: 363fee2d1443bba42955c9932f1043d9,
         type: 2}
       propertyPath: _VictoryDisplay
       value: 
       objectReference: {fileID: 2021673053}
-    - target: {fileID: 114642032395977338, guid: 216c316387ba78549b074f0d90d146e3,
+    - target: {fileID: 114337170365148712, guid: 363fee2d1443bba42955c9932f1043d9,
         type: 2}
       propertyPath: _DefeatDisplay
       value: 
       objectReference: {fileID: 1800638275}
-    - target: {fileID: 1915487573322032, guid: 216c316387ba78549b074f0d90d146e3, type: 2}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 1952943515096822, guid: 363fee2d1443bba42955c9932f1043d9, type: 2}
+      propertyPath: m_Name
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 216c316387ba78549b074f0d90d146e3, type: 2}
+  m_SourcePrefab: {fileID: 100100000, guid: 363fee2d1443bba42955c9932f1043d9, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1828671618
 Prefab:

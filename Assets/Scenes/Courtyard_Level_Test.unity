@@ -43109,7 +43109,7 @@ GameObject:
   - component: {fileID: 1584713545}
   m_Layer: 0
   m_Name: courtyardCenter_01 (23)
-  m_TagString: Untagged
+  m_TagString: Death
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46039,6 +46039,10 @@ Prefab:
     - target: {fileID: 4971111351348978, guid: 6cbfa547eb57f8a40a689f6f11ca1f98, type: 2}
       propertyPath: m_RootOrder
       value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1035390616260558, guid: 6cbfa547eb57f8a40a689f6f11ca1f98, type: 2}
+      propertyPath: m_TagString
+      value: Death
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}

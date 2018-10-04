@@ -39,13 +39,16 @@ public class KyleplayerMove : MonoBehaviour
     private Player _player; // The Rewired Player
     private CharacterController _cc;
     private Vector3 _moveVector = Vector3.zero;
+    private Vector3 _lastMove = Vector3.zero;
     private bool _dash;
+    private bool _isDashing;
     private bool _sprint;
     private bool _LightAttack;
     private bool _HeavyAttack;
     private float _sprinting = 1f;
     private float _nextDash = 0f; // keeps track of when next dash can take place\
     private Vector3 _lastPos;
+    //private int numFlips = 0;
 
     bool _attacking = false;
     bool _comboing = false;
@@ -102,7 +105,6 @@ public class KyleplayerMove : MonoBehaviour
 
     void Update()
     {
-        CheckFall();
 
         if(!_attacking)
         {
@@ -120,15 +122,21 @@ public class KyleplayerMove : MonoBehaviour
 
         if (_canMove)
         {
+            CheckFall();
             GetInput();
             ProcessMove();
+            ProcessDash();
+        }
+        else if(_isDashing)
+        {
+            ProcessDash();
         }
     }
 
     private void CheckFall()
     {
         RaycastHit hit;
-        if (!Physics.Raycast(transform.position, Vector3.down, out hit, .2f)){ //if there is nothing below the player
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, .2f) && !_isDashing){ //if there is nothing below the player
             _cc.Move(Vector3.down * _gravity);//fall at rate gravity
         }
         else //if there is something below the player
@@ -170,10 +178,29 @@ public class KyleplayerMove : MonoBehaviour
         {
             _sprinting = 1.5f;
         }
-        if (_dash && Time.time > _nextDash)//process dash
+    }
+
+    private void ProcessDash()
+    {
+        if (_dash && Time.time > _nextDash && !_isDashing)//if you can dash and want to dash
         {
-            _cc.Move(_moveVector.normalized * _dashspeed);
+            _canMove = false;
+            _isDashing = true;
+            _lastMove = _moveVector;
             _nextDash = Time.time + _dashDelay;
+        }
+        else if (_isDashing) //if you are currently dashing
+        {
+            //numFlips++;
+            _cc.Move(_lastMove.normalized * _dashspeed / 50);
+            //transform.rotation = Quaternion.Euler(_lastMove.normalized*10*numFlips);
+            if (Time.time >= _nextDash)
+            {
+                //transform.rotation = Quaternion.Euler(0, 0, 0);
+                //numFlips = 0;
+                _isDashing = false;
+                _canMove = true;
+            }
         }
     }
 
