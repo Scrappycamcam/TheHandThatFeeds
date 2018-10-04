@@ -516,7 +516,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4077895242977916, guid: a3632f57c2a9f9e4eb7a0d4092ad4f27, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.012
       objectReference: {fileID: 0}
     - target: {fileID: 4077895242977916, guid: a3632f57c2a9f9e4eb7a0d4092ad4f27, type: 2}
       propertyPath: m_LocalPosition.z
@@ -572,9 +572,35 @@ Prefab:
       propertyPath: _myHeavyComboPos.Array.data[2]
       value: 
       objectReference: {fileID: 283149355}
+    - target: {fileID: 4189417829136336, guid: a3632f57c2a9f9e4eb7a0d4092ad4f27, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465979939021736, guid: a3632f57c2a9f9e4eb7a0d4092ad4f27, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3632f57c2a9f9e4eb7a0d4092ad4f27, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1291423345 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1414235241831464, guid: a3632f57c2a9f9e4eb7a0d4092ad4f27,
+    type: 2}
+  m_PrefabInternal: {fileID: 1291423344}
+--- !u!114 &1291423346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1291423345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7fdfed1a7df9b42a2c373c53c3edcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cycloneHealthBurden: 0
+  quencherHealthBurden: 0
 --- !u!1 &1313707167
 GameObject:
   m_ObjectHideFlags: 0

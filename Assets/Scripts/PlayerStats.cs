@@ -46,7 +46,6 @@ public class PlayerStats : MonoBehaviour {
         if(_PHealth >= DtoTake)
         {
             _PHealth = _PHealth - DtoTake;
-
         }
         else
         {
@@ -95,5 +94,7 @@ public class PlayerStats : MonoBehaviour {
             Victory();
         }
     }
+
+    public float GetHealth { get { return _PHealth; } }
 
 }
