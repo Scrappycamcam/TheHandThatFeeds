@@ -193,7 +193,7 @@ public class KyleplayerMove : MonoBehaviour
         {
             //numFlips++;
             _cc.Move(_lastMove.normalized * _dashspeed / 50);
-            //transform.rotation = Quaternion.Euler(_lastMove.normalized*10*numFlips);
+            //transform.rotation = Quaternion.Euler(transform.right*10*numFlips);
             if (Time.time >= _nextDash)
             {
                 //transform.rotation = Quaternion.Euler(0, 0, 0);

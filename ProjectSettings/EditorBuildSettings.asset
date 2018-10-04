@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cameron_TestScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 86c5775dcbe5df542a02be2e4ae5dc07
   - enabled: 1
     path: Assets/Scenes/Dungeon_Level 1/Dungeon_Level.unity
     guid: 7cdcd571d8c270f46a7adb37b61a4319
