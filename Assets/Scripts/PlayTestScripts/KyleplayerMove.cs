@@ -15,6 +15,13 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+    enum SpecialAbility
+    {
+        NONE,
+        CYCLONE,
+        THEGOODSUCC,
+    }
+
     private int _playerId = 0; // The Rewired player id of this character
     [SerializeField]
     float _playerDamage = 1;
@@ -39,10 +46,11 @@ public class KyleplayerMove : MonoBehaviour
     private Player _player; // The Rewired Player
     private CharacterController _cc;
     private Vector3 _moveVector = Vector3.zero;
-    private bool _dash;
-    private bool _sprint;
-    private bool _LightAttack;
-    private bool _HeavyAttack;
+    private bool _dash = false;
+    private bool _sprint = false;
+    private bool _LightAttack = false;
+    private bool _HeavyAttack = false;
+    private bool _CycloneAttack = false;
     private float _sprinting = 1f;
     private float _nextDash = 0f; // keeps track of when next dash can take place\
     private Vector3 _lastPos;
@@ -52,7 +60,7 @@ public class KyleplayerMove : MonoBehaviour
     bool _swinging = false;
     bool _hitSomething = false;
     RaycastHit hit;
-    Vector3 c0, c1, c2;
+    Vector3 c0, c1, c2, c3;
     [SerializeField]
     List<Transform> _myLightComboPos;
     [SerializeField]
@@ -73,6 +81,21 @@ public class KyleplayerMove : MonoBehaviour
     [SerializeField]
     float _heavySwingDuration;
     float _currSwingDuration;
+
+    [SerializeField]
+    float _cycloneHealthBurden;
+    [SerializeField]
+    float _cycloneHeal;
+    [SerializeField]
+    float _cycloneSpinSpeed;
+    [SerializeField]
+    float _cycloneDuration;
+    List<AIMovement> _enemyHit;
+    float _cycloneHits;
+    //[SerializeField]
+    float stealHealthBurden;
+    bool _usingSpecial = false;
+    SpecialAbility _myability = SpecialAbility.NONE;
 
     void Awake()
     {
@@ -98,6 +121,7 @@ public class KyleplayerMove : MonoBehaviour
 
         _sword = transform.GetChild(0).gameObject;
         _swordReset = _sword.transform.localPosition;
+        _enemyHit = new List<AIMovement>();
     }
 
     void Update()
@@ -107,6 +131,10 @@ public class KyleplayerMove : MonoBehaviour
         if(!_attacking)
         {
             CheckForAttack();
+        }
+        else if(_usingSpecial)
+        {
+            SpecialAbilityActive();
         }
         else
         {
@@ -181,6 +209,7 @@ public class KyleplayerMove : MonoBehaviour
     {
         _LightAttack = _player.GetButtonDown("LightAttack");
         _HeavyAttack = _player.GetButtonDown("HeavyAttack");
+        _CycloneAttack = _player.GetButtonDown("Ability3");
 
         if (_LightAttack)
         {
@@ -197,6 +226,117 @@ public class KyleplayerMove : MonoBehaviour
             _attacking = true;
             _canMove = false;
         }
+        else if (_CycloneAttack)
+        {
+            if(_pStats.GetHealth > _cycloneHealthBurden)
+            {
+                Debug.Log("cyclone Active");
+                //_pStats.PDamage(_cycloneHealthBurden);
+                _attacking = true;
+                _usingSpecial = true;
+                _myability = SpecialAbility.CYCLONE;
+                _canMove = false;
+                c0 = transform.position;
+                c1 = transform.position;
+                _sword.transform.localPosition = new Vector3(0, 1f, _sword.transform.localPosition.z);
+                _startComboTime = Time.time;
+            }
+        }
+    }
+
+    private void SpecialAbilityActive()
+    {
+        switch (_myability)
+        {
+            case SpecialAbility.NONE:
+                _canMove = true;
+                _attacking = false;
+                _usingSpecial = false;
+                break;
+            case SpecialAbility.CYCLONE:
+                UsingCyclone();
+                break;
+            case SpecialAbility.THEGOODSUCC:
+                GiveEmTheGoodSucc();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void UsingCyclone()
+    {
+        _currComboTime = (Time.time - _startComboTime) / _cycloneDuration;
+
+        Vector3 p01;
+        p01 = (1 - _currComboTime) * c0 + _currComboTime * c1;
+
+        transform.position = p01;
+
+        if(_currComboTime < 1)
+        {
+            if (Physics.Raycast(_sword.transform.position, _sword.transform.up, out hit, _swordDetectDistance))
+            {
+                if (hit.collider.GetComponent<AIMovement>())
+                {
+                    AIMovement EnemyHit = hit.collider.GetComponent<AIMovement>();
+
+                    //Debug.Log("hit");
+                    
+                    if(_enemyHit.Count > 0)
+                    {
+                        if (!CycloneAlreadyHitEnemy(EnemyHit))
+                        {
+                            Debug.Log("cyclone hit");
+                            _enemyHit.Add(EnemyHit);
+                            EnemyHit.GotHit(_playerDamage, transform.forward);
+                            if (_enemyHit.Count > 2)
+                            {
+                                _enemyHit = new List<AIMovement>();
+                                Debug.Log("cyclone heal");
+                                //_pStats.PHeal(_cycloneHeal);
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("cyclone hit");
+                        _enemyHit.Add(EnemyHit);
+                        EnemyHit.GotHit(_playerDamage, transform.forward);
+                    }                    
+                }
+            }
+            transform.Rotate(Vector3.up, _cycloneSpinSpeed);
+        }
+        else
+        {
+            _currComboTime = 1;
+
+            _myability = SpecialAbility.NONE;
+            _sword.transform.localPosition = _swordReset;
+            _enemyHit = new List<AIMovement>();
+        }
+    }
+
+    bool CycloneAlreadyHitEnemy(AIMovement _enemy)
+    {
+        for (int i = 0; i < _enemyHit.Count; i++)
+        {
+            if (_enemyHit[i] != null)
+            {
+                if (_enemyHit[i] == _enemy)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void GiveEmTheGoodSucc()
+    {
+
     }
 
     private void CheckForCombo()
