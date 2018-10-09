@@ -266,7 +266,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915487573322032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.696893, y: 0.05541935, z: 6.237681}
+  m_LocalPosition: {x: 4.65, y: 0.014015712, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4384589547783558}
@@ -414,10 +414,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerDamage: 1
   _moveSpeed: 5
-  _dashspeed: 4
-  _dashDelay: 0.6
+  _dashspeed: 2
+  _dashDelay: 1
   _canMove: 1
-  missDamage: 10
+  missDamage: 5
   _gravity: 0.2
   _myLightComboPos:
   - {fileID: 4384585931168458}
@@ -428,8 +428,12 @@ MonoBehaviour:
   - {fileID: 4059581852736420}
   - {fileID: 4355824813530972}
   _swordDetectDistance: 1
-  _lightSwingDuration: 0.4
-  _heavySwingDuration: 0.7
+  _lightSwingDuration: 0.2
+  _heavySwingDuration: 0.4
+  _cycloneHealthBurden: 0
+  _cycloneHeal: 0
+  _cycloneSpinSpeed: 0
+  _cycloneDuration: 0
 --- !u!114 &114642032395977338
 MonoBehaviour:
   m_ObjectHideFlags: 1

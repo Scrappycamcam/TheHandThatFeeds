@@ -124,8 +124,8 @@
     <Compile Include="Assets\Rewired\Internal\Scripts\Misc\ExternalTools.cs" />
     <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
     <Compile Include="Assets\Scripts\AIMovement.cs" />
-    <Compile Include="Assets\Scripts\AIMovementRanged.cs" />
     <Compile Include="Assets\Scripts\Attack.cs" />
+    <Compile Include="Assets\Scripts\BerzerkMode.cs" />
     <Compile Include="Assets\Scripts\camera.cs" />
     <Compile Include="Assets\Scripts\HPBar.cs" />
     <Compile Include="Assets\Scripts\InteractableObject.cs" />
