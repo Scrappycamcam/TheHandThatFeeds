@@ -47,8 +47,10 @@ public class KyleplayerMove : MonoBehaviour
     private CharacterController _cc;
     private Vector3 _moveVector = Vector3.zero;
     private Vector3 _lastMove = Vector3.zero;
+    private bool _dash = false;
     private bool _sprint = false;
     private bool _isDashing;
+    private bool _LightAttack;
     private bool _HeavyAttack = false;
     private bool _CycloneAttack = false;
     private float _sprinting = 1f;
@@ -255,7 +257,7 @@ public class KyleplayerMove : MonoBehaviour
         }
         else if (_CycloneAttack)
         {
-            if(_pStats.GetHealth > _cycloneHealthBurden)
+            if(_pStats.GetHealth() > _cycloneHealthBurden)
             {
                 Debug.Log("cyclone Active");
                 //_pStats.PDamage(_cycloneHealthBurden);

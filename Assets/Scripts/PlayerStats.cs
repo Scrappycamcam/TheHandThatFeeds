@@ -97,4 +97,8 @@ public class PlayerStats : MonoBehaviour {
         }
     }
 
+    public float GetHealth()
+    {
+        return _PHealth;
+    }
 }
