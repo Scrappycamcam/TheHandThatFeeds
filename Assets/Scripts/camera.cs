@@ -16,11 +16,10 @@ public class camera : MonoBehaviour {
     private Vector3 _newPos;
     private Vector3 velocity = Vector3.zero;
 
-    private void Start()
+    public void Awake()
     {
         _p = GameObject.Find("Player").transform;
     }
-
 
     private void Update()
     {

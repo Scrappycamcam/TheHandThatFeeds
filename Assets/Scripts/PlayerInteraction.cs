@@ -53,7 +53,7 @@ public class PlayerInteraction : MonoBehaviour {
             {
                 Debug.Log("Hit" + hit.transform.position);
                 thingHit.GetComponent<InteractableObject>().Interact();
-                //_ItemDisplay = true;
+                _ItemDisplay = true;
             }
 
         }

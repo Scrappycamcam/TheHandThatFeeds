@@ -192,7 +192,9 @@ public class KyleplayerMove : MonoBehaviour
         else if (_isDashing) //if you are currently dashing
         {
             //numFlips++;
-            _cc.Move(_lastMove.normalized * _dashspeed / 50);
+            _cc.Move(_lastMove.normalized * _dashspeed);
+            _isDashing = false;
+            _canMove = true;
             //transform.rotation = Quaternion.Euler(transform.right*10*numFlips);
             if (Time.time >= _nextDash)
             {

@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Sign
   - EndOfLevel
   - Death
   layers:
@@ -17,8 +16,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Player
-  - Enemies
+  - 
+  - 
   - 
   - 
   - 

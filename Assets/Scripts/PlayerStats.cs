@@ -16,11 +16,11 @@ public class PlayerStats : MonoBehaviour {
     [SerializeField]
     GameObject _DefeatDisplay;
     private float _PmaxHealth = 100;
-    private int _NextLevel;
     Vector3 startPos;
  
     private void Awake()
     {
+        
         startPos = transform.position;
         //PDamage(100);
     }
@@ -32,6 +32,7 @@ public class PlayerStats : MonoBehaviour {
 
     private void OnGUI()
     {
+        _currentHealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
         DisplayHealth();
     }
 
@@ -43,9 +44,10 @@ public class PlayerStats : MonoBehaviour {
     }
     public float PDamage(float DtoTake)//function for taking damage
     {
-        if(_PHealth >= DtoTake)
+        if(_PHealth > DtoTake)
         {
             _PHealth = _PHealth - DtoTake;
+
         }
         else
         {
@@ -78,7 +80,7 @@ public class PlayerStats : MonoBehaviour {
     public void Defeat()
     {
         _DefeatDisplay.SetActive(true);
-        _PHealth = _PmaxHealth;
+        //_PHealth = _PmaxHealth;
         LevelSelection_Script myscript = FindObjectOfType<LevelSelection_Script>();
         myscript.ReloadScene();
         
@@ -94,7 +96,5 @@ public class PlayerStats : MonoBehaviour {
             Victory();
         }
     }
-
-    public float GetHealth { get { return _PHealth; } }
 
 }
