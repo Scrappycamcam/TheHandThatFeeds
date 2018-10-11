@@ -20,8 +20,10 @@ public class KyleplayerMove : MonoBehaviour
         NONE,
         CYCLONE,
         THEGOODSUCC,
+        DASHSTRIKE,
     }
 
+    [Header("Base Player Variables")]
     private int _playerId = 0; // The Rewired player id of this character
     [SerializeField]
     float _playerDamage = 1;
@@ -53,6 +55,7 @@ public class KyleplayerMove : MonoBehaviour
     private bool _LightAttack;
     private bool _HeavyAttack = false;
     private bool _CycloneAttack = false;
+    private bool _DashStrike = false;
     private float _sprinting = 1f;
     private float _nextDash = 0f; // keeps track of when next dash can take place\
     private Vector3 _lastPos;
@@ -62,8 +65,11 @@ public class KyleplayerMove : MonoBehaviour
     bool _comboing = false;
     bool _swinging = false;
     bool _hitSomething = false;
+    bool _invincible = false;
     RaycastHit hit;
     Vector3 c0, c1, c2, c3;
+
+    [Header("Attack Variables")]
     [SerializeField]
     List<Transform> _myLightComboPos;
     [SerializeField]
@@ -85,6 +91,8 @@ public class KyleplayerMove : MonoBehaviour
     float _heavySwingDuration;
     float _currSwingDuration;
 
+    [Header("Special Ability Variables")]
+    [Header("Cyclone")]
     [SerializeField]
     float _cycloneHealthBurden;
     [SerializeField]
@@ -95,6 +103,23 @@ public class KyleplayerMove : MonoBehaviour
     float _cycloneDuration;
     List<AIMovement> _enemyHit;
     float _cycloneHits;
+
+    [Header("Dash Strike")]
+    [SerializeField]
+    float _dashStrikeHealthBurden;
+    [SerializeField]
+    float _dashStrikeHeal;
+    [SerializeField]
+    float _dashStrikeBackUpDistance;
+    [SerializeField]
+    float _dashStrikeChargeUpDuration;
+    [SerializeField]
+    float _dashStrikeDistance;
+    [SerializeField]
+    float _dashStrikeForwardDashDuration;
+    bool _chargingDashStrike;
+    GameObject _enemyIAmRamming;
+
     //[SerializeField]
     float stealHealthBurden;
     bool _usingSpecial = false;
@@ -239,6 +264,7 @@ public class KyleplayerMove : MonoBehaviour
         _LightAttack = _player.GetButtonDown("LightAttack");
         _HeavyAttack = _player.GetButtonDown("HeavyAttack");
         _CycloneAttack = _player.GetButtonDown("Ability3");
+        _DashStrike = _player.GetButtonDown("Ability2");
 
         if (_LightAttack)
         {
@@ -260,7 +286,7 @@ public class KyleplayerMove : MonoBehaviour
             if(_pStats.GetHealth() > _cycloneHealthBurden)
             {
                 Debug.Log("cyclone Active");
-                //_pStats.PDamage(_cycloneHealthBurden);
+                _pStats.PDamage(_cycloneHealthBurden);
                 _attacking = true;
                 _usingSpecial = true;
                 _myability = SpecialAbility.CYCLONE;
@@ -268,6 +294,22 @@ public class KyleplayerMove : MonoBehaviour
                 c0 = transform.position;
                 c1 = transform.position;
                 _sword.transform.localPosition = new Vector3(0, 1f, _sword.transform.localPosition.z);
+                _startComboTime = Time.time;
+            }
+        }
+        else if(_DashStrike)
+        {
+            if (_pStats.GetHealth() > _dashStrikeHealthBurden)
+            {
+                Debug.Log("Dash Strike Active");
+                _pStats.PDamage(_dashStrikeHealthBurden);
+                _attacking = true;
+                _usingSpecial = true;
+                _myability = SpecialAbility.DASHSTRIKE;
+                _canMove = false;
+                c0 = transform.position;
+                c1 = transform.position - (transform.forward * _dashStrikeBackUpDistance);
+                _chargingDashStrike = true;
                 _startComboTime = Time.time;
             }
         }
@@ -287,6 +329,16 @@ public class KyleplayerMove : MonoBehaviour
                 break;
             case SpecialAbility.THEGOODSUCC:
                 GiveEmTheGoodSucc();
+                break;
+            case SpecialAbility.DASHSTRIKE:
+                if(_chargingDashStrike)
+                {
+                    ChargingDashStrike();
+                }
+                else
+                {
+                    UsingDashStrike();
+                }
                 break;
             default:
                 break;
@@ -323,7 +375,7 @@ public class KyleplayerMove : MonoBehaviour
                             {
                                 _enemyHit = new List<AIMovement>();
                                 Debug.Log("cyclone heal");
-                                //_pStats.PHeal(_cycloneHeal);
+                                _pStats.PHeal(_cycloneHeal);
 
                             }
                         }
@@ -366,6 +418,56 @@ public class KyleplayerMove : MonoBehaviour
     private void GiveEmTheGoodSucc()
     {
 
+    }
+
+    private void ChargingDashStrike()
+    {
+        _currComboTime = (Time.time - _startComboTime) / _dashStrikeChargeUpDuration;
+
+        Vector3 p01;
+        p01 = (1 - _currComboTime) * c0 + _currComboTime * c1;
+
+        transform.position = p01;
+
+        if (_currComboTime < 1)
+        {
+            
+        }
+        else
+        {
+            _currComboTime = 1;
+            _sword.transform.localPosition = new Vector3(0, 1f, _sword.transform.localPosition.z);
+            c0 = transform.position;
+            c1 = transform.position + (transform.forward * _dashStrikeDistance);
+            _startComboTime = Time.time;
+            _chargingDashStrike = false;
+        }
+    }
+
+    private void UsingDashStrike()
+    {
+        _currComboTime = (Time.time - _startComboTime) / _dashStrikeForwardDashDuration;
+
+        Vector3 p01;
+        p01 = (1 - _currComboTime) * c0 + _currComboTime * c1;
+
+        transform.position = p01;
+
+        if (_currComboTime < 1)
+        {
+            if (Physics.Raycast(_sword.transform.position, _sword.transform.up, out hit, _swordDetectDistance))
+            {
+                
+            }
+        }
+        else
+        {
+            _currComboTime = 1;
+
+            _myability = SpecialAbility.NONE;
+            _sword.transform.localPosition = _swordReset;
+            _enemyHit = new List<AIMovement>();
+        }
     }
 
     private void CheckForCombo()

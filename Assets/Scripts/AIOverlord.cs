@@ -29,7 +29,7 @@ public class AIOverlord : MonoBehaviour {
         }
     }
 
-    List<GameObject> _enemyList = new List<GameObject>();
+    List<EnemySquad> _squadList = new List<EnemySquad>();
 
     private void Awake()
     {
@@ -45,27 +45,32 @@ public class AIOverlord : MonoBehaviour {
 
     private void Start()
     {
-        StartCoroutine(InitEnemies());
+        StartCoroutine(InitSquads());
     }
 
     private void ResetEnemies()
     {
-        for (int i = 0; i < _enemyList.Count; i++)
+        for (int i = 0; i < _squadList.Count; i++)
         {
-            _enemyList[i].GetComponent<AIMovement>().MyReset();
+            _squadList[i].GetComponent<EnemySquad>().ResetSquad();
         }
     }
-    IEnumerator InitEnemies()
+
+    public void ResetMe()
     {
-        for (int i = 0; i < _enemyList.Count; i++)
+        _squadList = new List<EnemySquad>();
+    }
+
+    IEnumerator InitSquads()
+    {
+        for (int i = 0; i < _squadList.Count; i++)
         {
             yield return new WaitForSeconds(.0001f);
-            _enemyList[i].GetComponent<AIMovement>().Init();
+            _squadList[i].GetComponent<EnemySquad>().Init();
         }
 
-        StopCoroutine(InitEnemies());
+        StopCoroutine(InitSquads());
     }
 
-    public GameObject AddEnemy { set { _enemyList.Add(value); } }
-    public GameObject RemoveEnemy { set { _enemyList.Remove(value); } }
+    public EnemySquad AddSquad { set { _squadList.Add(value); } }
 }

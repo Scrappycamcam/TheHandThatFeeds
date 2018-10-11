@@ -67,13 +67,6 @@ public class AIMovement : MonoBehaviour {
     
     RaycastHit hit;
     KyleplayerMove _player;
-    AIOverlord _myOverlord;
-
-	// Use this for initialization
-	void Awake () {
-        _myOverlord = AIOverlord.Instance;
-        _myOverlord.AddEnemy = gameObject;
-	}
 
     public void Init()
     {
