@@ -12,6 +12,7 @@ public enum TypeOfObject
 
 public class InteractableObject : MonoBehaviour {
 
+    [Header("Type of Object")]
     [SerializeField]
     TypeOfObject _whatAmI;
 
@@ -19,9 +20,17 @@ public class InteractableObject : MonoBehaviour {
 
     KyleplayerMove _player;
 
+    [Header("If a Puzzle")]
+    [SerializeField]
+    private int leverNumber;
+    private Color CorrectColor = Color.green;
+
+    private PuzzleManager pzManager;
+
     // Use this for initialization
     void Start () {
         _player = KyleplayerMove.Instance;
+        pzManager = transform.GetComponentInParent<PuzzleManager>();
         switch (_whatAmI)
         {
             case TypeOfObject.DOOR:
@@ -31,7 +40,7 @@ public class InteractableObject : MonoBehaviour {
                 _ItemText = "Potion";
                 break;
             case TypeOfObject.PUZZLE:
-                _ItemText = "Puzzle";
+                
                 break;
             default:
                 break;
@@ -50,6 +59,10 @@ public class InteractableObject : MonoBehaviour {
                 Destroy(gameObject);
                 break;
             case TypeOfObject.PUZZLE:
+                Debug.Log("Lever Pulled.");
+                gameObject.GetComponent<MeshRenderer>().material.color = CorrectColor;
+                pzManager._OrderProg = pzManager._OrderProg + leverNumber;
+                pzManager.PzCheck();
                 break;
             default:
                 break;
