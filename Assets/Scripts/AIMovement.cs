@@ -63,14 +63,22 @@ public class AIMovement : MonoBehaviour {
     List<Vector3> _patrolRoute;
     int _currPath;
     bool _alerted = false;
+    bool _init = false;
     
     RaycastHit hit;
     KyleplayerMove _player;
+    AIOverlord _myOverlord;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
+        _myOverlord = AIOverlord.Instance;
+        _myOverlord.AddEnemy = gameObject;
+	}
+
+    public void Init()
+    {
         _enemyAgent = GetComponent<NavMeshAgent>();
-        _patrolRoute = new List<Vector3>(); 
+        _patrolRoute = new List<Vector3>();
         for (int point = 0; point < _patrolPoints.Count; point++)
         {
             _patrolRoute.Add(_patrolPoints[point].gameObject.transform.position);
@@ -83,12 +91,14 @@ public class AIMovement : MonoBehaviour {
         _swordPos = _sword.transform.localPosition;
         _sword.SetActive(false);
 
-        //target = TestingSightScript.tester;
-	}
+        _enemyAgent.SetDestination(_patrolRoute[_currPath]);
+        _init = true;
+    }
 
     // Update is called once per frame
     void Update () {
-        if(!_dead)
+
+        if (_init)
         {
             if (!_hit)
             {
@@ -103,14 +113,18 @@ public class AIMovement : MonoBehaviour {
             }
             else
             {
-                KnockedBack();
-            }           
+                if (!_dead)
+                {
+                    KnockedBack();
+                }
+                else
+                {
+                    Die();
+                }
+            }
         }
-        else
-        {
-            Die();
-        }
-	}
+
+    }
 
     private void PatrolState()
     {
@@ -122,7 +136,6 @@ public class AIMovement : MonoBehaviour {
 
         if (!_enemyAgent.hasPath)
         {
-            _enemyAgent.SetDestination(_patrolRoute[_currPath]);
             if (_currPath < _patrolRoute.Count - 1)
             {
                 _currPath++;
@@ -131,6 +144,7 @@ public class AIMovement : MonoBehaviour {
             {
                 _currPath = 0;
             }
+            _enemyAgent.SetDestination(_patrolRoute[_currPath]);
         }
     }
 
@@ -391,6 +405,7 @@ public class AIMovement : MonoBehaviour {
         {
             _currentAttackTime = 1;
 
+            _init = false;
             gameObject.SetActive(false);
         }
 
@@ -402,5 +417,27 @@ public class AIMovement : MonoBehaviour {
 
         transform.position = p012;
         transform.rotation = Quaternion.Euler(-90, transform.rotation.y, transform.rotation.z);
+    }
+
+    public void MyReset()
+    {
+        gameObject.SetActive(true);
+        _dead = false;
+        _hit = false;
+        _showingTheTell = false;
+        _attacking = false;
+        _waiting = false;
+        _canTakeDamage = true;
+
+        _enemyAgent.enabled = true;
+        _enemyAgent.isStopped = false;
+        _currPath = 0;
+
+        transform.position = _startPoint;
+        _sword.transform.localPosition = _swordPos;
+        _sword.SetActive(false);
+
+        _enemyAgent.SetDestination(_patrolRoute[_currPath]);
+        _init = true;
     }
 }
