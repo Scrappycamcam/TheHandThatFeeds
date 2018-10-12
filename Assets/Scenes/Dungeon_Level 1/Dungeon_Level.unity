@@ -39478,7 +39478,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4118516417193744, guid: 0acdbcd4ce7f99741a4152b901854e7f, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1069314664296778, guid: 0acdbcd4ce7f99741a4152b901854e7f, type: 2}
       propertyPath: m_IsActive
@@ -86956,7 +86956,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &1890046290
 Prefab:
@@ -87353,6 +87353,56 @@ Prefab:
         type: 2}
       propertyPath: _swordDetectDistance
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472619078366174, guid: 216c316387ba78549b074f0d90d146e3,
+        type: 2}
+      propertyPath: _cycloneDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472619078366174, guid: 216c316387ba78549b074f0d90d146e3,
+        type: 2}
+      propertyPath: _cycloneSpinSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472619078366174, guid: 216c316387ba78549b074f0d90d146e3,
+        type: 2}
+      propertyPath: _cycloneHealthBurden
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472619078366174, guid: 216c316387ba78549b074f0d90d146e3,
+        type: 2}
+      propertyPath: _cycloneHeal
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472619078366174, guid: 216c316387ba78549b074f0d90d146e3,
+        type: 2}
+      propertyPath: _dashStrikeHealthBurden
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472619078366174, guid: 216c316387ba78549b074f0d90d146e3,
+        type: 2}
+      propertyPath: _dashStrikeHeal
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472619078366174, guid: 216c316387ba78549b074f0d90d146e3,
+        type: 2}
+      propertyPath: _dashStrikeBackUpDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472619078366174, guid: 216c316387ba78549b074f0d90d146e3,
+        type: 2}
+      propertyPath: _dashStrikeChargeUpDuration
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472619078366174, guid: 216c316387ba78549b074f0d90d146e3,
+        type: 2}
+      propertyPath: _dashStrikeDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472619078366174, guid: 216c316387ba78549b074f0d90d146e3,
+        type: 2}
+      propertyPath: _dashStrikeForwardDashDuration
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 216c316387ba78549b074f0d90d146e3, type: 2}

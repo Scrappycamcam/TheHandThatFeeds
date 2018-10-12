@@ -94,6 +94,8 @@ public class KyleplayerMove : MonoBehaviour
     [Header("Special Ability Variables")]
     [Header("Cyclone")]
     [SerializeField]
+    bool _cycloneIsUnlocked;
+    [SerializeField]
     float _cycloneHealthBurden;
     [SerializeField]
     float _cycloneHeal;
@@ -105,6 +107,8 @@ public class KyleplayerMove : MonoBehaviour
     float _cycloneHits;
 
     [Header("Dash Strike")]
+    [SerializeField]
+    bool _dashIsUnlocked;
     [SerializeField]
     float _dashStrikeHealthBurden;
     [SerializeField]
@@ -281,7 +285,7 @@ public class KyleplayerMove : MonoBehaviour
             _attacking = true;
             _canMove = false;
         }
-        else if (_CycloneAttack)
+        else if (_CycloneAttack && _cycloneIsUnlocked)
         {
             if(_pStats.GetHealth() > _cycloneHealthBurden)
             {
@@ -297,7 +301,7 @@ public class KyleplayerMove : MonoBehaviour
                 _startComboTime = Time.time;
             }
         }
-        else if(_DashStrike)
+        else if(_DashStrike && _dashIsUnlocked)
         {
             if (_pStats.GetHealth() > _dashStrikeHealthBurden)
             {
