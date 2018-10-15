@@ -3,74 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIMovement : MonoBehaviour {
+public class AIMovement : AIEnemy {
 
-    NavMeshAgent _enemyAgent;
-
-    [Header("Enemy Stats")]
-    [SerializeField]
-    float _enemyHealth;
-    [SerializeField]
-    float _enemyDamage;
-    [SerializeField]
-    float _damageDistance;
-    Vector3 _startPoint;
-
-    [Header("Vision Variables")]
-    [SerializeField]
-    float _sightDistance;
-    [SerializeField]
-    float _sightArea;
-    [SerializeField]
-    int _numOfCasts;
-    [SerializeField]
-    bool _debugVision = false;
-
-    [Header("Player Tracking Variables")]
-    [SerializeField]
-    float _followDistanceThreshold;
-    [SerializeField]
-    float _attackDistanceThreshold;
-    bool _attacking = false;
-    bool _showingTheTell = false;
-    bool _waiting = false;
-    bool _hit = false;
-    bool _canTakeDamage = true;
-    bool _dead = false;
-    Vector3 _deadLook;
-    float _startAttackTime;
-    float _currentAttackTime;
-    Vector3 c0, c1, c2;
-
-    [Header("Time Variables")]
-    [SerializeField]
-    float _attackTellDuration;
-    [SerializeField]
-    float _attackSwingDuration;
-    [SerializeField]
-    float _durationBetweenAttacks;
-    [SerializeField]
-    float _knockedBackDuration;
-    [SerializeField]
-    float _deathDuration;
-
-    GameObject _sword;
-    Vector3 _swordPos;
-
-    [Header("Patrol Variables")]
-    [SerializeField]
-    List<GameObject> _patrolPoints;
-    List<Vector3> _patrolRoute;
-    int _currPath;
-    bool _alerted = false;
-    bool _init = false;
-    
-    RaycastHit hit;
-    KyleplayerMove _player;
-
-    public void Init()
+    public override void Init()
     {
         _enemyAgent = GetComponent<NavMeshAgent>();
+        _mySquad = GetComponentInParent<EnemySquad>();
         _patrolRoute = new List<Vector3>();
         for (int point = 0; point < _patrolPoints.Count; point++)
         {
@@ -89,37 +27,46 @@ public class AIMovement : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-
+    public override void Update()
+    {
         if (_init)
         {
-            if (!_hit)
+            if(!_slammed)
             {
-                if (!_alerted)
+                if (!_hit)
                 {
-                    PatrolState();
+                    if (!_alerted)
+                    {
+                        PatrolState();
+                    }
+                    else
+                    {
+                        CombatStrats();
+                    }
                 }
                 else
                 {
-                    CombatStrats();
+                    if (!_dead)
+                    {
+                        KnockedBack();
+                    }
+                    else
+                    {
+                        Die();
+                    }
                 }
             }
             else
             {
-                if (!_dead)
+                if(_stunned)
                 {
-                    KnockedBack();
-                }
-                else
-                {
-                    Die();
+                    Stunned();
                 }
             }
         }
-
     }
 
-    private void PatrolState()
+    public override void PatrolState()
     {
         if (LookingForPlayer())
         {
@@ -141,19 +88,19 @@ public class AIMovement : MonoBehaviour {
         }
     }
 
-    private bool LookingForPlayer()
+    public override bool LookingForPlayer()
     {
         for (int currCast = 0; currCast < _numOfCasts; currCast++)
         {
-            Vector3 _castDir = transform.forward + (transform.right * ((_sightArea - ((_sightArea/((_numOfCasts-1)/2)) * currCast)) / 100));
-            if(_debugVision)
+            Vector3 _castDir = transform.forward + (transform.right * ((_sightArea - ((_sightArea / ((_numOfCasts - 1) / 2)) * currCast)) / 100));
+            if (_debugVision)
             {
                 Debug.DrawLine(transform.position, transform.position + (_castDir * _sightDistance));
             }
 
             if (Physics.Raycast(transform.position, _castDir, out hit, _sightDistance))
             {
-                if(hit.collider.GetComponent<KyleplayerMove>())
+                if (hit.collider.GetComponent<KyleplayerMove>())
                 {
                     _player = hit.collider.GetComponent<KyleplayerMove>();
                     return true;
@@ -163,13 +110,13 @@ public class AIMovement : MonoBehaviour {
         return false;
     }
 
-    private void CombatStrats()
+    public override void CombatStrats()
     {
-        if(Vector3.Distance(transform.position, _player.transform.position) <= _followDistanceThreshold)
+        if (Vector3.Distance(transform.position, _player.transform.position) <= _followDistanceThreshold)
         {
-            if(Vector3.Distance(transform.position, _player.transform.position) <= _attackDistanceThreshold)
+            if (Vector3.Distance(transform.position, _player.transform.position) <= _attackDistanceThreshold)
             {
-                if(!_attacking)
+                if (!_attacking)
                 {
                     AttackTell();
                 }
@@ -189,21 +136,21 @@ public class AIMovement : MonoBehaviour {
         }
     }
 
-    private void FollowPlayer()
+    public override void FollowPlayer()
     {
-        if(_attacking || _waiting || _showingTheTell)
+        if (_attacking || _waiting || _showingTheTell)
         {
             ResetState();
         }
         _enemyAgent.SetDestination(_player.transform.position);
     }
 
-    private void AttackTell()
-    {   
+    public override void AttackTell()
+    {
         //lerpingWeapon
-        if(!_showingTheTell)
+        if (!_showingTheTell)
         {
-             _enemyAgent.isStopped = true;
+            _enemyAgent.isStopped = true;
             c0 = _swordPos;
             c1 = _swordPos + Vector3.up;
             _startAttackTime = Time.time;
@@ -230,19 +177,20 @@ public class AIMovement : MonoBehaviour {
 
                 p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
 
+                transform.LookAt(_player.transform.position + Vector3.up);
                 _sword.transform.localPosition = p01;
             }
         }
     }
 
-    private void AttackPlayer()
+    public override void AttackPlayer()
     {
         if (_waiting)
         {
             //Debug.Log("waiting");
             _currentAttackTime = (Time.time - _startAttackTime) / _durationBetweenAttacks;
 
-            if(_currentAttackTime > 1)
+            if (_currentAttackTime > 1)
             {
                 _currentAttackTime = 1;
 
@@ -275,9 +223,9 @@ public class AIMovement : MonoBehaviour {
             else
             {
                 transform.LookAt(c1);
-                if(Physics.Raycast(transform.position, transform.forward, out hit, _damageDistance))
+                if (Physics.Raycast(transform.position, transform.forward, out hit, _damageDistance))
                 {
-                    if(hit.collider.GetComponent<PlayerStats>())
+                    if (hit.collider.GetComponent<PlayerStats>())
                     {
                         hit.collider.GetComponent<PlayerStats>().PDamage(_enemyDamage);
                         //Debug.Log("hit player");
@@ -297,7 +245,7 @@ public class AIMovement : MonoBehaviour {
         }
     }
 
-    private void LostSightOfPlayer()
+    public override void LostSightOfPlayer()
     {
         _alerted = false;
         if (_attacking || _waiting || _showingTheTell)
@@ -309,19 +257,24 @@ public class AIMovement : MonoBehaviour {
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
     }
 
-    private void ResetState()
+    public override void ResetState()
     {
         _showingTheTell = false;
         _sword.transform.localPosition = _swordPos;
+        transform.parent = _mySquad.transform;
+        GetComponent<CapsuleCollider>().enabled = true;
         _attacking = false;
         _waiting = false;
+        _stunned = false;
+        _slammed = false;
         _enemyAgent.isStopped = false;
+
     }
 
     //For Update 2
-    public void GotHit(float _damageRecieved, Vector3 _flydir)
+    public override void GotHit(float _damageRecieved, Vector3 _flydir)
     {
-        if(_canTakeDamage)
+        if (_canTakeDamage)
         {
             //Debug.Log("hit");
             _canTakeDamage = false;
@@ -340,7 +293,47 @@ public class AIMovement : MonoBehaviour {
         }
     }
 
-    private void KnockedBack()
+    public override void GotDashStruck(float _damageRecieved)
+    {
+        _enemyDamage -= _damageRecieved; 
+        _slammed = true;
+        GetComponent<CapsuleCollider>().enabled = false;
+        _enemyAgent.isStopped = true;
+    }
+
+    public override void GotPinned(float _damageRecieved)
+    {
+        c0 = transform.position;
+        c1 = transform.position;
+        ResetState();
+        _slammed = true;
+        _enemyAgent.isStopped = true;
+        _startAttackTime = Time.time;
+        _stunned = true;
+        if (_enemyHealth <= 0)
+        {
+            DeadActivate(Vector3.zero);
+        }
+    }
+
+    public override void Stunned()
+    {
+        _currentAttackTime = (Time.time - _startAttackTime) / _stunDuration;
+
+        if (_currentAttackTime >= 1)
+        {
+            _currentAttackTime = 1;
+            ResetState();
+        }
+
+        Vector3 p01;
+
+        p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
+
+        transform.position = p01;
+    }
+
+    public override void KnockedBack()
     {
         _currentAttackTime = (Time.time - _startAttackTime) / _knockedBackDuration;
 
@@ -351,15 +344,15 @@ public class AIMovement : MonoBehaviour {
             ResetState();
             _hit = false;
         }
-        else if(_currentAttackTime >= .4f)
+        else if (_currentAttackTime >= .4f)
         {
             //Debug.Log("can get hit again");
             _canTakeDamage = true;
         }
 
-        if(_currentAttackTime < 1)
+        if (_currentAttackTime < 1)
         {
-            if(Physics.Raycast(transform.position, -transform.forward, _damageDistance))
+            if (Physics.Raycast(transform.position, -transform.forward, _damageDistance))
             {
                 ResetState();
                 _canTakeDamage = true;
@@ -374,14 +367,16 @@ public class AIMovement : MonoBehaviour {
         transform.position = p01;
     }
 
-    private void DeadActivate(Vector3 _dirToDie)
+    public override void DeadActivate(Vector3 _dirToDie)
     {
         _showingTheTell = false;
         _attacking = false;
         _waiting = false;
+        _slammed = false;
+        _stunned = false;
         _enemyAgent.isStopped = false;
         _canTakeDamage = false;
-        
+
         c0 = transform.position;
         c1 = transform.position + _dirToDie;
         c2 = transform.position + _dirToDie + (Vector3.down);
@@ -390,11 +385,11 @@ public class AIMovement : MonoBehaviour {
         _dead = true;
     }
 
-    private void Die()
+    public override void Die()
     {
         _currentAttackTime = (Time.time - _startAttackTime) / _deathDuration;
 
-        if(_currentAttackTime >= 1)
+        if (_currentAttackTime >= 1)
         {
             _currentAttackTime = 1;
 
@@ -412,7 +407,7 @@ public class AIMovement : MonoBehaviour {
         transform.rotation = Quaternion.Euler(-90, transform.rotation.y, transform.rotation.z);
     }
 
-    public void MyReset()
+    public override void MyReset()
     {
         gameObject.SetActive(true);
         _dead = false;
@@ -420,6 +415,8 @@ public class AIMovement : MonoBehaviour {
         _showingTheTell = false;
         _attacking = false;
         _waiting = false;
+        _stunned = false;
+        _slammed = false;
         _canTakeDamage = true;
 
         _enemyAgent.enabled = true;

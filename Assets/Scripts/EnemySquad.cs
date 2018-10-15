@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySquad : MonoBehaviour {
 
     [SerializeField]
-    List<AIMovement> _enemyList;
+    List<AIEnemy> _enemyList;
 
     AIOverlord _myOverlord;
 
@@ -14,10 +14,10 @@ public class EnemySquad : MonoBehaviour {
         _myOverlord = AIOverlord.Instance;
         _myOverlord.AddSquad = this;
 
-        _enemyList = new List<AIMovement>();
+        _enemyList = new List<AIEnemy>();
         for (int i = 0; i < transform.childCount; i++)
         {
-            AIMovement _enemyToAdd = transform.GetChild(i).gameObject.GetComponent<AIMovement>();
+            AIEnemy _enemyToAdd = transform.GetChild(i).gameObject.GetComponent<AIEnemy>();
             _enemyList.Add(_enemyToAdd);
         }
     }
