@@ -238,6 +238,13 @@ public class KyleplayerMove : MonoBehaviour
 
     private void ProcessMove()
     {   // Process movement
+        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 1f))
+        {
+            if(hit.collider.GetComponent<ProgressionLighting>())
+            {
+                hit.collider.GetComponent<ProgressionLighting>().TurnOnTorch();
+            }
+        }
         if (_moveVector == Vector3.zero) //set sprinting to 1 if not moving
         {
             _sprinting = false;
