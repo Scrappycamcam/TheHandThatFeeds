@@ -123,6 +123,7 @@
     <Compile Include="Assets\Rewired\Internal\Scripts\InputManager.cs" />
     <Compile Include="Assets\Rewired\Internal\Scripts\Misc\ExternalTools.cs" />
     <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
+    <Compile Include="Assets\Scripts\AIEnemy.cs" />
     <Compile Include="Assets\Scripts\AIMovement.cs" />
     <Compile Include="Assets\Scripts\AIOverlord.cs" />
     <Compile Include="Assets\Scripts\Attack.cs" />
