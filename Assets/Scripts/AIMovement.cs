@@ -27,7 +27,7 @@ public class AIMovement : AIEnemy {
     }
 
     // Update is called once per frame
-    public override void Update()
+    protected override void Update()
     {
         if (_init)
         {
@@ -66,7 +66,7 @@ public class AIMovement : AIEnemy {
         }
     }
 
-    public override void PatrolState()
+    protected override void PatrolState()
     {
         if (LookingForPlayer())
         {
@@ -88,7 +88,7 @@ public class AIMovement : AIEnemy {
         }
     }
 
-    public override bool LookingForPlayer()
+    protected override bool LookingForPlayer()
     {
         for (int currCast = 0; currCast < _numOfCasts; currCast++)
         {
@@ -110,7 +110,7 @@ public class AIMovement : AIEnemy {
         return false;
     }
 
-    public override void CombatStrats()
+    protected override void CombatStrats()
     {
         if (Vector3.Distance(transform.position, _player.transform.position) <= _followDistanceThreshold)
         {
@@ -136,7 +136,7 @@ public class AIMovement : AIEnemy {
         }
     }
 
-    public override void FollowPlayer()
+    protected override void FollowPlayer()
     {
         if (_attacking || _waiting || _showingTheTell)
         {
@@ -145,7 +145,7 @@ public class AIMovement : AIEnemy {
         _enemyAgent.SetDestination(_player.transform.position);
     }
 
-    public override void AttackTell()
+    protected override void AttackTell()
     {
         //lerpingWeapon
         if (!_showingTheTell)
@@ -183,7 +183,7 @@ public class AIMovement : AIEnemy {
         }
     }
 
-    public override void AttackPlayer()
+    protected override void AttackPlayer()
     {
         if (_waiting)
         {
@@ -245,7 +245,7 @@ public class AIMovement : AIEnemy {
         }
     }
 
-    public override void LostSightOfPlayer()
+    protected override void LostSightOfPlayer()
     {
         _alerted = false;
         if (_attacking || _waiting || _showingTheTell)
@@ -316,7 +316,7 @@ public class AIMovement : AIEnemy {
         }
     }
 
-    public override void Stunned()
+    protected override void Stunned()
     {
         _currentAttackTime = (Time.time - _startAttackTime) / _stunDuration;
 
@@ -333,7 +333,7 @@ public class AIMovement : AIEnemy {
         transform.position = p01;
     }
 
-    public override void KnockedBack()
+    protected override void KnockedBack()
     {
         _currentAttackTime = (Time.time - _startAttackTime) / _knockedBackDuration;
 
@@ -367,7 +367,7 @@ public class AIMovement : AIEnemy {
         transform.position = p01;
     }
 
-    public override void DeadActivate(Vector3 _dirToDie)
+    protected override void DeadActivate(Vector3 _dirToDie)
     {
         _showingTheTell = false;
         _attacking = false;
@@ -385,7 +385,7 @@ public class AIMovement : AIEnemy {
         _dead = true;
     }
 
-    public override void Die()
+    protected override void Die()
     {
         _currentAttackTime = (Time.time - _startAttackTime) / _deathDuration;
 
