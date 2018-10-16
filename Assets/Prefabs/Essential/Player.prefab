@@ -414,6 +414,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerDamage: 9
   _moveSpeed: 5
+  _sprintSpeed: 8
+  _canSprint: 0
   _dashspeed: 2
   _dashDelay: 1
   _canMove: 1
@@ -432,9 +434,9 @@ MonoBehaviour:
   _heavySwingDuration: 0.4
   _cycloneIsUnlocked: 1
   _cycloneHealthBurden: 10
-  _cycloneHeal: 10
-  _cycloneSpinSpeed: 20
-  _cycloneDuration: 1
+  _cycloneHeal: 5
+  _cycloneSpinSpeed: 30
+  _cycloneDuration: 0.5
   _dashIsUnlocked: 0
   _dashStrikeHealthBurden: 10
   _dashStrikeHeal: 10
@@ -442,6 +444,7 @@ MonoBehaviour:
   _dashStrikeChargeUpDuration: 0.2
   _dashStrikeDistance: 4
   _dashStrikeForwardDashDuration: 0.4
+  _enemyIAmRamming: {fileID: 0}
 --- !u!114 &114642032395977338
 MonoBehaviour:
   m_ObjectHideFlags: 1

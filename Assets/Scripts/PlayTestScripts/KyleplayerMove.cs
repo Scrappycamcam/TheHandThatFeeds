@@ -28,7 +28,11 @@ public class KyleplayerMove : MonoBehaviour
     [SerializeField]
     float _playerDamage = 1;
     [SerializeField]
-    float _moveSpeed = 3.0f;
+    float _moveSpeed = 5.0f;
+    [SerializeField]
+    float _sprintSpeed = 8.0f;
+    [SerializeField]
+    bool _canSprint;
     [SerializeField]
     float _dashspeed = 8f;
     [SerializeField]
@@ -56,7 +60,7 @@ public class KyleplayerMove : MonoBehaviour
     private bool _HeavyAttack = false;
     private bool _CycloneAttack = false;
     private bool _DashStrike = false;
-    private float _sprinting = 1f;
+    private bool _sprinting = false;
     private float _nextDash = 0f; // keeps track of when next dash can take place\
     private Vector3 _lastPos;
     //private int numFlips = 0;
@@ -223,18 +227,22 @@ public class KyleplayerMove : MonoBehaviour
 
     private void ProcessMove()
     {   // Process movement
-        if (_moveVector.x != 0.0f || _moveVector.z != 0.0f) //move player
-        {
-            transform.rotation = Quaternion.LookRotation(_moveVector);
-            _cc.Move(_moveVector.normalized * _moveSpeed * Time.deltaTime * _sprinting);
-        }
         if (_moveVector == Vector3.zero) //set sprinting to 1 if not moving
         {
-            _sprinting = 1f;
+            _sprinting = false;
         }
-        if (_sprint) //process sprint
+        if (_sprint && _canSprint) //process sprint
         {
-            _sprinting = 1.5f;
+            _sprinting = true;
+        }
+        if (_moveVector.x != 0.0f || _moveVector.z != 0.0f) //move player
+        {
+            float _move = _moveSpeed;
+            if(_sprinting){
+                _move = _sprintSpeed;
+            }
+            transform.rotation = Quaternion.LookRotation(_moveVector);
+            _cc.Move(_moveVector.normalized * _move * Time.deltaTime);
         }
     }
 
