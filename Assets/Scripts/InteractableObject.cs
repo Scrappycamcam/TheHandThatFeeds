@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum TypeOfObject
 {
@@ -16,8 +17,6 @@ public class InteractableObject : MonoBehaviour {
     [SerializeField]
     TypeOfObject _whatAmI;
 
-    string _ItemText;
-
     KyleplayerMove _player;
 
     [Header("If a Puzzle")]
@@ -27,23 +26,39 @@ public class InteractableObject : MonoBehaviour {
 
     private PuzzleManager pzManager;
 
+    [Header("UI Variables")]
+    [SerializeField]
+    GameObject InteractImagePrefab;
+    [SerializeField]
+    float _verticalOffset;
+    GameObject _myImage;
+    GameObject _myCanvas;
+    [SerializeField]
+    Vector3 _myActualPos;
+    Vector3 _myPos;
+
+    bool _active = false;
+
+    Camera _playerCam;
+
     // Use this for initialization
     void Start () {
         _player = KyleplayerMove.Instance;
         pzManager = transform.GetComponentInParent<PuzzleManager>();
-        switch (_whatAmI)
+        _playerCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
+        _myPos = Vector3.zero;
+        _myCanvas = FindObjectOfType<Canvas>().gameObject;
+        GameObject _ImageRef = Instantiate<GameObject>(InteractImagePrefab, _myPos, _myCanvas.transform.rotation, _myCanvas.transform);
+        _myImage = _ImageRef;
+        _myImage.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if(_active)
         {
-            case TypeOfObject.DOOR:
-                _ItemText = "Door";
-                break;
-            case TypeOfObject.POTION:
-                _ItemText = "Potion";
-                break;
-            case TypeOfObject.PUZZLE:
-                
-                break;
-            default:
-                break;
+            _myPos = _playerCam.WorldToScreenPoint(_myActualPos) + (Vector3.up * _verticalOffset);
+            _myImage.transform.position = _myPos;
         }
     }
 
@@ -69,5 +84,15 @@ public class InteractableObject : MonoBehaviour {
         }
     }
 
-    public string ItemText { get { return _ItemText; } }
+    public void ShowIcon()
+    {
+        _myImage.SetActive(true);
+        _active = true;
+    }
+
+    public void TurnOffIcon()
+    {
+        _myImage.SetActive(false);
+        _active = false;
+    }
 }

@@ -4,64 +4,72 @@ using UnityEngine;
 using Rewired;
 
 public class PlayerInteraction : MonoBehaviour {
-    public string _ItemText;
+
     public bool _ItemDisplay;
-    private float _maxDist = 10f;
     public Transform _PlayerPos;
     public int _playerId = 0;
 
+    RaycastHit hit;
+    InteractableObject _currObject;
+
     private Player _player;
+    [SerializeField]
+    float _interactDistance;
+    [SerializeField]
+    bool _debug = false;
 
 	// Use this for initialization
 	void Start () {
-        _ItemText = "Hello World";
         _player = ReInput.players.GetPlayer(_playerId);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (_player.GetButtonDown("Interact"))
+        if (_player.GetButtonDown("Interact") && _currObject != null)
         {
-            ShootRay();
+            ActivateObject();
         }
-    }
 
-    private void OnGUI()
-    {
-        if (_ItemDisplay)
-            DisplayInfo(_ItemText);
+        CheckForObject();
     }
 
 
-
-    private void OnTriggerExit(Collider other)
+    private void CheckForObject()
     {
-        if (_ItemDisplay)
+        if(_debug)
         {
-            _ItemDisplay = false;
+            Debug.DrawLine(transform.position + Vector3.up, transform.position + (transform.forward * _interactDistance) + Vector3.up);
         }
-    }
 
-    private void ShootRay()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, _maxDist))
+        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, _interactDistance))
         {
-            GameObject thingHit = hit.collider.gameObject;
-            Debug.Log(thingHit);
-            if (thingHit.GetComponent<InteractableObject>())
+            if (_currObject == null)
             {
-                Debug.Log("Hit" + hit.transform.position);
-                thingHit.GetComponent<InteractableObject>().Interact();
-                //_ItemDisplay = true;
+                GameObject thingHit = hit.collider.gameObject;
+                //Debug.Log(thingHit);
+                if (thingHit.GetComponent<InteractableObject>())
+                {
+                    _currObject = thingHit.GetComponent<InteractableObject>();
+                    _currObject.ShowIcon();
+                }    
             }
-
         }
+        else
+        {
+            if (_currObject != null)
+            {
+                _currObject.TurnOffIcon();
+                _currObject = null;
+            }
+        }
+
     }
 
-    private void DisplayInfo(string Text)
+    private void ActivateObject()
     {
-        GUI.Box(new Rect(10, 10, 400, 200), Text);
-        
+        _currObject.Interact();
     }
+
+    
+
 }

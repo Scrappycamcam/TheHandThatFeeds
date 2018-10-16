@@ -111,6 +111,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _whatAmI: 2
   leverNumber: 0
+  InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
+    type: 2}
+  _verticalOffset: 0
+  _myActualPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114713151561899900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,6 +126,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 062cf77329976624a9d16b3307ee4296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leverNumber: 0
-  pzManager: {fileID: 114725306608302352, guid: 5f30e570325874f4eafbfc3af1a1e86d,
-    type: 2}
