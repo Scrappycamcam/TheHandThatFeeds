@@ -5,87 +5,76 @@ using UnityEngine.AI;
 
 public class AIEnemy : MonoBehaviour {
 
-    [HideInInspector]
-    public NavMeshAgent _enemyAgent;
+    protected NavMeshAgent _enemyAgent;
 
     [Header("Enemy Stats")]
-    public float _enemyHealth;
-    public float _enemyDamage;
-    public float _damageDistance;
-    [HideInInspector]
-    public Vector3 _startPoint;
+    [SerializeField]
+    protected float _enemyHealth;
+    [SerializeField]
+    protected float _enemyDamage;
+    [SerializeField]
+    protected float _damageDistance;
+    protected Vector3 _startPoint;
 
     [Header("Vision Variables")]
-    public float _sightDistance;
-    public float _sightArea;
-    public int _numOfCasts;
-    public bool _debugVision = false;
+    [SerializeField]
+    protected float _sightDistance;
+    [SerializeField]
+    protected float _sightArea;
+    [SerializeField]
+    protected int _numOfCasts;
+    [SerializeField]
+    protected bool _debugVision = false;
 
     [Header("Player Tracking Variables")]
-    public float _followDistanceThreshold;
-    public float _attackDistanceThreshold;
+    [SerializeField]
+    protected float _followDistanceThreshold;
+    [SerializeField]
+    protected float _attackDistanceThreshold;
 
-    [HideInInspector]
-    public bool _attacking = false;
-    [HideInInspector]
-    public bool _showingTheTell = false;
-    [HideInInspector]
-    public bool _waiting = false;
-    [HideInInspector]
-    public bool _hit = false;
-    [HideInInspector]
-    public bool _slammed = false;
-    [HideInInspector]
-    public bool _stunned = false;
-    [HideInInspector]
-    public bool _canTakeDamage = true;
-    [HideInInspector]
-    public bool _dead = false;
-    [HideInInspector]
-    public Vector3 _deadLook;
-    [HideInInspector]
-    public float _startAttackTime;
-    [HideInInspector]
-    public float _currentAttackTime;
-    [HideInInspector]
-    public Vector3 c0, c1, c2;
+
+    protected bool _attacking = false;
+    protected bool _showingTheTell = false;
+    protected bool _waiting = false;
+    protected bool _hit = false;
+    protected bool _slammed = false;
+    protected bool _stunned = false;
+    protected bool _canTakeDamage = true;
+    protected bool _dead = false;
+    protected Vector3 _deadLook;
+    protected float _startAttackTime;
+    protected float _currentAttackTime;
+    protected Vector3 c0, c1, c2;
 
     [Header("Time Variables")]
     [SerializeField]
-    public float _attackTellDuration;
+    protected float _attackTellDuration;
     [SerializeField]
-    public float _attackSwingDuration;
+    protected float _attackSwingDuration;
     [SerializeField]
-    public float _durationBetweenAttacks;
+    protected float _durationBetweenAttacks;
     [SerializeField]
-    public float _knockedBackDuration;
+    protected float _knockedBackDuration;
     [SerializeField]
-    public float _deathDuration;
+    protected float _deathDuration;
     [SerializeField]
-    public float _stunDuration;
+    protected float _stunDuration;
+    
 
-    [HideInInspector]
-    public GameObject _sword;
-    [HideInInspector]
-    public Vector3 _swordPos;
+    protected GameObject _sword;
+    protected Vector3 _swordPos;
 
     [Header("Patrol Variables")]
-    public List<GameObject> _patrolPoints;
-    [HideInInspector]
-    public List<Vector3> _patrolRoute;
-    [HideInInspector]
-    public int _currPath;
-    [HideInInspector]
-    public bool _alerted = false;
-    [HideInInspector]
-    public bool _init = false;
+    [SerializeField]
+    protected List<GameObject> _patrolPoints;
+    protected List<Vector3> _patrolRoute;
+    protected int _currPath;
+    protected bool _alerted = false;
+    protected bool _init = false;
 
-    [HideInInspector]
-    public RaycastHit hit;
-    [HideInInspector]
-    public KyleplayerMove _player;
-    [HideInInspector]
-    public EnemySquad _mySquad;
+    protected RaycastHit hit;
+    protected KyleplayerMove _player;
+    protected EnemySquad _mySquad;
 
 
     public virtual void Init()
@@ -94,42 +83,42 @@ public class AIEnemy : MonoBehaviour {
     }
 
     // Update is called once per frame
-    public virtual void Update()
+    protected virtual void Update()
     {
 
     }
 
-    public virtual void PatrolState()
+    protected virtual void PatrolState()
     {
 
     }
 
-    public virtual bool LookingForPlayer()
+    protected virtual bool LookingForPlayer()
     {
         return false;
     }
 
-    public virtual void CombatStrats()
+    protected virtual void CombatStrats()
     {
 
     }
 
-    public virtual void FollowPlayer()
+    protected virtual void FollowPlayer()
     {
 
     }
 
-    public virtual void AttackTell()
+    protected virtual void AttackTell()
     {
 
     }
 
-    public virtual void AttackPlayer()
+    protected virtual void AttackPlayer()
     {
 
     }
 
-    public virtual void LostSightOfPlayer()
+    protected virtual void LostSightOfPlayer()
     {
 
     }
@@ -155,22 +144,22 @@ public class AIEnemy : MonoBehaviour {
 
     }
 
-    public virtual void Stunned()
+    protected virtual void Stunned()
     {
 
     }
 
-    public virtual void KnockedBack()
+    protected virtual void KnockedBack()
     {
 
     }
 
-    public virtual void DeadActivate(Vector3 _dirToDie)
+    protected virtual void DeadActivate(Vector3 _dirToDie)
     {
 
     }
 
-    public virtual void Die()
+    protected virtual void Die()
     {
 
     }
