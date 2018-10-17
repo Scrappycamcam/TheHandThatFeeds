@@ -4,27 +4,40 @@ using UnityEngine;
 
 public class projectileRanged : MonoBehaviour {
 
-    public Vector3 _direction;
     public float _speed;
     public float _damage;
     public float _maxRange;
 
     private float _curDist;
-    private Vector3 _lastPos;
+    private Vector3 _startPos;
+    private float _damageDistance = .5f;
 
-    private void Start()
+    private void Awake()
     {
-        _lastPos = transform.position;
+        _startPos = transform.position;
     }
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _direction, _speed);
-        if(_curDist >= _maxRange)
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, _damageDistance))
         {
-            Destroy(this.gameObject);
+            //Debug.Log(hit);
+            if (!hit.collider.GetComponent<AIEnemy>())
+            {
+                Debug.Log("Hit Somthing");
+                if (hit.collider.GetComponent<PlayerStats>())
+                {
+                    Debug.Log("Hit Player");
+                    hit.collider.gameObject.GetComponent<PlayerStats>().PDamage(_damage);
+                }
+                Destroy(gameObject);
+            }
         }
-        _curDist += Vector3.Distance(_lastPos, transform.position);
-        _lastPos = transform.position;
+        transform.position += transform.forward * _speed * Time.deltaTime;
+        if(Vector3.Distance(_startPos, transform.position) >= _maxRange)
+        {
+            Destroy(gameObject);
+        }
     }
 }
