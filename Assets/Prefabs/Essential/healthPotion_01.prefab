@@ -147,3 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _whatAmI: 1
+  leverNumber: 0
+  InteractImagePrefab: {fileID: 0}
+  _verticalOffset: 0
+  _myActualPos: {x: 0, y: 0, z: 0}
