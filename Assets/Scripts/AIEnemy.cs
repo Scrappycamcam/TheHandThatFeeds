@@ -27,6 +27,7 @@ public class AIEnemy : MonoBehaviour {
     [SerializeField]
     protected float _damageDistance;
     protected Vector3 _startPoint;
+    protected Vector3 _screenPos;
 
     [Header("Vision Variables")]
     [SerializeField]
@@ -145,7 +146,7 @@ public class AIEnemy : MonoBehaviour {
 
     }
 
-    public virtual void UpdateHealth(float _damage)
+    protected virtual void UpdateHealth(float _damage)
     {
         _currEnemyHealth -= _damage;
 
@@ -157,10 +158,15 @@ public class AIEnemy : MonoBehaviour {
         _actualHealthBar.fillAmount = _currEnemyHealth / _enemyHealth;
     }
 
-    public virtual void ShowHealthBar()
+    protected virtual void ShowHealthBar()
     {
-        _HPBarPos = _mainCam.WorldToScreenPoint(transform.position);
-        _actualHealthBar.transform.position = _HPBarPos + (Vector3.up * _verticalOffset);
+        _screenPos = _mainCam.WorldToScreenPoint(transform.position);
+        if(!_actualHealthBar.gameObject.activeInHierarchy)
+        {
+            _actualHealthBar.gameObject.SetActive(true);
+        }
+        _HPBarPos = _screenPos;
+        _actualHealthBar.gameObject.transform.position = _HPBarPos + (Vector3.up * _verticalOffset);
     }
 
     public virtual void GotDashStruck(float _damageRecieved)

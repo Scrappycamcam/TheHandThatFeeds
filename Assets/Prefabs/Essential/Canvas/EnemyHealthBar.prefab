@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 224264042118534276}
   - component: {fileID: 222225469715015862}
   - component: {fileID: 114065516978854506}
-  - component: {fileID: 114142892544204934}
   m_Layer: 5
   m_Name: EnemyHealthBar
   m_TagString: Untagged
@@ -66,25 +65,13 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 35fe33c9834ec1c4e8cfe8b8b9cff7c0, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114142892544204934
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1307906684978782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00a0aa47e2c5c5949b54b92fa7ec8914, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _vertOffset: 75
 --- !u!114 &114463773670800608
 MonoBehaviour:
   m_ObjectHideFlags: 1
