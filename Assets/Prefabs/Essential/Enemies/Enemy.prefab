@@ -356,6 +356,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 75
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
@@ -370,6 +373,7 @@ MonoBehaviour:
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
+  _stunDuration: 0
   _patrolPoints:
   - {fileID: 1833277595421144}
   - {fileID: 1677111033323878}

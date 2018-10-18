@@ -1,15 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class AIEnemy : MonoBehaviour {
 
     protected NavMeshAgent _enemyAgent;
 
+    [Header("UI Variables")]
+    [SerializeField]
+    protected GameObject _healthBarPrefab;
+    protected GameObject _mainCanvas;
+    protected Image _actualHealthBar;
+    [SerializeField]
+    protected float _verticalOffset;
+    protected Vector3 _HPBarPos;
+    protected Camera _mainCam;
+
     [Header("Enemy Stats")]
     [SerializeField]
     protected float _enemyHealth;
+    protected float _currEnemyHealth;
     [SerializeField]
     protected float _enemyDamage;
     [SerializeField]
@@ -59,7 +71,6 @@ public class AIEnemy : MonoBehaviour {
     protected float _deathDuration;
     [SerializeField]
     protected float _stunDuration;
-    
 
     protected GameObject _sword;
     protected Vector3 _swordPos;
@@ -134,6 +145,24 @@ public class AIEnemy : MonoBehaviour {
 
     }
 
+    public virtual void UpdateHealth(float _damage)
+    {
+        _currEnemyHealth -= _damage;
+
+        if(_enemyHealth < 0)
+        {
+            _enemyHealth = 0;
+        }
+
+        _actualHealthBar.fillAmount = _currEnemyHealth / _enemyHealth;
+    }
+
+    public virtual void ShowHealthBar()
+    {
+        _HPBarPos = _mainCam.WorldToScreenPoint(transform.position);
+        _actualHealthBar.transform.position = _HPBarPos + (Vector3.up * _verticalOffset);
+    }
+
     public virtual void GotDashStruck(float _damageRecieved)
     {
 
@@ -168,7 +197,4 @@ public class AIEnemy : MonoBehaviour {
     {
 
     }
-
-
-
 }
