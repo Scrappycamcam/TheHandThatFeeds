@@ -412,7 +412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92f174e35197ae247be03f5cb909b036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerDamage: 9
+  _lightAttackDamage: 0
+  _heavyAttackDamage: 0
   _moveSpeed: 5
   _sprintSpeed: 8
   _canSprint: 0
@@ -432,11 +433,15 @@ MonoBehaviour:
   _swordDetectDistance: 1.5
   _lightSwingDuration: 0.2
   _heavySwingDuration: 0.4
+  _cycloneAttackDamage: 0
+  _cycloneKnockBack: 0
   _cycloneIsUnlocked: 1
   _cycloneHealthBurden: 10
   _cycloneHeal: 5
   _cycloneSpinSpeed: 30
   _cycloneDuration: 0.5
+  _dashStrikeAttackDamage: 0
+  _dashStrikeKnockBack: 0
   _dashIsUnlocked: 0
   _dashStrikeHealthBurden: 10
   _dashStrikeHeal: 10
@@ -472,10 +477,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a98c93178a457342bf12a8a0adef448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ItemText: Hello World
   _ItemDisplay: 0
   _PlayerPos: {fileID: 4871863176803846}
   _playerId: 0
+  _interactDistance: 0
+  _debug: 0
 --- !u!143 &143044199267285196
 CharacterController:
   m_ObjectHideFlags: 1

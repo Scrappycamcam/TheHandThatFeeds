@@ -504,6 +504,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _whatAmI: 2
   leverNumber: 3
+  InteractImagePrefab: {fileID: 0}
+  _verticalOffset: 0
+  _myActualPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114261047033621800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -539,6 +542,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _whatAmI: 2
   leverNumber: 2
+  InteractImagePrefab: {fileID: 0}
+  _verticalOffset: 0
+  _myActualPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114640760014685834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -552,6 +558,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _whatAmI: 2
   leverNumber: 1
+  InteractImagePrefab: {fileID: 0}
+  _verticalOffset: 0
+  _myActualPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114739055686604112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -565,6 +574,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _whatAmI: 2
   leverNumber: 4
+  InteractImagePrefab: {fileID: 0}
+  _verticalOffset: 0
+  _myActualPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114919726756040502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -578,6 +590,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _whatAmI: 2
   leverNumber: 5
+  InteractImagePrefab: {fileID: 0}
+  _verticalOffset: 0
+  _myActualPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114955566758884282
 MonoBehaviour:
   m_ObjectHideFlags: 1

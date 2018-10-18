@@ -287,6 +287,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6167d5d324d9b44592cbb0311635980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 75
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 10
