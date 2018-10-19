@@ -27,6 +27,7 @@ public class PlayerInteraction : MonoBehaviour {
 	void Update () {
         if (_player.GetButtonDown("Interact") && _currObject != null)
         {
+            Debug.Log("E Was Pressed");
             ActivateObject();
         }
 

@@ -2,8 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//Enum Not Currently In Use.
+public enum PzType
+{
+    LeverPz,
+    KillPz,
+    StepPz
+}
+
 public class PuzzleManager : MonoBehaviour {
     [Header("Puzzle Type")]
+    [SerializeField]
+    PzType TypeOfPuzzle;
     [SerializeField] private bool _Pressed;
 
     [Header("Puzzle Items")]
@@ -22,6 +33,14 @@ public class PuzzleManager : MonoBehaviour {
     [Tooltip("Add Levers to be pulled")]
     List<InteractableObject> _Levers;
 
+    [Tooltip("This controls the amount of time to complete the puzzle.")]
+    [SerializeField]
+    private float _PzTime;
+
+    [Tooltip("This Activates a Timer for the puzzle")]
+    [SerializeField]
+    private bool _HasTimer = false;
+    
     private bool _PzResetting = false;
     private Color DefaultColor = Color.white;
 
@@ -37,13 +56,7 @@ public class PuzzleManager : MonoBehaviour {
     }
 
 
-    //Enum Not Currently In Use.
-    private enum PzType
-    {
-        LeverPz,
-        KillPz,
-        StepPz
-    }
+
 
     public void PzCheck()
     {
@@ -75,12 +88,16 @@ public class PuzzleManager : MonoBehaviour {
         for (int i = 0; i < transform.childCount; i++)
         {
             _Levers[i].gameObject.GetComponent<MeshRenderer>().material.color = DefaultColor;
+            //if(PzType = PzType.StepPz)
+            _Levers[i].gameObject.GetComponent<InteractableObject>().SteppedOn = false;
+            Debug.Log(_Levers[i].gameObject.GetComponent<InteractableObject>().SteppedOn);
         }
 
         _OrderProg = "";
         StartCoroutine(Timer(1.0f));
     }
 
+    
 
     public void moveFloor()
     {
@@ -103,5 +120,10 @@ public class PuzzleManager : MonoBehaviour {
         _PzResetting = true;
         yield return new WaitForSeconds(waitTime);
         _PzResetting = false;
+    }
+
+    public PzType GetPzType()
+    {
+        return TypeOfPuzzle;
     }
 }

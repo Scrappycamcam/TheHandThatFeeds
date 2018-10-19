@@ -26,6 +26,10 @@ public class InteractableObject : MonoBehaviour {
 
     private PuzzleManager pzManager;
 
+    [Header("If Step Puzzle")]
+    [SerializeField]
+    bool _HasBeenStepped = false;
+
     [Header("UI Variables")]
     [SerializeField]
     GameObject InteractImagePrefab;
@@ -74,10 +78,37 @@ public class InteractableObject : MonoBehaviour {
                 Destroy(gameObject);
                 break;
             case TypeOfObject.PUZZLE:
-                Debug.Log("Lever Pulled.");
-                gameObject.GetComponent<MeshRenderer>().material.color = CorrectColor;
-                pzManager._OrderProg = pzManager._OrderProg + leverNumber;
-                pzManager.PzCheck();
+                Debug.Log("Puzzle Type Found");
+
+                if(pzManager.GetPzType() == PzType.LeverPz)
+                {
+                    Debug.Log("Lever Pulled.");
+                    gameObject.GetComponent<MeshRenderer>().material.color = CorrectColor;
+                    pzManager._OrderProg = pzManager._OrderProg + leverNumber;
+                    pzManager.PzCheck();
+                }
+                else if (pzManager.GetPzType() == PzType.StepPz)
+                {
+                    //Debug.Log("Lever Pulled.");
+                    if (!_HasBeenStepped)
+                    {
+                        gameObject.GetComponent<MeshRenderer>().material.color = CorrectColor;
+                        pzManager._OrderProg = pzManager._OrderProg + leverNumber;
+                        this._HasBeenStepped = true;
+                        pzManager.PzCheck();
+                        
+                    }
+
+                }
+                else if(pzManager.GetPzType() == PzType.KillPz)
+                {
+
+                }
+                else
+                {
+
+                }
+
                 break;
             default:
                 break;
@@ -95,4 +126,5 @@ public class InteractableObject : MonoBehaviour {
         _myImage.SetActive(false);
         _active = false;
     }
+    public bool SteppedOn { get { return _HasBeenStepped; } set { _HasBeenStepped = value; } }
 }
