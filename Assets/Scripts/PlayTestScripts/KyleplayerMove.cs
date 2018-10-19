@@ -101,11 +101,11 @@ public class KyleplayerMove : MonoBehaviour
     [Header("Special Ability Variables")]
     [Header("Cyclone")]
     [SerializeField]
+    bool _cycloneIsUnlocked;
+    [SerializeField]
     float _cycloneAttackDamage;
     [SerializeField]
     float _cycloneKnockBack;
-    [SerializeField]
-    bool _cycloneIsUnlocked;
     [SerializeField]
     float _cycloneHealthBurden;
     [SerializeField]
@@ -114,16 +114,20 @@ public class KyleplayerMove : MonoBehaviour
     float _cycloneSpinSpeed;
     [SerializeField]
     float _cycloneDuration;
+    [SerializeField]
+    float _cycloneDetectionDistance;
+    [SerializeField]
+    bool _debugCyclone;
     List<AIEnemy> _enemyHit;
     float _cycloneHits;
 
     [Header("Dash Strike")]
     [SerializeField]
+    bool _dashIsUnlocked;
+    [SerializeField]
     float _dashStrikeAttackDamage;
     [SerializeField]
     float _dashStrikeKnockBack;
-    [SerializeField]
-    bool _dashIsUnlocked;
     [SerializeField]
     float _dashStrikeHealthBurden;
     [SerializeField]
@@ -136,8 +140,13 @@ public class KyleplayerMove : MonoBehaviour
     float _dashStrikeDistance;
     [SerializeField]
     float _dashStrikeForwardDashDuration;
-    bool _chargingDashStrike;
     [SerializeField]
+    float _dashStrikeInitialDetectionDistance;
+    [SerializeField]
+    float _dashStrikeDetectionDistanceWhileRammingAnEnemy;
+    [SerializeField]
+    bool _debugDashStrike;
+    bool _chargingDashStrike;
     GameObject _enemyIAmRamming;
 
     //[SerializeField]
@@ -411,7 +420,12 @@ public class KyleplayerMove : MonoBehaviour
 
         if(_currComboTime < 1)
         {
-            if (Physics.Raycast(_sword.transform.position, _sword.transform.up, out hit, _swordDetectDistance))
+            if(_debugCyclone)
+            {
+                Debug.DrawLine(transform.position, transform.position + (transform.forward * _cycloneDetectionDistance));
+            }
+
+            if (Physics.Raycast(_sword.transform.position, _sword.transform.up, out hit, _cycloneDetectionDistance))
             {
                 if (hit.collider.GetComponent<AIEnemy>())
                 {
@@ -507,15 +521,19 @@ public class KyleplayerMove : MonoBehaviour
     {
         _currComboTime = (Time.time - _startComboTime) / _dashStrikeForwardDashDuration;
         
-
         if (_currComboTime < 1)
         {
             if (_enemyIAmRamming == null)
             {
-                Debug.DrawLine(transform.position + Vector3.up, transform.position + transform.forward + Vector3.up);
-                if(Physics.Raycast(transform.position + Vector3.up, _sword.transform.up, out hit, _swordDetectDistance*2))
+                if(_debugDashStrike)
+                {
+                    Debug.DrawLine(transform.position + Vector3.up, transform.position + (transform.forward * _dashStrikeInitialDetectionDistance) + Vector3.up);
+                }
+
+                if (Physics.Raycast(transform.position + Vector3.up, _sword.transform.up, out hit, _dashStrikeInitialDetectionDistance))
                 {
                     GameObject thingHit = hit.collider.gameObject;
+
                     if (thingHit.GetComponent<AIEnemy>())
                     {
                         _enemyIAmRamming = thingHit;
@@ -536,8 +554,13 @@ public class KyleplayerMove : MonoBehaviour
                 for (int i = -1; i < 2; i++)
                 {
                     Vector3 RayPos = new Vector3(transform.position.x + ((transform.right.x *_swordReset.x) * i), transform.position.y + 1f, transform.position.z);
-                    Debug.DrawLine(RayPos, RayPos + transform.forward);
-                    if (Physics.Raycast(RayPos, _sword.transform.up, out hit, _swordDetectDistance*1.3f))
+
+                    if(_debugDashStrike)
+                    {
+                        Debug.DrawLine(RayPos, RayPos + (transform.forward * _dashStrikeDetectionDistanceWhileRammingAnEnemy));
+                    }
+
+                    if (Physics.Raycast(RayPos, _sword.transform.up, out hit, _dashStrikeDetectionDistanceWhileRammingAnEnemy))
                     {
                         
                         GameObject thingHit = hit.collider.gameObject;
@@ -580,7 +603,7 @@ public class KyleplayerMove : MonoBehaviour
             _enemyHit = new List<AIEnemy>();
             if(_enemyIAmRamming != null)
             {
-                _enemyIAmRamming.GetComponent<AIEnemy>().ResetState();
+                _enemyIAmRamming.GetComponent<AIEnemy>().GotHit(0, transform.forward);
                 _enemyIAmRamming = null;
             }
         }

@@ -203,4 +203,7 @@ public class AIEnemy : MonoBehaviour {
     {
 
     }
+
+    public virtual bool AmAlerted { get { return _alerted; } set { _alerted = true; } }
+    public virtual KyleplayerMove SetPlayer { set { _player = value; } }
 }

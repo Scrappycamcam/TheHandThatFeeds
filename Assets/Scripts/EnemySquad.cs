@@ -30,6 +30,15 @@ public class EnemySquad : MonoBehaviour {
         }
     }
 
+    public void AlertSquad(KyleplayerMove _playerToAttack)
+    {
+        for (int i = 0; i < _enemyList.Count; i++)
+        {
+            _enemyList[i].SetPlayer = _playerToAttack;
+            _enemyList[i].AmAlerted = true;
+        }
+    }
+
     public void ResetSquad()
     {
         for (int i = 0; i < _enemyList.Count; i++)

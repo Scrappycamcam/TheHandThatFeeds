@@ -153,7 +153,7 @@ MonoBehaviour:
   _newCycloneDamage: 25
   _newDashDamage: 25
   _BerzerkLength: 5
-  _currentBerzerkBar: {fileID: 114622110704356870}
+  _currentBerzerkBar: {fileID: 114303893197178768}
   _vertOffset: 60
 --- !u!114 &114161349008248588
 MonoBehaviour:
@@ -463,7 +463,7 @@ RectTransform:
   m_Children:
   - {fileID: 224420502022905034}
   m_Father: {fileID: 224595730196827948}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -516,10 +516,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 224724019677809314}
   - {fileID: 224008080477707666}
   - {fileID: 224697996005025730}
   - {fileID: 224737895086916160}
-  - {fileID: 224724019677809314}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -539,7 +539,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224595730196827948}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -558,7 +558,7 @@ RectTransform:
   m_Children:
   - {fileID: 224547732356538046}
   m_Father: {fileID: 224595730196827948}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -576,7 +576,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224595730196827948}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

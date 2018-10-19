@@ -38,6 +38,7 @@ public class AIMovementRanged : AIEnemy {
 
         GameObject _healthBar = Instantiate<GameObject>(_healthBarPrefab, _mainCanvas.transform);
         _actualHealthBar = _healthBar.GetComponent<Image>();
+        _actualHealthBar.gameObject.SetActive(false);
 
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
         _init = true;
@@ -48,6 +49,7 @@ public class AIMovementRanged : AIEnemy {
     {
         if (_init)
         {
+            ShowHealthBar();
             if(!_slammed)
             {
                 if (!_hit)
@@ -120,6 +122,7 @@ public class AIMovementRanged : AIEnemy {
                 if (hit.collider.GetComponent<KyleplayerMove>())
                 {
                     _player = hit.collider.GetComponent<KyleplayerMove>();
+                    _mySquad.AlertSquad(_player);
                     return true;
                 }
             }
@@ -275,7 +278,6 @@ public class AIMovementRanged : AIEnemy {
     {
         _showingTheTell = false;
         _sword.transform.localPosition = _swordPos;
-        transform.parent = _mySquad.transform;
         GetComponent<CapsuleCollider>().enabled = true;
         _attacking = false;
         _waiting = false;
@@ -299,7 +301,7 @@ public class AIMovementRanged : AIEnemy {
 
             _hit = true;
 
-            _enemyHealth -= _damageRecieved;
+            UpdateHealth(_damageRecieved);
             if (_currEnemyHealth <= 0)
             {
                 DeadActivate(_flydir);
@@ -309,7 +311,7 @@ public class AIMovementRanged : AIEnemy {
 
     public override void GotDashStruck(float _damageRecieved)
     {
-        _enemyDamage -= _damageRecieved; 
+        UpdateHealth(_damageRecieved);
         _slammed = true;
         GetComponent<CapsuleCollider>().enabled = false;
         _enemyAgent.isStopped = true;

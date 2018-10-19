@@ -37,8 +37,6 @@ public class InteractableObject : MonoBehaviour {
     float _verticalOffset;
     GameObject _myImage;
     GameObject _myCanvas;
-    [SerializeField]
-    Vector3 _myActualPos;
     Vector3 _myPos;
 
     bool _active = false;
@@ -55,13 +53,14 @@ public class InteractableObject : MonoBehaviour {
         GameObject _ImageRef = Instantiate<GameObject>(InteractImagePrefab, _myPos, _myCanvas.transform.rotation, _myCanvas.transform);
         _myImage = _ImageRef;
         _myImage.SetActive(false);
+        transform.parent = null;
     }
 
     private void Update()
     {
         if(_active)
         {
-            _myPos = _playerCam.WorldToScreenPoint(_myActualPos) + (Vector3.up * _verticalOffset);
+            _myPos = _playerCam.WorldToScreenPoint(transform.position) + (Vector3.up * _verticalOffset);
             _myImage.transform.position = _myPos;
         }
     }
@@ -75,7 +74,8 @@ public class InteractableObject : MonoBehaviour {
             case TypeOfObject.POTION:
                 Debug.Log("Got hit");
                 _player.GetPlayerStats.PHeal(20);
-                Destroy(gameObject);
+                TurnOffIcon();
+                gameObject.SetActive(false);
                 break;
             case TypeOfObject.PUZZLE:
                 Debug.Log("Puzzle Type Found");
@@ -126,5 +126,6 @@ public class InteractableObject : MonoBehaviour {
         _myImage.SetActive(false);
         _active = false;
     }
+
     public bool SteppedOn { get { return _HasBeenStepped; } set { _HasBeenStepped = value; } }
 }

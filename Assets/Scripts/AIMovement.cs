@@ -113,6 +113,7 @@ public class AIMovement : AIEnemy {
                 if (hit.collider.GetComponent<KyleplayerMove>())
                 {
                     _player = hit.collider.GetComponent<KyleplayerMove>();
+                    _mySquad.AlertSquad(_player);
                     return true;
                 }
             }
@@ -271,7 +272,6 @@ public class AIMovement : AIEnemy {
     {
         _showingTheTell = false;
         _sword.transform.localPosition = _swordPos;
-        transform.parent = _mySquad.transform;
         GetComponent<CapsuleCollider>().enabled = true;
         _attacking = false;
         _waiting = false;
@@ -284,6 +284,7 @@ public class AIMovement : AIEnemy {
     //For Update 2
     public override void GotHit(float _damageRecieved, Vector3 _flydir)
     {
+        transform.parent = null;
         if (_canTakeDamage)
         {
             //Debug.Log("hit");
@@ -306,7 +307,7 @@ public class AIMovement : AIEnemy {
 
     public override void GotDashStruck(float _damageRecieved)
     {
-        _enemyDamage -= _damageRecieved; 
+        UpdateHealth(_damageRecieved);
         _slammed = true;
         GetComponent<CapsuleCollider>().enabled = false;
         _enemyAgent.isStopped = true;
