@@ -22,6 +22,8 @@ public class PlayerStats : MonoBehaviour {
     {
         
         startPos = transform.position;
+
+        _currentHealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
         //PDamage(100);
     }
 
@@ -30,28 +32,27 @@ public class PlayerStats : MonoBehaviour {
         startPos = transform.position;
     }
 
-    private void OnGUI()
-    {
-        _currentHealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
-        DisplayHealth();
-    }
-
     void DisplayHealth()
     {
         float ratio = _PHealth / _PmaxHealth; //creates the health ratio
-        _currentHealthBar.rectTransform.localScale = new Vector3(ratio, 1, 1); // sets the scale transform for the health bar
+
+        if(ratio <0)
+        {
+            ratio = 0;
+        }
+
+        _currentHealthBar.fillAmount = ratio; // sets the scale transform for the health bar
         //_HealthDisplay.text = (ratio * 100).ToString() + '%'; //use if display text is desired
     }
+
     public float PDamage(float DtoTake)//function for taking damage
     {
-        if(_PHealth > DtoTake)
-        {
-            _PHealth = _PHealth - DtoTake;
+        _PHealth = _PHealth - DtoTake;
 
-        }
-        else
+        DisplayHealth();
+
+        if (_PHealth <= 0)
         {
-            _PHealth = 0;
             Defeat();
         }
 

@@ -397,6 +397,7 @@ public class AIMovementRanged : AIEnemy {
 
         if (_currentAttackTime >= 1)
         {
+            FindObjectOfType<BerzerkMode>().EnemyDied(1);
             _currentAttackTime = 1;
 
             _init = false;

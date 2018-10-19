@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class AIMovement : AIEnemy {
@@ -22,6 +23,12 @@ public class AIMovement : AIEnemy {
         _swordPos = _sword.transform.localPosition;
         _sword.SetActive(false);
 
+        _mainCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
+        _mainCanvas = FindObjectOfType<Canvas>().gameObject;
+
+        GameObject _healthBar = Instantiate<GameObject>(_healthBarPrefab, _mainCanvas.transform);
+        _actualHealthBar = _healthBar.GetComponent<Image>();
+
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
         _init = true;
     }
@@ -31,6 +38,7 @@ public class AIMovement : AIEnemy {
     {
         if (_init)
         {
+            ShowHealthBar();
             if(!_slammed)
             {
                 if (!_hit)
@@ -282,10 +290,11 @@ public class AIMovement : AIEnemy {
             _startAttackTime = Time.time;
             c0 = transform.position;
             c1 = transform.position + _flydir;
+            _alerted = true;
 
             _hit = true;
 
-            _enemyHealth -= _damageRecieved;
+            UpdateHealth(_damageRecieved);
             if (_enemyHealth <= 0)
             {
                 DeadActivate(_flydir);
