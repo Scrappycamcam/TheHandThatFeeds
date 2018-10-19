@@ -28,6 +28,8 @@ public class AIMovement : AIEnemy {
 
         GameObject _healthBar = Instantiate<GameObject>(_healthBarPrefab, _mainCanvas.transform);
         _actualHealthBar = _healthBar.GetComponent<Image>();
+        _actualHealthBar.gameObject.SetActive(false);
+        _currEnemyHealth = _enemyHealth;
 
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
         _init = true;
@@ -295,7 +297,7 @@ public class AIMovement : AIEnemy {
             _hit = true;
 
             UpdateHealth(_damageRecieved);
-            if (_enemyHealth <= 0)
+            if (_currEnemyHealth <= 0)
             {
                 DeadActivate(_flydir);
             }
@@ -319,7 +321,7 @@ public class AIMovement : AIEnemy {
         _enemyAgent.isStopped = true;
         _startAttackTime = Time.time;
         _stunned = true;
-        if (_enemyHealth <= 0)
+        if (_currEnemyHealth <= 0)
         {
             DeadActivate(Vector3.zero);
         }
@@ -400,10 +402,17 @@ public class AIMovement : AIEnemy {
 
         if (_currentAttackTime >= 1)
         {
+            FindObjectOfType<BerzerkMode>().EnemyDied(1);
+            if(gameObject.tag == "Boss")
+            {
+                FindObjectOfType<WinCondition>().BossDied();
+            }
+            FindObjectOfType<WinCondition>().EnemyDied();
             _currentAttackTime = 1;
 
             _init = false;
             gameObject.SetActive(false);
+            _actualHealthBar.gameObject.SetActive(false);
         }
 
         Vector3 p01, p12, p012;

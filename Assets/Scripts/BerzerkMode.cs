@@ -14,21 +14,21 @@ public class BerzerkMode : MonoBehaviour {
     [SerializeField]
     float _newSpeed = 8f;
     [SerializeField]
-    int _newLightDamage = 15;
+    float _newLightDamage = 15f;
     [SerializeField]
-    int _newHeavyDamage = 20;
+    float _newHeavyDamage = 20f;
     [SerializeField]
-    int _newCycloneDamage = 25;
+    float _newCycloneDamage = 25f;
     [SerializeField]
-    int _newDashDamage = 25;
+    float _newDashDamage = 25f;
     [SerializeField]
     float _BerzerkLength;
 
     private float _origSpeed;
-    private int _origLightDamage;
-    private int _origHeavyDamage;
-    private int _origCycloneDamage;
-    private int _origDashDamage;
+    private float _origLightDamage;
+    private float _origHeavyDamage;
+    private float _origCycloneDamage;
+    private float _origDashDamage;
 
     private float _BerzerkTimer;
     private Player _player;
@@ -49,6 +49,8 @@ public class BerzerkMode : MonoBehaviour {
     {
         _playerCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
         player = GameObject.Find("Player").transform;
+        _player = ReInput.players.GetPlayer(0);
+        _playerMove = FindObjectOfType<KyleplayerMove>();
     }
 	
 	// Update is called once per frame
@@ -79,10 +81,10 @@ public class BerzerkMode : MonoBehaviour {
         {
             _numKillsSoFar = _numKillsToCharge;
         }
-        float ratio = (float)_numKillsSoFar/_numKillsToCharge; //creates the berzerk ratio
-        _currentBerzerkBar.rectTransform.localScale = new Vector3(ratio, 1, 1); // sets the scale transform for the berzerk bar
-        Debug.Log(ratio);
-        if (ratio == 1)
+        float ratio = (float)((float)_numKillsSoFar/(float)_numKillsToCharge); //creates the berzerk ratio
+        _currentBerzerkBar.fillAmount = ratio; // sets the scale transform for the berzerk bar
+        //Debug.Log(ratio);
+        if (ratio == 1 && !_isCharged)
         {
             _isCharged = true;
         }
@@ -90,7 +92,7 @@ public class BerzerkMode : MonoBehaviour {
 
     private void CheckForStart()
     {
-        _berzerk = _player.GetButtonDown("Berzerk");
+        _berzerk = _player.GetButtonDown("Ability4");
         if (_berzerk)
         {
             StartBerzerk();
@@ -99,17 +101,37 @@ public class BerzerkMode : MonoBehaviour {
 
     private void StartBerzerk()
     {
+        _origLightDamage = _playerMove.GetLightDamage;
+        _origHeavyDamage = _playerMove.GetHeavyDamage;
+        _origSpeed = _playerMove.GetMoveSpeed;
+        _origCycloneDamage = _playerMove.GetCycloneDamage;
+        _origDashDamage = _playerMove.GetCycloneDamage;
+
+        _playerMove.GetLightDamage = _newLightDamage;
+        _playerMove.GetHeavyDamage = _newHeavyDamage;
+        _playerMove.GetMoveSpeed = _newSpeed;
+        _playerMove.GetCycloneDamage = _newCycloneDamage;
+        _playerMove.GetDashDamage = _newDashDamage;
+
         _berzerking = true;
         _BerzerkTimer = Time.time + _BerzerkLength;
     }
 
     private void CheckForStop()
     {
-        float ratio = (_BerzerkTimer - Time.time) / _BerzerkTimer;
+        float ratio = (float)((_BerzerkTimer - Time.time) / _BerzerkLength);
         _currentBerzerkBar.fillAmount = ratio;
         if(ratio <= 0)
         {
+            ratio = 0;
+            _numKillsSoFar = 0;
+            _playerMove.GetLightDamage = _origLightDamage;
+            _playerMove.GetHeavyDamage = _origHeavyDamage;
+            _playerMove.GetMoveSpeed = _origSpeed;
+            _playerMove.GetCycloneDamage = _origCycloneDamage;
+            _playerMove.GetDashDamage = _origDashDamage;
             _berzerking = false;
+            _isCharged = false;
         }
     }
 

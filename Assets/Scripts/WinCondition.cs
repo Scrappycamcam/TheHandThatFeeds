@@ -11,6 +11,8 @@ public class WinCondition : MonoBehaviour {
     private float totalEnemies;
     private bool BossDead;
 
+    public GameObject _FinalDoor;
+
     // Use this for initialization
     void Start()
     {
@@ -44,6 +46,6 @@ public class WinCondition : MonoBehaviour {
 
     private void OpenEnd()
     {
-
+        _FinalDoor.SetActive(true);
     }
 }

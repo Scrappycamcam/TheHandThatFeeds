@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 33750047304798184}
   m_Layer: 0
   m_Name: EnemyBoss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -373,7 +373,7 @@ MonoBehaviour:
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
-  _stunDuration: 0
+  _stunDuration: 1
   _patrolPoints:
   - {fileID: 1697878526546982}
   - {fileID: 1567702628989292}

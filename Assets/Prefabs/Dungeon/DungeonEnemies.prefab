@@ -168,6 +168,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1033768499792068
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4931722686586118}
+  - component: {fileID: 33653066007707462}
+  - component: {fileID: 23008073636121890}
+  - component: {fileID: 65010811963790968}
+  m_Layer: 0
+  m_Name: Sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1036675813109626
 GameObject:
   m_ObjectHideFlags: 1
@@ -342,6 +360,21 @@ GameObject:
   - component: {fileID: 33522553282390944}
   m_Layer: 0
   m_Name: Enemy (25)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1079551934019214
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4148980195321576}
+  m_Layer: 0
+  m_Name: PatrolPoint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -726,6 +759,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1236142335879228
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4965517370942780}
+  m_Layer: 0
+  m_Name: PatrolPoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1241258459987536
 GameObject:
   m_ObjectHideFlags: 1
@@ -754,6 +802,26 @@ GameObject:
   - component: {fileID: 65862860706888116}
   m_Layer: 0
   m_Name: Sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1244645441157658
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4978572517857304}
+  - component: {fileID: 23909134805818962}
+  - component: {fileID: 136117421890992652}
+  - component: {fileID: 195022873242501292}
+  - component: {fileID: 114298286088541324}
+  - component: {fileID: 33220726880610818}
+  m_Layer: 0
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1477,21 +1545,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1457482515469836
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4007319048280974}
-  m_Layer: 0
-  m_Name: PatrolPoint1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1459699049267558
 GameObject:
   m_ObjectHideFlags: 1
@@ -1538,24 +1591,6 @@ GameObject:
   - component: {fileID: 65789714299847514}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1473726452226472
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4643933179016584}
-  - component: {fileID: 33130677655833666}
-  - component: {fileID: 23673487119519168}
-  - component: {fileID: 65829510009594000}
-  m_Layer: 0
-  m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1712,24 +1747,6 @@ GameObject:
   - component: {fileID: 4237473966450594}
   m_Layer: 0
   m_Name: PatrolPoint3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1512435958937082
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4020032331847124}
-  - component: {fileID: 33756549388469992}
-  - component: {fileID: 23665709243472472}
-  - component: {fileID: 65348947411925774}
-  m_Layer: 0
-  m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1922,6 +1939,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1549619064055514
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4191067716129106}
+  m_Layer: 0
+  m_Name: PatrolPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1552005475179860
 GameObject:
   m_ObjectHideFlags: 1
@@ -1955,21 +1987,6 @@ GameObject:
   - component: {fileID: 33457829562182172}
   m_Layer: 0
   m_Name: Enemy (19)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1554231041338338
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4713124761594942}
-  m_Layer: 0
-  m_Name: PatrolPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2206,26 +2223,6 @@ GameObject:
   - component: {fileID: 4471323687009546}
   m_Layer: 0
   m_Name: PatrolPoint1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1618053478380862
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4877536527005950}
-  - component: {fileID: 23620673490834150}
-  - component: {fileID: 136321727719961704}
-  - component: {fileID: 195637745096056600}
-  - component: {fileID: 114687512165529384}
-  - component: {fileID: 33144938806707906}
-  m_Layer: 0
-  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3657,21 +3654,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1956212962708598
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4787171628304594}
-  m_Layer: 0
-  m_Name: PatrolPoint3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1956707324816676
 GameObject:
   m_ObjectHideFlags: 1
@@ -3849,19 +3831,6 @@ Transform:
   m_Father: {fileID: 4852187401666272}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4007319048280974
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1457482515469836}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4877536527005950}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4011083190971480
 Transform:
   m_ObjectHideFlags: 1
@@ -3887,19 +3856,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4769538975333698}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4020032331847124
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1512435958937082}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.000000059605, y: 0.747, z: 0.494}
-  m_LocalScale: {x: 0.3281, y: 0.07525, z: 0.2159}
-  m_Children: []
-  m_Father: {fileID: 4877536527005950}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4028353114103766
 Transform:
@@ -4122,6 +4078,19 @@ Transform:
   m_Father: {fileID: 4725164679729244}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4148980195321576
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1079551934019214}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4978572517857304}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4158715206428400
 Transform:
   m_ObjectHideFlags: 1
@@ -4199,6 +4168,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4255430516847898}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4191067716129106
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1549619064055514}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4978572517857304}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4192248230152964
 Transform:
@@ -5729,19 +5711,6 @@ Transform:
   m_Father: {fileID: 4474543980631330}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4643933179016584
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1473726452226472}
-  m_LocalRotation: {x: 0.27267185, y: 0.27267185, z: 0.6524187, w: -0.6524187}
-  m_LocalPosition: {x: 0.59, y: 0.28, z: 0.19}
-  m_LocalScale: {x: 0.30358, y: 0.103965834, z: 1.2168}
-  m_Children: []
-  m_Father: {fileID: 4877536527005950}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -134.636, y: 180, z: 90}
 --- !u!4 &4645431758381878
 Transform:
   m_ObjectHideFlags: 1
@@ -5817,7 +5786,7 @@ Transform:
   m_LocalPosition: {x: 125.020004, y: 1.05, z: 36.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4877536527005950}
+  - {fileID: 4978572517857304}
   - {fileID: 4925276332340478}
   - {fileID: 4979563543112288}
   - {fileID: 4634183965119222}
@@ -5975,19 +5944,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4666630326093066}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4713124761594942
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1554231041338338}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4877536527005950}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4715827047524360
 Transform:
@@ -6255,19 +6211,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4255430516847898}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4787171628304594
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1956212962708598}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4877536527005950}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4787957848755036
 Transform:
@@ -6618,24 +6561,6 @@ Transform:
   m_Father: {fileID: 4806038992373906}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4877536527005950
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1618053478380862}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000032782552}
-  m_LocalPosition: {x: -121.80956, y: -16.413902, z: -25.540379}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4643933179016584}
-  - {fileID: 4020032331847124}
-  - {fileID: 4007319048280974}
-  - {fileID: 4713124761594942}
-  - {fileID: 4787171628304594}
-  m_Father: {fileID: 4664875642563368}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 179.99998, z: 0}
 --- !u!4 &4880449036220510
 Transform:
   m_ObjectHideFlags: 1
@@ -6784,6 +6709,19 @@ Transform:
   m_Father: {fileID: 4725164679729244}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4931722686586118
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1033768499792068}
+  m_LocalRotation: {x: 0.27267185, y: 0.27267185, z: 0.6524187, w: -0.6524187}
+  m_LocalPosition: {x: 0.59, y: 0.28, z: 0.19}
+  m_LocalScale: {x: 0.30358, y: 0.103965834, z: 1.2168}
+  m_Children: []
+  m_Father: {fileID: 4978572517857304}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -134.636, y: 180, z: 90}
 --- !u!4 &4936864450360474
 Transform:
   m_ObjectHideFlags: 1
@@ -6872,6 +6810,19 @@ Transform:
   m_Father: {fileID: 4951766838697638}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4965517370942780
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1236142335879228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4978572517857304}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4966939991631094
 Transform:
   m_ObjectHideFlags: 1
@@ -6903,6 +6854,23 @@ Transform:
   m_Father: {fileID: 4873443411845578}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4978572517857304
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244645441157658}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000032782552}
+  m_LocalPosition: {x: -121.80956, y: -16.413902, z: -25.540379}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4931722686586118}
+  - {fileID: 4965517370942780}
+  - {fileID: 4191067716129106}
+  - {fileID: 4148980195321576}
+  m_Father: {fileID: 4664875642563368}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 179.99998, z: 0}
 --- !u!4 &4979563543112288
 Transform:
   m_ObjectHideFlags: 1
@@ -6987,6 +6955,41 @@ Transform:
   m_Father: {fileID: 4510512590245960}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -134.636, y: 180, z: 90}
+--- !u!23 &23008073636121890
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1033768499792068}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 48878c9549fa393409dfbf977f87197e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23025459570805152
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -9192,82 +9195,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23620673490834150
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1618053478380862}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 2100000, guid: 63b0faae23bdda944ba8352aacf14925, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23631343403401636
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1755188653791988}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!23 &23665709243472472
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1512435958937082}
   m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -9338,41 +9271,6 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1544359811664948}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 2100000, guid: 48878c9549fa393409dfbf977f87197e, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!23 &23673487119519168
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1473726452226472}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -10277,6 +10175,41 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23909134805818962
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244645441157658}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 63b0faae23bdda944ba8352aacf14925, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23913494968538894
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -10753,13 +10686,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1681505610900220}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33130677655833666
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1473726452226472}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33134112163637042
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -10774,13 +10700,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1139472074733938}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33144938806707906
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1618053478380862}
-  m_Mesh: {fileID: 4300000, guid: 2ac9e21fa7c5cb14eaccd3049a0b2333, type: 3}
 --- !u!33 &33165288504469502
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -10808,6 +10727,13 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1081361858189588}
+  m_Mesh: {fileID: 4300000, guid: 2ac9e21fa7c5cb14eaccd3049a0b2333, type: 3}
+--- !u!33 &33220726880610818
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244645441157658}
   m_Mesh: {fileID: 4300000, guid: 2ac9e21fa7c5cb14eaccd3049a0b2333, type: 3}
 --- !u!33 &33225366066206180
 MeshFilter:
@@ -11124,6 +11050,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1226736448437570}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33653066007707462
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1033768499792068}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33668674579490858
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -11207,13 +11140,6 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1195895821410928}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33756549388469992
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1512435958937082}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33767199385201652
 MeshFilter:
@@ -11397,6 +11323,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1514159458447672}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65010811963790968
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1033768499792068}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65028012900598504
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -11757,18 +11695,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65348947411925774
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1512435958937082}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65370858064072704
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -12093,18 +12019,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65829510009594000
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1473726452226472}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65831165222377216
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -12260,49 +12174,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1341809401639920}
   - {fileID: 1438991835597762}
   - {fileID: 1883275286000634}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114095880517782158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12314,48 +12207,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1699320106483958}
   - {fileID: 1937782919114964}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114103727348982248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12367,48 +12239,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1964778997285946}
   - {fileID: 1961784716859804}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114164054116700982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12420,49 +12271,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1164363268362830}
   - {fileID: 1517489435184910}
   - {fileID: 1350053445247928}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114176032102076626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12474,48 +12304,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1548820478148034}
   - {fileID: 1307599519862566}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114196412896008442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12527,48 +12336,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1234995562921394}
   - {fileID: 1102877037907080}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114196525881211342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12580,48 +12368,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1690325333433412}
   - {fileID: 1773543982007482}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114255431004487692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12633,48 +12400,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1291848426832536}
   - {fileID: 1700859453861722}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114291633331044938
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12686,48 +12432,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 100
   _enemyDamage: 9
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 15
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.3
   _attackSwingDuration: 0.3
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.3
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1907946784826974}
   - {fileID: 1565507039653496}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114298260443570492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12739,48 +12464,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1733032300834170}
   - {fileID: 1620611973052758}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
+--- !u!114 &114298286088541324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244645441157658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
+  _enemyHealth: 50
+  _enemyDamage: 7
+  _damageDistance: 1
+  _sightDistance: 15
+  _sightArea: 180
+  _numOfCasts: 15
+  _debugVision: 1
+  _followDistanceThreshold: 100
+  _attackDistanceThreshold: 4
+  _attackTellDuration: 0.5
+  _attackSwingDuration: 0.5
+  _durationBetweenAttacks: 0.5
+  _knockedBackDuration: 0.5
+  _deathDuration: 1
+  _stunDuration: 0
+  _patrolPoints:
+  - {fileID: 1236142335879228}
+  - {fileID: 1549619064055514}
 --- !u!114 &114339596856363736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12816,48 +12552,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1828009391122916}
   - {fileID: 1355547312707758}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114380993777707534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12869,48 +12584,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1604724109698180}
   - {fileID: 1718295566213906}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114388491910663520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12922,49 +12616,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1989342649039972}
   - {fileID: 1845679963880858}
   - {fileID: 1920856017673984}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114403526363368680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12976,48 +12649,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1108181830486712}
   - {fileID: 1479986448647686}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114415896644056598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13029,48 +12681,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1290943452421804}
   - {fileID: 1394745950122060}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114419191803573800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13094,48 +12725,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1153810952867910}
   - {fileID: 1347205208686076}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114533971557119932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13147,48 +12757,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1518666559809470}
   - {fileID: 1505697880130914}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114534701076101356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13212,48 +12801,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1628225973787502}
   - {fileID: 1294344145568162}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114665726851013116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13265,48 +12833,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1613921340504698}
   - {fileID: 1853884489106022}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114673010931170574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13318,102 +12865,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1220492957586002}
   - {fileID: 1493742441053078}
   - {fileID: 1541423790976200}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
---- !u!114 &114687512165529384
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1618053478380862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
-  _enemyHealth: 50
-  _enemyDamage: 7
-  _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
-  _sightDistance: 15
-  _sightArea: 180
-  _numOfCasts: 15
-  _debugVision: 1
-  _followDistanceThreshold: 100
-  _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
-  _attackTellDuration: 0.5
-  _attackSwingDuration: 0.5
-  _durationBetweenAttacks: 0.5
-  _knockedBackDuration: 0.5
-  _deathDuration: 1
-  _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
-  _patrolPoints:
-  - {fileID: 1457482515469836}
-  - {fileID: 1554231041338338}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114728681847854184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13437,48 +12910,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1465660088270814}
   - {fileID: 1026747835305974}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114732325591119340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13490,49 +12942,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1558003225081878}
   - {fileID: 1673012772114864}
   - {fileID: 1817322656084660}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114739402032444082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13544,48 +12975,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1871716583639718}
   - {fileID: 1311956715409538}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114745160146581470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13609,48 +13019,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1229992581461064}
   - {fileID: 1812443580652728}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114787371955245294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13662,47 +13051,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1920944432298636}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114847141359324586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13714,49 +13082,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1871918486982696}
   - {fileID: 1069136313382320}
   - {fileID: 1247563557567948}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114875003296275110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13780,48 +13127,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1348222928541438}
   - {fileID: 1275914023693934}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114889789152878020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13833,48 +13159,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1956707324816676}
   - {fileID: 1509489560969076}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114896660127060650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13886,48 +13191,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1001982827588178}
   - {fileID: 1329962342191616}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114918580771704646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13939,48 +13223,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1497431630121012}
   - {fileID: 1745057250467262}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114925657477511188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13992,48 +13255,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1241258459987536}
   - {fileID: 1838065298700900}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114940157387655620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14045,48 +13287,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1495121353324948}
   - {fileID: 1235597417945162}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114941127742480758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14098,48 +13319,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1780276990666626}
   - {fileID: 1474090265912396}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!114 &114988024215567936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14163,48 +13363,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff410cba4278444bf02ceb5a6d5d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAgent: {fileID: 0}
+  _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
+    type: 2}
+  _verticalOffset: 0
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 1
-  _startPoint: {x: 0, y: 0, z: 0}
   _sightDistance: 15
   _sightArea: 180
   _numOfCasts: 9
   _debugVision: 1
   _followDistanceThreshold: 100
   _attackDistanceThreshold: 4
-  _attacking: 0
-  _showingTheTell: 0
-  _waiting: 0
-  _hit: 0
-  _slammed: 0
-  _stunned: 0
-  _canTakeDamage: 1
-  _dead: 0
-  _deadLook: {x: 0, y: 0, z: 0}
-  _startAttackTime: 0
-  _currentAttackTime: 0
-  c0: {x: 0, y: 0, z: 0}
-  c1: {x: 0, y: 0, z: 0}
-  c2: {x: 0, y: 0, z: 0}
   _attackTellDuration: 0.5
   _attackSwingDuration: 0.5
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
   _stunDuration: 0
-  _sword: {fileID: 0}
-  _swordPos: {x: 0, y: 0, z: 0}
   _patrolPoints:
   - {fileID: 1291617760343872}
   - {fileID: 1712077989393684}
-  _patrolRoute: []
-  _currPath: 0
-  _alerted: 0
-  _init: 0
-  _player: {fileID: 0}
-  _mySquad: {fileID: 0}
 --- !u!136 &136055947362523532
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -14224,6 +13403,19 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1336533395794232}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!136 &136117421890992652
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244645441157658}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -14354,19 +13546,6 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1444978545775108}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!136 &136321727719961704
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1618053478380862}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -14666,6 +13845,27 @@ NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1036675813109626}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5000001
+  m_Speed: 5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!195 &195022873242501292
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244645441157658}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5000001
@@ -15086,27 +14286,6 @@ NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1010858975100208}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5000001
-  m_Speed: 5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!195 &195637745096056600
-NavMeshAgent:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1618053478380862}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5000001

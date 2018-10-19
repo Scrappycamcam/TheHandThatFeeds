@@ -11,6 +11,22 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1915487573322032}
   m_IsPrefabAsset: 1
+--- !u!1 &1112782959831788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4328089850905102}
+  - component: {fileID: 108761910546675714}
+  m_Layer: 0
+  m_Name: SpotLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1193516692137700
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +197,19 @@ Transform:
   m_Father: {fileID: 4871863176803846}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 62.600002, y: 37.864002, z: 43.486004}
+--- !u!4 &4328089850905102
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1112782959831788}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.19999981, y: 7.75, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4871863176803846}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4355824813530972
 Transform:
   m_ObjectHideFlags: 1
@@ -231,7 +260,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4871863176803846}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4778576960778036
 Transform:
@@ -276,6 +305,7 @@ Transform:
   - {fileID: 4299532251040956}
   - {fileID: 4059581852736420}
   - {fileID: 4355824813530972}
+  - {fileID: 4328089850905102}
   - {fileID: 4626770303729440}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -364,6 +394,43 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915487573322032}
   m_Mesh: {fileID: 4300000, guid: 5197c7f65a634ad4bb718354288472e4, type: 3}
+--- !u!108 &108761910546675714
+Light:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1112782959831788}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 3
+  m_Range: 10
+  m_SpotAngle: 64.48646
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!108 &108977878163236542
 Light:
   m_ObjectHideFlags: 1
@@ -412,8 +479,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92f174e35197ae247be03f5cb909b036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lightAttackDamage: 0
-  _heavyAttackDamage: 0
+  _lightAttackDamage: 10
+  _heavyAttackDamage: 15
   _moveSpeed: 5
   _sprintSpeed: 8
   _canSprint: 0
@@ -433,8 +500,8 @@ MonoBehaviour:
   _swordDetectDistance: 1.5
   _lightSwingDuration: 0.2
   _heavySwingDuration: 0.4
-  _cycloneAttackDamage: 0
-  _cycloneKnockBack: 0
+  _cycloneAttackDamage: 20
+  _cycloneKnockBack: 1
   _cycloneIsUnlocked: 1
   _cycloneHealthBurden: 10
   _cycloneHeal: 5

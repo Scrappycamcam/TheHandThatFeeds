@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class AIMovementRanged : AIEnemy {
 
@@ -16,6 +17,7 @@ public class AIMovementRanged : AIEnemy {
 
     public override void Init()
     {
+        _currEnemyHealth = _enemyHealth;
         _enemyAgent = GetComponent<NavMeshAgent>();
         _mySquad = GetComponentInParent<EnemySquad>();
         _patrolRoute = new List<Vector3>();
@@ -30,6 +32,12 @@ public class AIMovementRanged : AIEnemy {
         _sword = transform.GetChild(0).gameObject;
         _swordPos = _sword.transform.localPosition;
         _sword.SetActive(false);
+
+        _mainCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
+        _mainCanvas = FindObjectOfType<Canvas>().gameObject;
+
+        GameObject _healthBar = Instantiate<GameObject>(_healthBarPrefab, _mainCanvas.transform);
+        _actualHealthBar = _healthBar.GetComponent<Image>();
 
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
         _init = true;
@@ -292,7 +300,7 @@ public class AIMovementRanged : AIEnemy {
             _hit = true;
 
             _enemyHealth -= _damageRecieved;
-            if (_enemyHealth <= 0)
+            if (_currEnemyHealth <= 0)
             {
                 DeadActivate(_flydir);
             }
@@ -316,7 +324,7 @@ public class AIMovementRanged : AIEnemy {
         _enemyAgent.isStopped = true;
         _startAttackTime = Time.time;
         _stunned = true;
-        if (_enemyHealth <= 0)
+        if (_currEnemyHealth <= 0)
         {
             DeadActivate(Vector3.zero);
         }
@@ -398,6 +406,11 @@ public class AIMovementRanged : AIEnemy {
         if (_currentAttackTime >= 1)
         {
             FindObjectOfType<BerzerkMode>().EnemyDied(1);
+            if (gameObject.tag == "Boss")
+            {
+                FindObjectOfType<WinCondition>().BossDied();
+            }
+            FindObjectOfType<WinCondition>().EnemyDied();
             _currentAttackTime = 1;
 
             _init = false;

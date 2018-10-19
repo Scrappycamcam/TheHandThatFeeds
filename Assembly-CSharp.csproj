@@ -61,7 +61,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ProgressionLighting.cs" />
     <Compile Include="Assets\Rewired\Examples\ControlRemapping1\Scripts\ControlRemappingDemo1.cs" />
     <Compile Include="Assets\Rewired\Examples\CustomControllersTilt\Scripts\CustomControllersTiltDemo.cs" />
     <Compile Include="Assets\Rewired\Examples\CustomControllersTouch\Scripts\CustomControllerDemo.cs" />
@@ -141,10 +140,12 @@
     <Compile Include="Assets\Scripts\playerMove.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\PlayTestScripts\KyleplayerMove.cs" />
+    <Compile Include="Assets\Scripts\ProgressionLighting.cs" />
     <Compile Include="Assets\Scripts\projectileRanged.cs" />
     <Compile Include="Assets\Scripts\PuzzleManager.cs" />
     <Compile Include="Assets\Scripts\Target.cs" />
-    <Compile Include="Assets\Torch.cs" />
+    <Compile Include="Assets\Scripts\Torch.cs" />
+    <Compile Include="Assets\Scripts\WinCondition.cs" />
     <None Include="Assets\Rewired\Extras\TouchControls\Shaders\ColorShift.shader" />
     <None Include="Assets\Rewired\Documentation\licences.txt" />
     <None Include="Assets\Rewired\Documentation\ReadMe.txt" />

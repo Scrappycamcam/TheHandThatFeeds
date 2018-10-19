@@ -31,7 +31,7 @@ public class KyleplayerMove : MonoBehaviour
     float _heavyAttackDamage;
     float _currDamage;
     [SerializeField]
-    float _moveSpeed = 5.0f;
+    float _moveSpeed;
     [SerializeField]
     float _sprintSpeed = 8.0f;
     [SerializeField]
@@ -243,6 +243,19 @@ public class KyleplayerMove : MonoBehaviour
             if(hit.collider.GetComponent<ProgressionLighting>())
             {
                 hit.collider.GetComponent<ProgressionLighting>().TurnOnTorch();
+            }
+        }
+        if (Physics.Raycast(transform.position + Vector3.up, -transform.up, out hit, 1f))
+        {
+            if (hit.collider.GetComponent<InteractableObject>())
+            {
+                if (hit.collider.GetComponentInParent<PuzzleManager>().GetPzType() == PzType.StepPz)
+                {
+                    Debug.Log("Stepped On.");
+                    hit.collider.GetComponent<InteractableObject>().Interact();
+                }
+
+                //hit.collider.GetComponent<InteractableObject>().
             }
         }
         if (_moveVector == Vector3.zero) //set sprinting to 1 if not moving
@@ -738,4 +751,9 @@ public class KyleplayerMove : MonoBehaviour
 
     public SpecialAbility GetCurrAbility { get { return _myability; } }
     public bool AmIInvincible { get { return _invincible; } }
+    public float GetLightDamage { get { return _lightAttackDamage; } set { _lightAttackDamage = value; } }
+    public float GetHeavyDamage { get { return _heavyAttackDamage; } set { _heavyAttackDamage = value; } }
+    public float GetMoveSpeed { get { return _moveSpeed; } set { _moveSpeed = value; } }
+    public float GetCycloneDamage { get { return _cycloneAttackDamage; } set { _cycloneAttackDamage = value; } }
+    public float GetDashDamage { get { return _dashStrikeAttackDamage; } set { _dashStrikeAttackDamage = value; } }
 }

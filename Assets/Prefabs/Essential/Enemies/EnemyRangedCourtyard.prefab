@@ -390,7 +390,7 @@ MonoBehaviour:
   _durationBetweenAttacks: 0.5
   _knockedBackDuration: 0.5
   _deathDuration: 1
-  _stunDuration: 0
+  _stunDuration: 1
   _patrolPoints:
   - {fileID: 1657965953510022}
   - {fileID: 1177689087491534}
