@@ -47,7 +47,7 @@ public class PlayerStats : MonoBehaviour {
 
     public float PDamage(float DtoTake)//function for taking damage
     {
-        _PHealth = _PHealth - DtoTake;
+        _PHealth -= DtoTake;
 
         DisplayHealth();
 
@@ -61,11 +61,11 @@ public class PlayerStats : MonoBehaviour {
 
     public float PHeal(float Heal)//function for healing
     {
-        if(_PHealth < _PmaxHealth)
-        {
-            _PHealth = _PHealth + Heal;
-        }
-        else
+        _PHealth += Heal;
+
+        DisplayHealth();
+
+        if (_PHealth >= _PmaxHealth)
         {
             _PHealth = _PmaxHealth;
         }
