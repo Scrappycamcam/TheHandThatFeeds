@@ -135,6 +135,7 @@
     <Compile Include="Assets\Scripts\InteractableObject.cs" />
     <Compile Include="Assets\Scripts\LevelSelection_Script.cs" />
     <Compile Include="Assets\Scripts\MenuSelection_Script.cs" />
+    <Compile Include="Assets\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\PlayerInteraction.cs" />
     <Compile Include="Assets\Scripts\playerMove.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />

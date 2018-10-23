@@ -169,7 +169,7 @@ public class AIEnemy : MonoBehaviour {
 
     protected virtual void ShowHealthBar()
     {
-        _screenPos = _mainCam.WorldToScreenPoint(transform.position);
+        _screenPos = _mainCam.WorldToScreenPoint(transform.position + Vector3.up);
         if(!_actualHealthBar.gameObject.activeInHierarchy)
         {
             _actualHealthBar.gameObject.SetActive(true);

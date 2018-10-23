@@ -30,8 +30,12 @@ public class projectileRanged : MonoBehaviour {
                 {
                     Debug.Log("Hit Player");
                     hit.collider.gameObject.GetComponent<PlayerStats>().PDamage(_damage);
+                    Destroy(gameObject);
                 }
-                Destroy(gameObject);
+                if (!hit.collider.GetComponent<ProgressionLighting>())
+                {
+                    Destroy(gameObject);
+                }
             }
         }
         transform.position += transform.forward * _speed * Time.deltaTime;
