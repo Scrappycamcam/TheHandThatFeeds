@@ -52,7 +52,7 @@ public class PlayerStats : MonoBehaviour {
 
     public float PDamage(float DtoTake)//function for taking damage
     {
-        _PHealth = _PHealth - DtoTake;
+        _PHealth -= DtoTake;
 
         DisplayHealth();
 
