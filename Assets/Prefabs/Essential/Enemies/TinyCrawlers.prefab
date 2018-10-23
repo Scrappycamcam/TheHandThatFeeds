@@ -118,7 +118,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1548579101351882}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.29, y: 0, z: 1.19}
+  m_LocalPosition: {x: 0.56, y: 0, z: -6.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4552953917845488}
@@ -144,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1655541504312570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.65, y: 0, z: 2.92}
+  m_LocalPosition: {x: -0.15, y: 0, z: 6.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4552953917845488}
@@ -156,13 +156,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1210786633207300}
-  m_LocalRotation: {x: 0.7929045, y: -0.6084177, z: -0.020468682, w: 0.026672369}
-  m_LocalPosition: {x: -16.52172, y: 2.5609999, z: 1.3399035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4552953917845488}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -180.996, y: -176.277, z: 75.032}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4512243943143574
 Transform:
   m_ObjectHideFlags: 1
@@ -170,7 +170,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1731400967955754}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.4, y: 0, z: -10.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4552953917845488}
@@ -183,7 +183,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1998694568297820}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000032782552}
-  m_LocalPosition: {x: -12.93, y: 0.06292629, z: 27.51}
+  m_LocalPosition: {x: -37.63, y: 0.06288719, z: 132.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4187254993964466}
@@ -323,6 +323,7 @@ MonoBehaviour:
   _patrolPoints:
   - {fileID: 1655541504312570}
   - {fileID: 1548579101351882}
+  - {fileID: 1731400967955754}
 --- !u!136 &136026014428489146
 CapsuleCollider:
   m_ObjectHideFlags: 1
