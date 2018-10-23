@@ -37,8 +37,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1611768822148416}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.99, y: 0.416, z: 4.889}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 88, y: 0.9, z: 20.5}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,8 +96,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 12.879974, y: 29.364151, z: 12.879974}
-  m_Center: {x: 0, y: -0.85672396, z: 0}
+  m_Size: {x: 25.204477, y: 49.36421, z: 26.733694}
+  m_Center: {x: 0.04654378, y: 9.143268, z: 0.602907}
 --- !u!108 &108771060958815394
 Light:
   m_ObjectHideFlags: 1
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _whatAmI: 1
   leverNumber: 0
-  InteractImagePrefab: {fileID: 0}
-  _verticalOffset: 0
-  _myActualPos: {x: 0, y: 0, z: 0}
+  _HasBeenStepped: 0
+  InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
+    type: 2}
+  _verticalOffset: 40

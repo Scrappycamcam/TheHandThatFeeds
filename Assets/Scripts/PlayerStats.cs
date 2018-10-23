@@ -36,10 +36,15 @@ public class PlayerStats : MonoBehaviour {
     {
         float ratio = _PHealth / _PmaxHealth; //creates the health ratio
 
-        if(ratio <0)
+        if(ratio < 0)
         {
-            ratio = 0;
+            ratio = 0f;
         }
+        else if(ratio >= 1)
+        {
+            ratio = 1f;
+        }
+
 
         _currentHealthBar.fillAmount = ratio; // sets the scale transform for the health bar
         //_HealthDisplay.text = (ratio * 100).ToString() + '%'; //use if display text is desired
@@ -61,14 +66,14 @@ public class PlayerStats : MonoBehaviour {
 
     public float PHeal(float Heal)//function for healing
     {
-        if(_PHealth < _PmaxHealth)
-        {
-            _PHealth = _PHealth + Heal;
-        }
-        else
+        _PHealth = _PHealth + Heal;
+        
+        if (_PHealth >= _PmaxHealth)
         {
             _PHealth = _PmaxHealth;
         }
+        DisplayHealth();
+
         return _PHealth;
     }
 

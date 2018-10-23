@@ -28,7 +28,7 @@ public class WinCondition : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float ratio = enemiesKilled / totalEnemies;
-        if (ratio > _percentToWin && BossDead)
+        if (ratio >= _percentToWin && BossDead)
         {
             OpenEnd();
         }

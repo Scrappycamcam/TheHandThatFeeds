@@ -101,12 +101,14 @@ public class BerzerkMode : MonoBehaviour {
 
     private void StartBerzerk()
     {
+
         _origLightDamage = _playerMove.GetLightDamage;
         _origHeavyDamage = _playerMove.GetHeavyDamage;
         _origSpeed = _playerMove.GetMoveSpeed;
         _origCycloneDamage = _playerMove.GetCycloneDamage;
         _origDashDamage = _playerMove.GetCycloneDamage;
 
+        _playerMove.GetCostHealth = false;
         _playerMove.GetLightDamage = _newLightDamage;
         _playerMove.GetHeavyDamage = _newHeavyDamage;
         _playerMove.GetMoveSpeed = _newSpeed;
@@ -125,6 +127,7 @@ public class BerzerkMode : MonoBehaviour {
         {
             ratio = 0;
             _numKillsSoFar = 0;
+            _playerMove.GetCostHealth = true;
             _playerMove.GetLightDamage = _origLightDamage;
             _playerMove.GetHeavyDamage = _origHeavyDamage;
             _playerMove.GetMoveSpeed = _origSpeed;

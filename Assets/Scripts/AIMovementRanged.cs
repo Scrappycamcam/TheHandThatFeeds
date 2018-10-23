@@ -288,23 +288,23 @@ public class AIMovementRanged : AIEnemy {
     }
 
     //For Update 2
-    public override void GotHit(float _damageRecieved, Vector3 _flydir)
+    public override void GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos)
     {
         if (_canTakeDamage)
         {
             Debug.Log("hit");
             _canTakeDamage = false;
 
-            _startAttackTime = Time.time;
             c0 = transform.position;
-            c1 = transform.position + _flydir;
+            c1 = transform.position + _knockbackdir;
 
+            _startAttackTime = Time.time;
             _hit = true;
 
             UpdateHealth(_damageRecieved);
             if (_currEnemyHealth <= 0)
             {
-                DeadActivate(_flydir);
+                DeadActivate(_knockbackdir);
             }
         }
     }
@@ -324,7 +324,7 @@ public class AIMovementRanged : AIEnemy {
         ResetState();
         _slammed = true;
         _enemyAgent.isStopped = true;
-        _startAttackTime = Time.time;
+        _startStunTime = Time.time;
         _stunned = true;
         if (_currEnemyHealth <= 0)
         {
@@ -334,17 +334,17 @@ public class AIMovementRanged : AIEnemy {
 
     protected override void Stunned()
     {
-        _currentAttackTime = (Time.time - _startAttackTime) / _stunDuration;
+        _currStunTime = (Time.time - _startStunTime) / _stunDuration;
 
-        if (_currentAttackTime >= 1)
+        if (_currStunTime >= 1)
         {
-            _currentAttackTime = 1;
+            _currStunTime = 1;
             ResetState();
         }
 
         Vector3 p01;
 
-        p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
+        p01 = (1 - _currStunTime) * c0 + _currStunTime * c1;
 
         transform.position = p01;
     }
@@ -416,7 +416,9 @@ public class AIMovementRanged : AIEnemy {
             _currentAttackTime = 1;
 
             _init = false;
+            _actualHealthBar.gameObject.SetActive(false);
             gameObject.SetActive(false);
+
         }
 
         Vector3 p01, p12, p012;

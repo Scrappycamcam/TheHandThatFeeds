@@ -87,6 +87,7 @@ public class KyleplayerMove : MonoBehaviour
     [SerializeField]
     float _swordDetectDistance;
     int _currComboNum = 0;
+    int _currTotalCombo = 0;
     Transform _currComboTransform;
     Transform _nextComboTransform;
 
@@ -99,6 +100,8 @@ public class KyleplayerMove : MonoBehaviour
     float _currSwingDuration;
 
     [Header("Special Ability Variables")]
+    [SerializeField]
+    bool _AbilitiesCostHealth = true;
     [Header("Cyclone")]
     [SerializeField]
     bool _cycloneIsUnlocked;
@@ -336,7 +339,18 @@ public class KyleplayerMove : MonoBehaviour
         }
         else if (_CycloneAttack && _cycloneIsUnlocked)
         {
-            if(_pStats.GetHealth() > _cycloneHealthBurden)
+            if (!_AbilitiesCostHealth) {
+                Debug.Log("cyclone Active");
+                _attacking = true;
+                _usingSpecial = true;
+                _myability = SpecialAbility.CYCLONE;
+                _canMove = false;
+                c0 = transform.position;
+                c1 = transform.position;
+                _sword.transform.localPosition = new Vector3(0, 1f, _sword.transform.localPosition.z);
+                _startComboTime = Time.time;
+            }
+            else if(_pStats.GetHealth() > _cycloneHealthBurden)
             {
                 Debug.Log("cyclone Active");
                 _pStats.PDamage(_cycloneHealthBurden);
@@ -352,6 +366,18 @@ public class KyleplayerMove : MonoBehaviour
         }
         else if(_DashStrike && _dashIsUnlocked)
         {
+            if (!_AbilitiesCostHealth)
+            {
+                Debug.Log("Dash Strike Active");
+                _attacking = true;
+                _usingSpecial = true;
+                _myability = SpecialAbility.DASHSTRIKE;
+                _canMove = false;
+                c0 = transform.position;
+                c1 = transform.position - (transform.forward * _dashStrikeBackUpDistance);
+                _chargingDashStrike = true;
+                _startComboTime = Time.time;
+            }
             if (_pStats.GetHealth() > _dashStrikeHealthBurden)
             {
                 Debug.Log("Dash Strike Active");
@@ -439,7 +465,8 @@ public class KyleplayerMove : MonoBehaviour
                         {
                             Debug.Log("cyclone hit");
                             _enemyHit.Add(EnemyHit);
-                            EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack);
+                            _currTotalCombo++;
+                            EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack, hit.point);
                             if (_enemyHit.Count > 2)
                             {
                                 _enemyHit = new List<AIEnemy>();
@@ -452,8 +479,9 @@ public class KyleplayerMove : MonoBehaviour
                     else
                     {
                         Debug.Log("cyclone hit");
+                        _currTotalCombo++;
                         _enemyHit.Add(EnemyHit);
-                        EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack);
+                        EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack, hit.point);
                     }                    
                 }
             }
@@ -539,6 +567,7 @@ public class KyleplayerMove : MonoBehaviour
                         _enemyIAmRamming = thingHit;
                         _enemyIAmRamming.transform.parent = _sword.transform;
                         _enemyIAmRamming.GetComponent<AIEnemy>().GotDashStruck(_dashStrikeAttackDamage);
+                        _currTotalCombo++;
                     }
                     else
                     {
@@ -575,7 +604,7 @@ public class KyleplayerMove : MonoBehaviour
                             {
                                 _staggerDirection = transform.right * _dashStrikeKnockBack;
                             }
-                            thingHit.GetComponent<AIEnemy>().GotHit(_dashStrikeAttackDamage, _staggerDirection);
+                            thingHit.GetComponent<AIEnemy>().GotHit(_dashStrikeAttackDamage, _staggerDirection, hit.point);
                         }
                         else
                         {
@@ -603,7 +632,9 @@ public class KyleplayerMove : MonoBehaviour
             _enemyHit = new List<AIEnemy>();
             if(_enemyIAmRamming != null)
             {
-                _enemyIAmRamming.GetComponent<AIEnemy>().GotHit(0, transform.forward);
+                Debug.Log("yup its not null");
+                _enemyIAmRamming.GetComponent<AIEnemy>().ResetState();
+                _enemyIAmRamming.GetComponent<AIEnemy>().GotHit(0, (transform.forward * _dashStrikeKnockBack), hit.point);
                 _enemyIAmRamming = null;
             }
         }
@@ -619,8 +650,12 @@ public class KyleplayerMove : MonoBehaviour
         _LightAttack = _player.GetButtonDown("LightAttack");
         _HeavyAttack = _player.GetButtonDown("HeavyAttack");
 
-        if(_comboing && (_currComboNum < _myLightComboPos.Count || _currComboNum < _myHeavyComboPos.Count))
+        if(_comboing)
         {
+            if (_currComboNum > _myLightComboPos.Count || _currComboNum > _myHeavyComboPos.Count)
+            {
+                _currComboNum = 0;
+            }
             if (_LightAttack)
             {
                 _nextComboTransform = _myLightComboPos[_currComboNum];
@@ -629,6 +664,10 @@ public class KyleplayerMove : MonoBehaviour
             {
                 _nextComboTransform = _myHeavyComboPos[_currComboNum];
             }
+        }
+        else
+        {
+            _currTotalCombo = 0;
         }
     }
 
@@ -650,6 +689,7 @@ public class KyleplayerMove : MonoBehaviour
             //Debug.Log(_currSwingDuration);
 
             _currComboNum++;
+            _currTotalCombo++;
             if (_nextComboTransform != null)
             {
                 _currComboTransform = _nextComboTransform;
@@ -682,7 +722,7 @@ public class KyleplayerMove : MonoBehaviour
                     if(hit.collider.GetComponent<AIEnemy>())
                     {
                         Debug.Log("hit");
-                        hit.collider.GetComponent<AIEnemy>().GotHit(_currDamage, transform.forward);
+                        hit.collider.GetComponent<AIEnemy>().GotHit(_currDamage, transform.forward, hit.point);
                         _hitSomething = true;
                     }
                 }
@@ -779,4 +819,5 @@ public class KyleplayerMove : MonoBehaviour
     public float GetMoveSpeed { get { return _moveSpeed; } set { _moveSpeed = value; } }
     public float GetCycloneDamage { get { return _cycloneAttackDamage; } set { _cycloneAttackDamage = value; } }
     public float GetDashDamage { get { return _dashStrikeAttackDamage; } set { _dashStrikeAttackDamage = value; } }
+    public bool GetCostHealth { get { return _AbilitiesCostHealth; } set { _AbilitiesCostHealth = value; } }
 }

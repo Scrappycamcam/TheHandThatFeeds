@@ -376,6 +376,7 @@ MonoBehaviour:
   _healthBarPrefab: {fileID: 1307906684978782, guid: 5db778af51a0c3d409a2af46bfe146c4,
     type: 2}
   _verticalOffset: 75
+  _bloodParticle: {fileID: 0}
   _enemyHealth: 50
   _enemyDamage: 7
   _damageDistance: 10
@@ -394,7 +395,7 @@ MonoBehaviour:
   _patrolPoints:
   - {fileID: 1657965953510022}
   - {fileID: 1177689087491534}
-  _projectile: {fileID: 1376402088305784, guid: 5a345c084d0e52a40a263db650c1d872,
+  _projectile: {fileID: 1318896279838872, guid: f59b49749ccdf6d4d984d8de27a0b8a8,
     type: 2}
   _launchPos: {fileID: 4331874733831294}
   _projSpeed: 5

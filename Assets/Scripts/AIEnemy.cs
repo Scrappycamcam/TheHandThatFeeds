@@ -20,6 +20,8 @@ public class AIEnemy : MonoBehaviour {
 
     [Header("Enemy Stats")]
     [SerializeField]
+    protected GameObject _bloodParticle;
+    [SerializeField]
     protected float _enemyHealth;
     protected float _currEnemyHealth;
     [SerializeField]
@@ -70,6 +72,8 @@ public class AIEnemy : MonoBehaviour {
     protected float _knockedBackDuration;
     [SerializeField]
     protected float _deathDuration;
+    protected float _startStunTime;
+    protected float _currStunTime;
     [SerializeField]
     protected float _stunDuration;
 
@@ -141,7 +145,12 @@ public class AIEnemy : MonoBehaviour {
     }
 
     //For Update 2
-    public virtual void GotHit(float _damageRecieved, Vector3 _flydir)
+    public virtual void GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos)
+    {
+
+    }
+
+    protected virtual void ShowBlood(Vector3 _bloodShowPos)
     {
 
     }

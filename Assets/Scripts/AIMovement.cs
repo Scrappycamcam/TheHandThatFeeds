@@ -22,6 +22,8 @@ public class AIMovement : AIEnemy {
         _sword = transform.GetChild(0).gameObject;
         _swordPos = _sword.transform.localPosition;
         _sword.SetActive(false);
+        _bloodParticle = transform.GetChild(1).gameObject;
+
 
         _mainCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
         _mainCanvas = FindObjectOfType<Canvas>().gameObject;
@@ -277,12 +279,13 @@ public class AIMovement : AIEnemy {
         _waiting = false;
         _stunned = false;
         _slammed = false;
+        _canTakeDamage = true;
         _enemyAgent.isStopped = false;
 
     }
 
     //For Update 2
-    public override void GotHit(float _damageRecieved, Vector3 _flydir)
+    public override void GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos)
     {
         transform.parent = null;
         if (_canTakeDamage)
@@ -290,19 +293,28 @@ public class AIMovement : AIEnemy {
             //Debug.Log("hit");
             _canTakeDamage = false;
 
-            _startAttackTime = Time.time;
+            Debug.Log("gothit");
             c0 = transform.position;
-            c1 = transform.position + _flydir;
+            c1 = transform.position + _knockbackdir;
             _alerted = true;
-
+            
+            _startAttackTime = Time.time;
             _hit = true;
 
             UpdateHealth(_damageRecieved);
+            ShowBlood(_particleHitPos);
+
             if (_currEnemyHealth <= 0)
             {
-                DeadActivate(_flydir);
+                DeadActivate(_knockbackdir);
             }
         }
+    }
+
+    protected override void ShowBlood(Vector3 _bloodShowPos)
+    {
+        _bloodParticle.transform.position = _bloodShowPos;
+        _bloodParticle.GetComponent<ParticleSystem>().Play();
     }
 
     public override void GotDashStruck(float _damageRecieved)
@@ -320,8 +332,9 @@ public class AIMovement : AIEnemy {
         ResetState();
         _slammed = true;
         _enemyAgent.isStopped = true;
-        _startAttackTime = Time.time;
+        _startStunTime = Time.time;
         _stunned = true;
+
         if (_currEnemyHealth <= 0)
         {
             DeadActivate(Vector3.zero);
@@ -330,17 +343,17 @@ public class AIMovement : AIEnemy {
 
     protected override void Stunned()
     {
-        _currentAttackTime = (Time.time - _startAttackTime) / _stunDuration;
+        _currStunTime = (Time.time - _startStunTime) / _stunDuration;
 
-        if (_currentAttackTime >= 1)
+        if (_currStunTime >= 1)
         {
-            _currentAttackTime = 1;
+            _currStunTime = 1;
             ResetState();
         }
 
         Vector3 p01;
 
-        p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
+        p01 = (1 - _currStunTime) * c0 + _currStunTime * c1;
 
         transform.position = p01;
     }
