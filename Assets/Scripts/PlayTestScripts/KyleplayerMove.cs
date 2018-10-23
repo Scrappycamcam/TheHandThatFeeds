@@ -261,7 +261,7 @@ public class KyleplayerMove : MonoBehaviour
         {
             if (hit.collider.GetComponent<InteractableObject>())
             {
-                if (hit.collider.GetComponentInParent<PuzzleManager>().GetPzType() == PzType.StepPz)
+                if (hit.collider.GetComponent<InteractableObject>().GetPuzzleManager.GetPzType() == PzType.StepPz)
                 {
                     Debug.Log("Stepped On.");
                     hit.collider.GetComponent<InteractableObject>().Interact();

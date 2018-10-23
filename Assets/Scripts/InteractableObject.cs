@@ -23,8 +23,10 @@ public class InteractableObject : MonoBehaviour {
     [SerializeField]
     private int leverNumber;
     private Color CorrectColor = Color.green;
+    private Color DefaultColor = Color.white;
 
-    private PuzzleManager pzManager;
+    private GameObject _pzManagerOBJ;
+    private PuzzleManager _pzManager;
 
     [Header("If Step Puzzle")]
     [SerializeField]
@@ -44,9 +46,10 @@ public class InteractableObject : MonoBehaviour {
     Camera _playerCam;
 
     // Use this for initialization
-    void Start () {
+    public void Init () {
         _player = KyleplayerMove.Instance;
-        pzManager = transform.GetComponentInParent<PuzzleManager>();
+        _pzManagerOBJ = transform.parent.transform.gameObject;
+        _pzManager = _pzManagerOBJ.GetComponent<PuzzleManager>();
         _playerCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
         _myPos = Vector3.zero;
         _myCanvas = FindObjectOfType<Canvas>().gameObject;
@@ -58,6 +61,7 @@ public class InteractableObject : MonoBehaviour {
 
     private void Update()
     {
+
         if(_active)
         {
             _myPos = _playerCam.WorldToScreenPoint(transform.position) + (Vector3.up * _verticalOffset);
@@ -79,28 +83,30 @@ public class InteractableObject : MonoBehaviour {
                 break;
             case TypeOfObject.PUZZLE:
                 Debug.Log("Puzzle Type Found");
+                Debug.Log(_pzManager.transform.name);
 
-                if(pzManager.GetPzType() == PzType.LeverPz)
+                if (_pzManager.GetPzType() == PzType.LeverPz)
                 {
                     Debug.Log("Lever Pulled.");
                     gameObject.GetComponent<MeshRenderer>().material.color = CorrectColor;
-                    pzManager._OrderProg = pzManager._OrderProg + leverNumber;
-                    pzManager.PzCheck();
+                    _pzManager._OrderProg = _pzManager._OrderProg + leverNumber;
+                    _pzManager.PzCheck();
+
                 }
-                else if (pzManager.GetPzType() == PzType.StepPz)
+                else if (_pzManager.GetPzType() == PzType.StepPz)
                 {
                     //Debug.Log("Lever Pulled.");
                     if (!_HasBeenStepped)
                     {
                         gameObject.GetComponent<MeshRenderer>().material.color = CorrectColor;
-                        pzManager._OrderProg = pzManager._OrderProg + leverNumber;
+                        _pzManager._OrderProg = _pzManager._OrderProg + leverNumber;
                         this._HasBeenStepped = true;
-                        pzManager.PzCheck();
+                        _pzManager.PzCheck();
                         
                     }
 
                 }
-                else if(pzManager.GetPzType() == PzType.KillPz)
+                else if(_pzManager.GetPzType() == PzType.KillPz)
                 {
 
                 }
@@ -127,5 +133,13 @@ public class InteractableObject : MonoBehaviour {
         _active = false;
     }
 
+    public void PuzzleReset()
+    {
+        GetComponent<MeshRenderer>().material.color = DefaultColor;
+        _HasBeenStepped = false;
+        
+    }
+
+    public PuzzleManager GetPuzzleManager { get { return _pzManager; } }
     public bool SteppedOn { get { return _HasBeenStepped; } set { _HasBeenStepped = value; } }
 }
