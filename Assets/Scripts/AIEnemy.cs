@@ -4,6 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
+public enum AIState
+{
+    PAUSED,
+    NOTALERTED,
+    ALERTED,
+    TELLING,
+    ATTACKING,
+    WAITING,
+    HIT,
+    DASHSTRUCK,
+    STUNNED,
+    DYING,
+}
+
 public class AIEnemy : MonoBehaviour {
 
     protected NavMeshAgent _enemyAgent;
@@ -47,7 +61,6 @@ public class AIEnemy : MonoBehaviour {
     [SerializeField]
     protected float _attackDistanceThreshold;
 
-
     protected bool _attacking = false;
     protected bool _showingTheTell = false;
     protected bool _waiting = false;
@@ -56,6 +69,7 @@ public class AIEnemy : MonoBehaviour {
     protected bool _stunned = false;
     protected bool _canTakeDamage = true;
     protected bool _dead = false;
+    protected bool _paused = false;
     protected Vector3 _deadLook;
     protected float _startAttackTime;
     protected float _currentAttackTime;
@@ -92,6 +106,8 @@ public class AIEnemy : MonoBehaviour {
     protected KyleplayerMove _player;
     protected EnemySquad _mySquad;
 
+    protected AIState _myCurrState;
+    protected AIState _myPreviousState;
 
     public virtual void Init()
     {
@@ -206,6 +222,44 @@ public class AIEnemy : MonoBehaviour {
     protected virtual void Die()
     {
 
+    }
+
+    public virtual void PauseMe()
+    {
+        _myPreviousState = _myCurrState;
+        _myCurrState = AIState.PAUSED;
+        _enemyAgent.enabled = false;
+    }
+
+    public virtual void UnPauseMe()
+    {
+        _myCurrState = _myPreviousState;
+        switch (_myCurrState)
+        {
+            case AIState.PAUSED:
+                break;
+            case AIState.NOTALERTED:
+                break;
+            case AIState.ALERTED:
+                break;
+            case AIState.TELLING:
+                break;
+            case AIState.ATTACKING:
+                break;
+            case AIState.WAITING:
+                break;
+            case AIState.HIT:
+                break;
+            case AIState.DASHSTRUCK:
+                break;
+            case AIState.STUNNED:
+                break;
+            case AIState.DYING:
+                break;
+            default:
+                break;
+        }
+        _enemyAgent.enabled = true;
     }
 
     public virtual void MyReset()

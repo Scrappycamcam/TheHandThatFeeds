@@ -19,6 +19,7 @@ public class PauseMenu : MonoBehaviour {
     private void Awake()
     {
         _player = ReInput.players.GetPlayer(_playerId);
+        _AIRef = AIOverlord.Instance;
         
         _PauseMenu = transform.GetChild(0).gameObject;
 
@@ -48,13 +49,13 @@ public class PauseMenu : MonoBehaviour {
         if(_PauseMenu.activeInHierarchy)
         {
             _PauseMenu.SetActive(false);
-            //AIRef.PauseEverything();
+            _AIRef.PauseEnemies();
             //_playerRef.PausePlayer();
         }
         else
         {
             _PauseMenu.SetActive(true);
-            //_AIRef.UnpauseEverything()
+            _AIRef.UnPauseEnemies();
             //_playerRef.UnpausePlayer()
         }
     }

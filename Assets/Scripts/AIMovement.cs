@@ -42,37 +42,65 @@ public class AIMovement : AIEnemy {
     {
         if (_init)
         {
+
             ShowHealthBar();
-            if(!_slammed)
+            switch (_myCurrState)
             {
-                if (!_hit)
+                case AIState.PAUSED:
+                    break;
+                case AIState.NOTALERTED:
+                    PatrolState();
+                    break;
+                case AIState.ALERTED:
+                    CombatStrats();
+                    break;
+                case AIState.HIT:
+                    KnockedBack();
+                    break;
+                case AIState.DASHSTRUCK:
+                    break;
+                case AIState.STUNNED:
+                    Stunned();
+                    break;
+                case AIState.DYING:
+                    Die();
+                    break;
+                default:
+                    break;
+            }
+            if(!_paused)
+            {
+                if(!_slammed)
                 {
-                    if (!_alerted)
+                    if (!_hit)
                     {
-                        PatrolState();
+                        if (!_alerted)
+                        {
+                            
+                        }
+                        else
+                        {
+                            
+                        }
                     }
                     else
                     {
-                        CombatStrats();
+                        if (!_dead)
+                        {
+                            
+                        }
+                        else
+                        {
+                           
+                        }
                     }
                 }
                 else
                 {
-                    if (!_dead)
+                    if(_stunned)
                     {
-                        KnockedBack();
+                       
                     }
-                    else
-                    {
-                        Die();
-                    }
-                }
-            }
-            else
-            {
-                if(_stunned)
-                {
-                    Stunned();
                 }
             }
         }

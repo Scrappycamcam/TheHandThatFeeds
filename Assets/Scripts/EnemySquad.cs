@@ -39,6 +39,22 @@ public class EnemySquad : MonoBehaviour {
         }
     }
 
+    public void PauseSquad()
+    {
+        for (int i = 0; i < _enemyList.Count; i++)
+        {
+            _enemyList[i].PauseMe();
+        }
+    }
+
+    public void UnPauseSquad()
+    {
+        for (int i = 0; i < _enemyList.Count; i++)
+        {
+            _enemyList[i].UnPauseMe();
+        }
+    }
+
     public void ResetSquad()
     {
         for (int i = 0; i < _enemyList.Count; i++)
