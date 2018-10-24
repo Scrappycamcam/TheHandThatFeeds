@@ -52,6 +52,11 @@ public class PuzzleManager : MonoBehaviour {
             InteractableObject _leverToAdd = transform.GetChild(i).gameObject.GetComponent<InteractableObject>();
             _Levers.Add(_leverToAdd);
         }
+
+        for (int i = 0; i < _Levers.Count; i++)
+        {
+            _Levers[i].Init();
+        }
         PzReset();
     }
 
@@ -67,6 +72,7 @@ public class PuzzleManager : MonoBehaviour {
             moveFloor();
             for(int i = 0; i < _Levers.Count; i++)
             {
+                Debug.Log("Puzzle Correct Seq.");
                 _Levers[i].gameObject.tag = "Untagged";
             }
             
@@ -78,6 +84,7 @@ public class PuzzleManager : MonoBehaviour {
                 if(_OrderProg[i] != _SequenceToSolvePuzzle[i])
                 {
                     PzReset();
+                    Debug.Log("Puzzle Reset.");
                 }
             }
         } 
@@ -85,12 +92,9 @@ public class PuzzleManager : MonoBehaviour {
 
     public void PzReset()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < _Levers.Count; i++)
         {
-            _Levers[i].gameObject.GetComponent<MeshRenderer>().material.color = DefaultColor;
-            //if(PzType = PzType.StepPz)
-            _Levers[i].gameObject.GetComponent<InteractableObject>().SteppedOn = false;
-            Debug.Log(_Levers[i].gameObject.GetComponent<InteractableObject>().SteppedOn);
+            _Levers[i].PuzzleReset();
         }
 
         _OrderProg = "";
@@ -126,4 +130,6 @@ public class PuzzleManager : MonoBehaviour {
     {
         return TypeOfPuzzle;
     }
+
+   
 }
