@@ -10,7 +10,7 @@ public class BerzerkMode : MonoBehaviour {
     [SerializeField]
     int _numKillsToCharge = 10;
     [SerializeField]
-    int _numKillsSoFar = 0;
+    float _numKillsSoFar = 0;
     [SerializeField]
     float _newSpeed = 8f;
     [SerializeField]
@@ -50,7 +50,7 @@ public class BerzerkMode : MonoBehaviour {
         _playerCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
         player = GameObject.Find("Player").transform;
         _player = ReInput.players.GetPlayer(0);
-        _playerMove = FindObjectOfType<KyleplayerMove>();
+        _playerMove = KyleplayerMove.Instance;
     }
 	
 	// Update is called once per frame
@@ -140,6 +140,11 @@ public class BerzerkMode : MonoBehaviour {
 
     public void EnemyDied(int killWorth)
     {
-        _numKillsSoFar += killWorth;
+        float combo = (float)_playerMove.GetCurrentCombo;
+        Debug.Log(combo);
+        float mult = Mathf.Log(combo + 10, 4);
+        Debug.Log(mult);
+        _numKillsSoFar += (float)(killWorth*mult);
+        Debug.Log(_numKillsSoFar);
     }
 }
