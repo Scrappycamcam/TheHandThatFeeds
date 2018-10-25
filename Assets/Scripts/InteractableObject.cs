@@ -7,7 +7,8 @@ public enum TypeOfObject
 {
     DOOR,
     POTION,
-    PUZZLE
+    PUZZLE,
+    Mural
 }
 
 
@@ -16,6 +17,15 @@ public class InteractableObject : MonoBehaviour {
     [Header("Type of Object")]
     [SerializeField]
     TypeOfObject _whatAmI;
+    [Header("If a Mural")]
+    [SerializeField]
+    private GameObject _MuralObj;
+    private Sprite _ImageToUse;
+    [SerializeField]
+    [Tooltip("This allows Mural Image to be Assigned. Via Int")]
+    private uint _MuralNo;
+    [SerializeField]
+    private bool _MuralState;
 
     KyleplayerMove _player;
 
@@ -48,6 +58,12 @@ public class InteractableObject : MonoBehaviour {
     // Use this for initialization
     public void Init () {
         _player = KyleplayerMove.Instance;
+        if(this._whatAmI == TypeOfObject.Mural)
+        {
+            _MuralObj.SetActive(false);
+            _MuralState = false;
+
+        }
         _pzManagerOBJ = transform.parent.transform.gameObject;
         _pzManager = _pzManagerOBJ.GetComponent<PuzzleManager>();
         _playerCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
@@ -61,7 +77,19 @@ public class InteractableObject : MonoBehaviour {
 
     private void Update()
     {
+        if(this._whatAmI == TypeOfObject.Mural)
+        {
 
+            if (_MuralState)
+            {
+                _MuralObj.SetActive(true);
+                
+            }
+            else
+            {
+                _MuralObj.SetActive(false);
+            }
+        }
         if(_active)
         {
             _myPos = _playerCam.WorldToScreenPoint(transform.position) + (Vector3.up * _verticalOffset);
@@ -116,6 +144,14 @@ public class InteractableObject : MonoBehaviour {
                 }
 
                 break;
+            case TypeOfObject.Mural:
+
+                //Pause Time.
+                //Get Mural image
+                MuralManager(this._MuralNo);
+                //Activate Mural Object.
+                _MuralState = true;
+                break;
             default:
                 break;
         }
@@ -123,14 +159,14 @@ public class InteractableObject : MonoBehaviour {
 
     public void ShowIcon()
     {
-        _myImage.SetActive(true);
-        _active = true;
+        //_myImage.SetActive(true);
+        //_active = true;
     }
 
     public void TurnOffIcon()
     {
-        _myImage.SetActive(false);
-        _active = false;
+        //_myImage.SetActive(false);
+        //_active = false;
     }
 
     public void PuzzleReset()
@@ -138,6 +174,20 @@ public class InteractableObject : MonoBehaviour {
         GetComponent<MeshRenderer>().material.color = DefaultColor;
         _HasBeenStepped = false;
         
+    }
+
+    public void MuralManager(uint _MuralNum)
+    {
+        switch (_MuralNum)
+        {
+            case 1:
+                _ImageToUse = Resources.Load<Sprite>("MuralImages/Mural" + _MuralNo);
+                _MuralObj.GetComponent<Image>().sprite = _ImageToUse;
+                Debug.Log("Image 1 Loaded");
+                break;
+            default:
+                break;
+        }
     }
 
     public PuzzleManager GetPuzzleManager { get { return _pzManager; } }
