@@ -34,6 +34,7 @@ public class AIMovement : AIEnemy {
         _currEnemyHealth = _enemyHealth;
 
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
+        _myCurrState = AIState.NOTALERTED;
         _init = true;
     }
 
@@ -44,65 +45,32 @@ public class AIMovement : AIEnemy {
         {
 
             ShowHealthBar();
-            switch (_myCurrState)
+            if (_enemyAgent.enabled)
             {
-                case AIState.PAUSED:
-                    break;
-                case AIState.NOTALERTED:
-                    PatrolState();
-                    break;
-                case AIState.ALERTED:
-                    CombatStrats();
-                    break;
-                case AIState.HIT:
-                    KnockedBack();
-                    break;
-                case AIState.DASHSTRUCK:
-                    break;
-                case AIState.STUNNED:
-                    Stunned();
-                    break;
-                case AIState.DYING:
-                    Die();
-                    break;
-                default:
-                    break;
-            }
-            if(!_paused)
-            {
-                if(!_slammed)
+                switch (_myCurrState)
                 {
-                    if (!_hit)
-                    {
-                        if (!_alerted)
-                        {
-                            
-                        }
-                        else
-                        {
-                            
-                        }
-                    }
-                    else
-                    {
-                        if (!_dead)
-                        {
-                            
-                        }
-                        else
-                        {
-                           
-                        }
-                    }
-                }
-                else
-                {
-                    if(_stunned)
-                    {
-                       
-                    }
+                    case AIState.PAUSED:
+                        break;
+                    case AIState.NOTALERTED:
+                        PatrolState();
+                        break;
+                    case AIState.ALERTED:
+                        CombatStrats();
+                        break;
+                    case AIState.HIT:
+                        KnockedBack();
+                        break;
+                    case AIState.STUNNED:
+                        Stunned();
+                        break;
+                    case AIState.DYING:
+                        Die();
+                        break;
+                    default:
+                        break;
                 }
             }
+            
         }
     }
 
@@ -111,7 +79,8 @@ public class AIMovement : AIEnemy {
         if (LookingForPlayer())
         {
             _sword.SetActive(true);
-            _alerted = true;
+            _myCurrState = AIState.ALERTED;
+            //_alerted = true;
         }
 
         if (!_enemyAgent.hasPath)
@@ -155,6 +124,10 @@ public class AIMovement : AIEnemy {
     {
         if (Vector3.Distance(transform.position, _player.transform.position) <= _followDistanceThreshold)
         {
+            if(!_sword.activeInHierarchy)
+            {
+                _sword.SetActive(true);
+            }
             if (Vector3.Distance(transform.position, _player.transform.position) <= _attackDistanceThreshold)
             {
                 if (!_attacking)
@@ -238,6 +211,7 @@ public class AIMovement : AIEnemy {
                 _waiting = false;
                 _attacking = false;
                 _showingTheTell = false;
+                _myCurrState = AIState.ALERTED;
             }
 
             Vector3 p01;
@@ -286,30 +260,18 @@ public class AIMovement : AIEnemy {
         }
     }
 
-    protected override void LostSightOfPlayer()
-    {
-        _alerted = false;
-        if (_attacking || _waiting || _showingTheTell)
-        {
-            ResetState();
-        }
-
-        _sword.SetActive(false);
-        _enemyAgent.SetDestination(_patrolRoute[_currPath]);
-    }
-
     public override void ResetState()
     {
-        _showingTheTell = false;
         _sword.transform.localPosition = _swordPos;
         GetComponent<CapsuleCollider>().enabled = true;
+        _showingTheTell = false;
         _attacking = false;
         _waiting = false;
-        _stunned = false;
-        _slammed = false;
+        //_stunned = false;
+        //_slammed = false;
         _canTakeDamage = true;
         _enemyAgent.isStopped = false;
-
+        _myCurrState = AIState.ALERTED;
     }
 
     //For Update 2
@@ -324,10 +286,10 @@ public class AIMovement : AIEnemy {
             Debug.Log("gothit");
             c0 = transform.position;
             c1 = transform.position + _knockbackdir;
-            _alerted = true;
             
             _startAttackTime = Time.time;
-            _hit = true;
+            //_hit = true;
+            _myCurrState = AIState.HIT;
 
             UpdateHealth(_damageRecieved);
             ShowBlood(_particleHitPos);
@@ -358,10 +320,12 @@ public class AIMovement : AIEnemy {
         c0 = transform.position;
         c1 = transform.position;
         ResetState();
-        _slammed = true;
+        //_slammed = true;
         _enemyAgent.isStopped = true;
         _startStunTime = Time.time;
-        _stunned = true;
+        //_stunned = true;
+        transform.parent = null;
+        _myCurrState = AIState.STUNNED;
 
         if (_currEnemyHealth <= 0)
         {
@@ -393,14 +357,10 @@ public class AIMovement : AIEnemy {
         if (_currentAttackTime >= 1)
         {
             _currentAttackTime = 1;
+            _canTakeDamage = true;
 
             ResetState();
             _hit = false;
-        }
-        else if (_currentAttackTime >= .4f)
-        {
-            //Debug.Log("can get hit again");
-            _canTakeDamage = true;
         }
 
         if (_currentAttackTime < 1)
@@ -425,8 +385,8 @@ public class AIMovement : AIEnemy {
         _showingTheTell = false;
         _attacking = false;
         _waiting = false;
-        _slammed = false;
-        _stunned = false;
+        //_slammed = false;
+        //_stunned = false;
         _enemyAgent.isStopped = false;
         _canTakeDamage = false;
 
@@ -435,7 +395,8 @@ public class AIMovement : AIEnemy {
         c2 = transform.position + _dirToDie + (Vector3.down);
         _startAttackTime = Time.time;
         _enemyAgent.enabled = false;
-        _dead = true;
+        _myCurrState = AIState.DYING;
+        //_dead = true;
     }
 
     protected override void Die()

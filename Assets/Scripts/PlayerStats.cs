@@ -10,18 +10,19 @@ public class PlayerStats : MonoBehaviour {
     [SerializeField]
     Text _HealthDisplay;
     [SerializeField]
-    float _PHealth = 100;
+    private float _PmaxHealth = 100f;
     [SerializeField]
     GameObject _VictoryDisplay;
     [SerializeField]
     GameObject _DefeatDisplay;
-    private float _PmaxHealth = 100;
+    float _PcurrHealth;
     Vector3 startPos;
  
     private void Awake()
     {
         
         startPos = transform.position;
+        _PcurrHealth = _PmaxHealth;
 
         _currentHealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
         //PDamage(100);
@@ -34,7 +35,7 @@ public class PlayerStats : MonoBehaviour {
 
     void DisplayHealth()
     {
-        float ratio = _PHealth / _PmaxHealth; //creates the health ratio
+        float ratio = _PcurrHealth / _PmaxHealth; //creates the health ratio
 
         if(ratio < 0)
         {
@@ -52,29 +53,29 @@ public class PlayerStats : MonoBehaviour {
 
     public float PDamage(float DtoTake)//function for taking damage
     {
-        _PHealth -= DtoTake;
+        _PcurrHealth -= DtoTake;
 
         DisplayHealth();
 
-        if (_PHealth <= 0)
+        if (_PcurrHealth <= 0)
         {
             Defeat();
         }
 
-        return _PHealth;
+        return _PcurrHealth;
     }
 
     public float PHeal(float Heal)//function for healing
     {
-        _PHealth = _PHealth + Heal;
+        _PcurrHealth = _PcurrHealth + Heal;
         
-        if (_PHealth >= _PmaxHealth)
+        if (_PcurrHealth >= _PmaxHealth)
         {
-            _PHealth = _PmaxHealth;
+            _PcurrHealth = _PmaxHealth;
         }
         DisplayHealth();
 
-        return _PHealth;
+        return _PcurrHealth;
     }
 
     public void Victory()
@@ -86,7 +87,7 @@ public class PlayerStats : MonoBehaviour {
     public void Defeat()
     {
         _DefeatDisplay.SetActive(true);
-        //_PHealth = _PmaxHealth;
+        //_PcurrHealth = _PmaxHealth;
         LevelSelection_Script myscript = FindObjectOfType<LevelSelection_Script>();
         myscript.ReloadScene();
         
@@ -105,6 +106,6 @@ public class PlayerStats : MonoBehaviour {
 
     public float GetHealth()
     {
-        return _PHealth;
+        return _PcurrHealth;
     }
 }
