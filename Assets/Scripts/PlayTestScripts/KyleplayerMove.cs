@@ -81,6 +81,11 @@ public class KyleplayerMove : MonoBehaviour
     List<Transform> _myLightComboPos;
     [SerializeField]
     List<Transform> _myHeavyComboPos;
+    [SerializeField]
+    float _TimeForComboToDecay;
+    float _TimeComboStart;
+    [SerializeField]
+    
 
     GameObject _sword;
     Vector3 _swordReset;
@@ -201,7 +206,7 @@ public class KyleplayerMove : MonoBehaviour
             Attack();
         }
 
-
+        DecayCombo();
         //GetAttack();
         //ProcessAttack();
 
@@ -465,7 +470,7 @@ public class KyleplayerMove : MonoBehaviour
                         {
                             Debug.Log("cyclone hit");
                             _enemyHit.Add(EnemyHit);
-                            _currTotalCombo++;
+                            ContinueCombo();
                             EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack, hit.point);
                             if (_enemyHit.Count > 2)
                             {
@@ -479,7 +484,7 @@ public class KyleplayerMove : MonoBehaviour
                     else
                     {
                         Debug.Log("cyclone hit");
-                        _currTotalCombo++;
+                        ContinueCombo();
                         _enemyHit.Add(EnemyHit);
                         EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack, hit.point);
                     }                    
@@ -567,7 +572,7 @@ public class KyleplayerMove : MonoBehaviour
                         _enemyIAmRamming = thingHit;
                         _enemyIAmRamming.transform.parent = _sword.transform;
                         _enemyIAmRamming.GetComponent<AIEnemy>().GotDashStruck(_dashStrikeAttackDamage);
-                        _currTotalCombo++;
+                        ContinueCombo();
                     }
                     else
                     {
@@ -605,6 +610,7 @@ public class KyleplayerMove : MonoBehaviour
                                 _staggerDirection = transform.right * _dashStrikeKnockBack;
                             }
                             thingHit.GetComponent<AIEnemy>().GotHit(_dashStrikeAttackDamage, _staggerDirection, hit.point);
+                            ContinueCombo();
                         }
                         else
                         {
@@ -635,6 +641,7 @@ public class KyleplayerMove : MonoBehaviour
                 Debug.Log("yup its not null");
                 _enemyIAmRamming.GetComponent<AIEnemy>().ResetState();
                 _enemyIAmRamming.GetComponent<AIEnemy>().GotHit(0, (transform.forward * _dashStrikeKnockBack), hit.point);
+                ContinueCombo();
                 _enemyIAmRamming = null;
             }
         }
@@ -689,7 +696,6 @@ public class KyleplayerMove : MonoBehaviour
             //Debug.Log(_currSwingDuration);
 
             _currComboNum++;
-            _currTotalCombo++;
             if (_nextComboTransform != null)
             {
                 _currComboTransform = _nextComboTransform;
@@ -723,6 +729,7 @@ public class KyleplayerMove : MonoBehaviour
                     {
                         Debug.Log("hit");
                         hit.collider.GetComponent<AIEnemy>().GotHit(_currDamage, transform.forward, hit.point);
+                        ContinueCombo();
                         _hitSomething = true;
                     }
                 }
@@ -812,6 +819,23 @@ public class KyleplayerMove : MonoBehaviour
         _pStats.PDamage(missDamage);
     }
 
+    private void ContinueCombo()
+    {
+        _currTotalCombo++;
+        _TimeComboStart = Time.time;
+    }
+
+    private void DecayCombo()
+    {
+        //make the bar a little smaller based on time passed
+    }
+
+    private void EndCombo()
+    {
+        _currTotalCombo = 0;
+        _TimeComboStart = Time.time;
+    }
+
     public SpecialAbility GetCurrAbility { get { return _myability; } }
     public bool AmIInvincible { get { return _invincible; } }
     public float GetLightDamage { get { return _lightAttackDamage; } set { _lightAttackDamage = value; } }
@@ -820,4 +844,5 @@ public class KyleplayerMove : MonoBehaviour
     public float GetCycloneDamage { get { return _cycloneAttackDamage; } set { _cycloneAttackDamage = value; } }
     public float GetDashDamage { get { return _dashStrikeAttackDamage; } set { _dashStrikeAttackDamage = value; } }
     public bool GetCostHealth { get { return _AbilitiesCostHealth; } set { _AbilitiesCostHealth = value; } }
+    public int GetCurrentCombo { get { return _currTotalCombo; } }
 }
