@@ -47,6 +47,7 @@ public class InteractableObject : MonoBehaviour {
     GameObject InteractImagePrefab;
     [SerializeField]
     float _verticalOffset;
+    [SerializeField]
     GameObject _myImage;
     GameObject _myCanvas;
     Vector3 _myPos;
@@ -55,23 +56,51 @@ public class InteractableObject : MonoBehaviour {
 
     Camera _playerCam;
 
-    // Use this for initialization
-    public void Init () {
-        _player = KyleplayerMove.Instance;
-        if(this._whatAmI == TypeOfObject.Mural)
-        {
-            _MuralObj.SetActive(false);
-            _MuralState = false;
-
-        }
-        _pzManagerOBJ = transform.parent.transform.gameObject;
-        _pzManager = _pzManagerOBJ.GetComponent<PuzzleManager>();
+    public void Awake()
+    {
         _playerCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
         _myPos = Vector3.zero;
         _myCanvas = FindObjectOfType<Canvas>().gameObject;
         GameObject _ImageRef = Instantiate<GameObject>(InteractImagePrefab, _myPos, _myCanvas.transform.rotation, _myCanvas.transform);
         _myImage = _ImageRef;
         _myImage.SetActive(false);
+        switch (_whatAmI)
+        {
+            case TypeOfObject.DOOR:
+                break;
+            case TypeOfObject.POTION:
+                transform.parent = null;
+                break;
+            case TypeOfObject.PUZZLE:
+                break;
+            case TypeOfObject.Mural:
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Use this for initialization
+    public void Init () {
+        _player = KyleplayerMove.Instance;
+
+        switch (_whatAmI)
+        {
+            case TypeOfObject.DOOR:
+                break;
+            case TypeOfObject.POTION:
+                break;
+            case TypeOfObject.PUZZLE:
+                _pzManagerOBJ = transform.parent.transform.gameObject;
+                _pzManager = _pzManagerOBJ.GetComponent<PuzzleManager>();
+                break;
+            case TypeOfObject.Mural:
+                _MuralObj.SetActive(false);
+                _MuralState = false;
+                break;
+            default:
+                break;
+        }
         transform.parent = null;
     }
 
@@ -159,14 +188,14 @@ public class InteractableObject : MonoBehaviour {
 
     public void ShowIcon()
     {
-        //_myImage.SetActive(true);
-        //_active = true;
+        _myImage.SetActive(true);
+        _active = true;
     }
 
     public void TurnOffIcon()
     {
-        //_myImage.SetActive(false);
-        //_active = false;
+        _myImage.SetActive(false);
+        _active = false;
     }
 
     public void PuzzleReset()

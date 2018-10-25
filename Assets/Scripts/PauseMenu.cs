@@ -24,15 +24,15 @@ public class PauseMenu : MonoBehaviour {
         _PauseMenu = transform.GetChild(0).gameObject;
 
         _pauseMenuButtons = new List<Button>();
-        for (int i = 0; i < _PauseMenu.transform.childCount; i++)
+        /*for (int i = 0; i < _PauseMenu.transform.childCount; i++)
         {
             if(_PauseMenu.transform.GetChild(i).GetComponent<Button>())
             {
                 _pauseMenuButtons.Add(_PauseMenu.transform.GetChild(i).gameObject.GetComponent<Button>());
             }
-        }
+        }*/
 
-        _pauseMenuButtons[0].Select();
+        //_pauseMenuButtons[0].Select();
         _PauseMenu.SetActive(false);
     }
 

@@ -9,11 +9,7 @@ public enum AIState
     PAUSED,
     NOTALERTED,
     ALERTED,
-    TELLING,
-    ATTACKING,
-    WAITING,
     HIT,
-    DASHSTRUCK,
     STUNNED,
     DYING,
 }
@@ -90,6 +86,8 @@ public class AIEnemy : MonoBehaviour {
     protected float _currStunTime;
     [SerializeField]
     protected float _stunDuration;
+    protected float _TimeOffsetDuringPause;
+    protected float _UnpauseTimeOffset;
 
     protected GameObject _sword;
     protected Vector3 _swordPos;
@@ -175,7 +173,7 @@ public class AIEnemy : MonoBehaviour {
     {
         _currEnemyHealth -= _damage;
 
-        if(_enemyHealth < 0)
+        if (_enemyHealth < 0)
         {
             _enemyHealth = 0;
         }
@@ -186,7 +184,7 @@ public class AIEnemy : MonoBehaviour {
     protected virtual void ShowHealthBar()
     {
         _screenPos = _mainCam.WorldToScreenPoint(transform.position + Vector3.up);
-        if(!_actualHealthBar.gameObject.activeInHierarchy)
+        if (!_actualHealthBar.gameObject.activeInHierarchy)
         {
             _actualHealthBar.gameObject.SetActive(true);
         }
@@ -226,6 +224,7 @@ public class AIEnemy : MonoBehaviour {
 
     public virtual void PauseMe()
     {
+        _TimeOffsetDuringPause = Time.time;
         _myPreviousState = _myCurrState;
         _myCurrState = AIState.PAUSED;
         _enemyAgent.enabled = false;
@@ -233,28 +232,22 @@ public class AIEnemy : MonoBehaviour {
 
     public virtual void UnPauseMe()
     {
+        _UnpauseTimeOffset = Time.time - _TimeOffsetDuringPause;
+
         _myCurrState = _myPreviousState;
         switch (_myCurrState)
         {
-            case AIState.PAUSED:
-                break;
-            case AIState.NOTALERTED:
-                break;
             case AIState.ALERTED:
-                break;
-            case AIState.TELLING:
-                break;
-            case AIState.ATTACKING:
-                break;
-            case AIState.WAITING:
+                _startAttackTime += _UnpauseTimeOffset;
                 break;
             case AIState.HIT:
-                break;
-            case AIState.DASHSTRUCK:
+                _startAttackTime += _UnpauseTimeOffset;
                 break;
             case AIState.STUNNED:
+                _startStunTime += _UnpauseTimeOffset;
                 break;
             case AIState.DYING:
+                _startAttackTime += _UnpauseTimeOffset;
                 break;
             default:
                 break;
@@ -266,7 +259,7 @@ public class AIEnemy : MonoBehaviour {
     {
 
     }
-
-    public virtual bool AmAlerted { get { return _alerted; } set { _alerted = true; } }
+    
+    public virtual AIState GetAIState { get{return _myCurrState;} set { _myCurrState = value; } }
     public virtual KyleplayerMove SetPlayer { set { _player = value; } }
 }
