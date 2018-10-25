@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Rewired;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class KyleplayerMove : MonoBehaviour
@@ -85,7 +86,11 @@ public class KyleplayerMove : MonoBehaviour
     float _TimeForComboToDecay;
     float _TimeComboStart;
     [SerializeField]
-    
+    GameObject _ComboPartsParent;
+
+    private Text _ComboText;
+    private Image _DecayBar;
+
 
     GameObject _sword;
     Vector3 _swordReset;
@@ -187,6 +192,8 @@ public class KyleplayerMove : MonoBehaviour
         _sword = transform.GetChild(0).gameObject;
         _swordReset = _sword.transform.localPosition;
         _enemyHit = new List<AIEnemy>();
+        _ComboText = _ComboPartsParent.transform.Find("ComboMeter").GetComponent<Text>();
+        _DecayBar = _ComboPartsParent.transform.Find("DecayBar").GetComponent<Image>();
     }
 
     void Update()
@@ -612,7 +619,7 @@ public class KyleplayerMove : MonoBehaviour
                             thingHit.GetComponent<AIEnemy>().GotHit(_dashStrikeAttackDamage, _staggerDirection, hit.point);
                             ContinueCombo();
                         }
-                        else
+                        else if(!thingHit.GetComponent<projectileRanged>())
                         {
                             _myability = SpecialAbility.NONE;
                             _sword.transform.localPosition = _swordReset;
@@ -671,10 +678,6 @@ public class KyleplayerMove : MonoBehaviour
             {
                 _nextComboTransform = _myHeavyComboPos[_currComboNum];
             }
-        }
-        else
-        {
-            _currTotalCombo = 0;
         }
     }
 
@@ -821,19 +824,33 @@ public class KyleplayerMove : MonoBehaviour
 
     private void ContinueCombo()
     {
+        if (!_ComboPartsParent.activeSelf) {
+            _ComboPartsParent.SetActive(true);
+        }
         _currTotalCombo++;
-        _TimeComboStart = Time.time;
+        Debug.Log("Current combo = " + _currTotalCombo);
+        _TimeComboStart = Time.time + _TimeForComboToDecay;
+        _ComboText.text = _currTotalCombo + " Hits";
     }
 
     private void DecayCombo()
     {
-        //make the bar a little smaller based on time passed
+        float ratio = ((_TimeComboStart - Time.time) / _TimeForComboToDecay);
+        _DecayBar.fillAmount = ratio;
+        if(ratio <= 0)
+        {
+            Debug.Log("combo eneded");
+
+            EndCombo();
+        }
     }
 
-    private void EndCombo()
+    public void EndCombo()
     {
         _currTotalCombo = 0;
         _TimeComboStart = Time.time;
+        _ComboText.text ="No Hits";
+        _ComboPartsParent.SetActive(false);
     }
 
     public SpecialAbility GetCurrAbility { get { return _myability; } }
