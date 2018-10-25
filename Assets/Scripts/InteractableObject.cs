@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Rewired;
 
 public enum TypeOfObject
 {
@@ -13,13 +14,17 @@ public enum TypeOfObject
 
 
 public class InteractableObject : MonoBehaviour {
-
+    private int _playerId = 0;
+    private Player _Player;
     [Header("Type of Object")]
     [SerializeField]
     TypeOfObject _whatAmI;
     [Header("If a Mural")]
     [SerializeField]
     private GameObject _MuralObj;
+    [TextArea]
+    [SerializeField]
+    private string MuralText;
     private Sprite _ImageToUse;
     [SerializeField]
     [Tooltip("This allows Mural Image to be Assigned. Via Int")]
@@ -58,6 +63,7 @@ public class InteractableObject : MonoBehaviour {
 
     public void Awake()
     {
+        _Player = ReInput.players.GetPlayer(_playerId);
         _playerCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
         _myPos = Vector3.zero;
         _myCanvas = FindObjectOfType<Canvas>().gameObject;
@@ -74,6 +80,8 @@ public class InteractableObject : MonoBehaviour {
             case TypeOfObject.PUZZLE:
                 break;
             case TypeOfObject.Mural:
+                _MuralObj.SetActive(false);
+                _MuralState = false;
                 break;
             default:
                 break;
@@ -83,7 +91,7 @@ public class InteractableObject : MonoBehaviour {
     // Use this for initialization
     public void Init () {
         _player = KyleplayerMove.Instance;
-
+        
         switch (_whatAmI)
         {
             case TypeOfObject.DOOR:
@@ -112,12 +120,17 @@ public class InteractableObject : MonoBehaviour {
             if (_MuralState)
             {
                 _MuralObj.SetActive(true);
+                //Take Player Input B Button.
+                if (_Player.GetButtonDown("Dash"))
+                {
+                    _MuralState = false;
+                    _MuralObj.SetActive(false);
+                }
+                
+
                 
             }
-            else
-            {
-                _MuralObj.SetActive(false);
-            }
+
         }
         if(_active)
         {
@@ -177,9 +190,10 @@ public class InteractableObject : MonoBehaviour {
 
                 //Pause Time.
                 //Get Mural image
-                MuralManager(this._MuralNo);
                 //Activate Mural Object.
                 _MuralState = true;
+                MuralManager(this._MuralNo);
+                //Activate Text Box
                 break;
             default:
                 break;
@@ -207,16 +221,10 @@ public class InteractableObject : MonoBehaviour {
 
     public void MuralManager(uint _MuralNum)
     {
-        switch (_MuralNum)
-        {
-            case 1:
-                _ImageToUse = Resources.Load<Sprite>("MuralImages/Mural" + _MuralNo);
-                _MuralObj.GetComponent<Image>().sprite = _ImageToUse;
-                Debug.Log("Image 1 Loaded");
-                break;
-            default:
-                break;
-        }
+        _ImageToUse = Resources.Load<Sprite>("MuralImages/Mural" + _MuralNo);
+        Debug.Log(_ImageToUse);
+        _MuralObj.GetComponent<Image>().sprite = _ImageToUse;
+
     }
 
     public PuzzleManager GetPuzzleManager { get { return _pzManager; } }
