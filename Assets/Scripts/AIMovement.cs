@@ -10,6 +10,7 @@ public class AIMovement : AIEnemy {
     {
         _enemyAgent = GetComponent<NavMeshAgent>();
         _mySquad = GetComponentInParent<EnemySquad>();
+        _pauseRef = FindObjectOfType<PauseMenu>();
         _patrolRoute = new List<Vector3>();
         for (int point = 0; point < _patrolPoints.Count; point++)
         {
@@ -43,34 +44,33 @@ public class AIMovement : AIEnemy {
     {
         if (_init)
         {
-
-            ShowHealthBar();
-            if (_enemyAgent.enabled)
+            if(!_pauseRef.GameIsPaused)
             {
-                switch (_myCurrState)
+                ShowHealthBar();
+                if (_enemyAgent.enabled)
                 {
-                    case AIState.PAUSED:
-                        break;
-                    case AIState.NOTALERTED:
-                        PatrolState();
-                        break;
-                    case AIState.ALERTED:
-                        CombatStrats();
-                        break;
-                    case AIState.HIT:
-                        KnockedBack();
-                        break;
-                    case AIState.STUNNED:
-                        Stunned();
-                        break;
-                    case AIState.DYING:
-                        Die();
-                        break;
-                    default:
-                        break;
+                    switch (_myCurrState)
+                    {
+                        case AIState.NOTALERTED:
+                            PatrolState();
+                            break;
+                        case AIState.ALERTED:
+                            CombatStrats();
+                            break;
+                        case AIState.HIT:
+                            KnockedBack();
+                            break;
+                        case AIState.STUNNED:
+                            Stunned();
+                            break;
+                        case AIState.DYING:
+                            Die();
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            
+             }
         }
     }
 
@@ -310,7 +310,7 @@ public class AIMovement : AIEnemy {
     public override void GotDashStruck(float _damageRecieved)
     {
         UpdateHealth(_damageRecieved);
-        _slammed = true;
+        //_slammed = true;
         GetComponent<CapsuleCollider>().enabled = false;
         _enemyAgent.isStopped = true;
     }
@@ -320,10 +320,8 @@ public class AIMovement : AIEnemy {
         c0 = transform.position;
         c1 = transform.position;
         ResetState();
-        //_slammed = true;
         _enemyAgent.isStopped = true;
         _startStunTime = Time.time;
-        //_stunned = true;
         transform.parent = null;
         _myCurrState = AIState.STUNNED;
 
@@ -360,7 +358,7 @@ public class AIMovement : AIEnemy {
             _canTakeDamage = true;
 
             ResetState();
-            _hit = false;
+            //_hit = false;
         }
 
         if (_currentAttackTime < 1)
@@ -369,7 +367,8 @@ public class AIMovement : AIEnemy {
             {
                 ResetState();
                 _canTakeDamage = true;
-                _hit = false;
+                //_hit = false;
+                _myCurrState = AIState.ALERTED;
             }
         }
 
@@ -431,13 +430,13 @@ public class AIMovement : AIEnemy {
     public override void MyReset()
     {
         gameObject.SetActive(true);
-        _dead = false;
-        _hit = false;
+        //_dead = false;
+        //_hit = false;
         _showingTheTell = false;
         _attacking = false;
         _waiting = false;
-        _stunned = false;
-        _slammed = false;
+        //_stunned = false;
+       // _slammed = false;
         _canTakeDamage = true;
 
         _enemyAgent.enabled = true;
@@ -448,6 +447,7 @@ public class AIMovement : AIEnemy {
         _sword.transform.localPosition = _swordPos;
         _sword.SetActive(false);
 
+        _myCurrState = AIState.NOTALERTED;
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
         _init = true;
     }

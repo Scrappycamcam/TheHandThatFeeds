@@ -296,6 +296,15 @@ MonoBehaviour:
       _behaviorId: 0
       _userAssignable: 1
       _categoryId: 1
+    - _id: 11
+      _name: Pause
+      _type: 1
+      _descriptiveName: Pause Game
+      _positiveDescriptiveName: 
+      _negativeDescriptiveName: 
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 5
     actionCategories:
     - _name: Default
       _descriptiveName: 
@@ -322,6 +331,11 @@ MonoBehaviour:
       _tag: 
       _id: 4
       _userAssignable: 1
+    - _name: Menu
+      _descriptiveName: Menuing
+      _tag: 
+      _id: 5
+      _userAssignable: 1
     actionCategoryMap:
       list:
       - categoryId: 0
@@ -334,6 +348,8 @@ MonoBehaviour:
         actionIds: 06000000070000000800000009000000
       - categoryId: 4
         actionIds: 05000000
+      - categoryId: 5
+        actionIds: 0b000000
     inputBehaviors:
     - _id: 0
       _name: Default
@@ -772,6 +788,17 @@ MonoBehaviour:
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 11
+        _elementType: 1
+        _elementIdentifierId: -1
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 27
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
     mouseMaps:
     - id: 0
       categoryId: 0
@@ -805,8 +832,8 @@ MonoBehaviour:
     customControllerMaps: []
     customControllers: []
     playerIdCounter: 2
-    actionIdCounter: 11
-    actionCategoryIdCounter: 5
+    actionIdCounter: 12
+    actionCategoryIdCounter: 6
     inputBehaviorIdCounter: 1
     mapCategoryIdCounter: 1
     joystickLayoutIdCounter: 1

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Rewired;
 
 public class PauseMenu : MonoBehaviour {
@@ -15,6 +16,10 @@ public class PauseMenu : MonoBehaviour {
     AIOverlord _AIRef;
     KyleplayerMove _playerRef;
 
+    bool _paused = false;
+    float _pastTimeScale;
+
+    int _currScene;
 
     private void Awake()
     {
@@ -24,15 +29,15 @@ public class PauseMenu : MonoBehaviour {
         _PauseMenu = transform.GetChild(0).gameObject;
 
         _pauseMenuButtons = new List<Button>();
-        /*for (int i = 0; i < _PauseMenu.transform.childCount; i++)
+        for (int i = 0; i < _PauseMenu.transform.childCount; i++)
         {
             if(_PauseMenu.transform.GetChild(i).GetComponent<Button>())
             {
                 _pauseMenuButtons.Add(_PauseMenu.transform.GetChild(i).gameObject.GetComponent<Button>());
             }
-        }*/
+        }
+        _currScene = SceneManager.GetActiveScene().buildIndex;
 
-        //_pauseMenuButtons[0].Select();
         _PauseMenu.SetActive(false);
     }
 
@@ -49,14 +54,39 @@ public class PauseMenu : MonoBehaviour {
         if(_PauseMenu.activeInHierarchy)
         {
             _PauseMenu.SetActive(false);
-            _AIRef.PauseEnemies();
+            Time.timeScale = _pastTimeScale;
+            _paused = false;
+            //_AIRef.PauseEnemies();
             //_playerRef.PausePlayer();
         }
         else
         {
             _PauseMenu.SetActive(true);
-            _AIRef.UnPauseEnemies();
+            _pastTimeScale = Time.timeScale;
+            Time.timeScale = 0f;
+
+            _pauseMenuButtons[0].Select();
+            //_pauseMenuButtons[0].
+            _paused = true;
+            //_AIRef.UnPauseEnemies();
             //_playerRef.UnpausePlayer()
         }
     }
+
+    public void ResumeLevel()
+    {
+        Pause();
+    }
+
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene(_currScene);
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public bool GameIsPaused { get { return _paused; } set { _paused = value; } }
 }

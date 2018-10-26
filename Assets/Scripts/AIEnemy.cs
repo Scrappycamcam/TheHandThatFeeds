@@ -27,6 +27,7 @@ public class AIEnemy : MonoBehaviour {
     protected float _verticalOffset;
     protected Vector3 _HPBarPos;
     protected Camera _mainCam;
+    protected PauseMenu _pauseRef;
 
     [Header("Enemy Stats")]
     [SerializeField]
@@ -65,7 +66,6 @@ public class AIEnemy : MonoBehaviour {
     protected bool _stunned = false;
     protected bool _canTakeDamage = true;
     protected bool _dead = false;
-    protected bool _paused = false;
     protected Vector3 _deadLook;
     protected float _startAttackTime;
     protected float _currentAttackTime;

@@ -55,6 +55,7 @@ public class KyleplayerMove : MonoBehaviour
     private PlayerStats _pStats;
     private Player _player; // The Rewired Player
     private CharacterController _cc;
+    private PauseMenu _pauseRef;
     private Vector3 _moveVector = Vector3.zero;
     private Vector3 _lastMove = Vector3.zero;
     private bool _dash = false;
@@ -90,7 +91,6 @@ public class KyleplayerMove : MonoBehaviour
 
     private Text _ComboText;
     private Image _DecayBar;
-
 
     GameObject _sword;
     Vector3 _swordReset;
@@ -179,6 +179,7 @@ public class KyleplayerMove : MonoBehaviour
             Destroy(gameObject);
         }
 
+        _pauseRef = FindObjectOfType<PauseMenu>();
         _pStats = GetComponent<PlayerStats>();
 
         //_LastAttack = _BaseAttack;
@@ -192,42 +193,46 @@ public class KyleplayerMove : MonoBehaviour
         _sword = transform.GetChild(0).gameObject;
         _swordReset = _sword.transform.localPosition;
         _enemyHit = new List<AIEnemy>();
-        _ComboText = _ComboPartsParent.transform.Find("ComboMeter").GetComponent<Text>();
-        _DecayBar = _ComboPartsParent.transform.Find("DecayBar").GetComponent<Image>();
+        _ComboText = _ComboPartsParent.transform.GetChild(0).GetComponent<Text>();
+        _DecayBar = _ComboPartsParent.transform.GetChild(1).GetComponent<Image>();
     }
 
     void Update()
     {
 
-        if(!_attacking)
+        if(!_pauseRef.GameIsPaused)
         {
-            CheckForAttack();
-        }
-        else if(_usingSpecial)
-        {
-            SpecialAbilityActive();
-        }
-        else
-        {
-            CheckForCombo();
-            Attack();
-        }
+            if (!_attacking)
+            {
+                CheckForAttack();
+            }
+            else if (_usingSpecial)
+            {
+                SpecialAbilityActive();
+            }
+            else
+            {
+                CheckForCombo();
+                Attack();
+            }
 
-        DecayCombo();
-        //GetAttack();
-        //ProcessAttack();
+            DecayCombo();
+            //GetAttack();
+            //ProcessAttack();
 
-        if (_canMove)
-        {
-            CheckFall();
-            GetInput();
-            ProcessMove();
-            ProcessDash();
+            if (_canMove)
+            {
+                CheckFall();
+                GetInput();
+                ProcessMove();
+                ProcessDash();
+            }
+            else if (_isDashing)
+            {
+                ProcessDash();
+            }
         }
-        else if(_isDashing)
-        {
-            ProcessDash();
-        }
+        
     }
 
     private void CheckFall()
@@ -301,6 +306,7 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+
     private void ProcessDash()
     {
         if (_dash && Time.time > _nextDash && !_isDashing)//if you can dash and want to dash
@@ -327,6 +333,7 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+    //checks all inputs to see if they are attacks or special abilites
     private void CheckForAttack()
     {
         _LightAttack = _player.GetButtonDown("LightAttack");
@@ -351,21 +358,13 @@ public class KyleplayerMove : MonoBehaviour
         }
         else if (_CycloneAttack && _cycloneIsUnlocked)
         {
-            if (!_AbilitiesCostHealth) {
-                Debug.Log("cyclone Active");
-                _attacking = true;
-                _usingSpecial = true;
-                _myability = SpecialAbility.CYCLONE;
-                _canMove = false;
-                c0 = transform.position;
-                c1 = transform.position;
-                _sword.transform.localPosition = new Vector3(0, 1f, _sword.transform.localPosition.z);
-                _startComboTime = Time.time;
-            }
-            else if(_pStats.GetHealth() > _cycloneHealthBurden)
+            if(_pStats.GetHealth() > _cycloneHealthBurden || !_AbilitiesCostHealth)
             {
                 Debug.Log("cyclone Active");
-                _pStats.PDamage(_cycloneHealthBurden);
+                if(_AbilitiesCostHealth)
+                {
+                    _pStats.PDamage(_cycloneHealthBurden);
+                }
                 _attacking = true;
                 _usingSpecial = true;
                 _myability = SpecialAbility.CYCLONE;
@@ -378,22 +377,13 @@ public class KyleplayerMove : MonoBehaviour
         }
         else if(_DashStrike && _dashIsUnlocked)
         {
-            if (!_AbilitiesCostHealth)
+            if (_pStats.GetHealth() > _dashStrikeHealthBurden || !_AbilitiesCostHealth)
             {
                 Debug.Log("Dash Strike Active");
-                _attacking = true;
-                _usingSpecial = true;
-                _myability = SpecialAbility.DASHSTRIKE;
-                _canMove = false;
-                c0 = transform.position;
-                c1 = transform.position - (transform.forward * _dashStrikeBackUpDistance);
-                _chargingDashStrike = true;
-                _startComboTime = Time.time;
-            }
-            if (_pStats.GetHealth() > _dashStrikeHealthBurden)
-            {
-                Debug.Log("Dash Strike Active");
-                _pStats.PDamage(_dashStrikeHealthBurden);
+                if(_AbilitiesCostHealth)
+                {
+                    _pStats.PDamage(_dashStrikeHealthBurden);
+                }
                 _attacking = true;
                 _usingSpecial = true;
                 _myability = SpecialAbility.DASHSTRIKE;
@@ -406,6 +396,7 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+    //function that dictates what ability is being used
     private void SpecialAbilityActive()
     {
         switch (_myability)
@@ -436,6 +427,7 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+    //resets everything about the player using any ability and makes the player to a basic state
     public void ResetAbilities()
     {
         _myability = SpecialAbility.NONE;
@@ -447,14 +439,13 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+    //called when player is actually using the cyclone ability
+    //spins player around and hits all enemies around them
+    //player heals for every 3 enemies they hit
     private void UsingCyclone()
     {
         _currComboTime = (Time.time - _startComboTime) / _cycloneDuration;
 
-        Vector3 p01;
-        p01 = (1 - _currComboTime) * c0 + _currComboTime * c1;
-
-        transform.position = p01;
 
         if(_currComboTime < 1)
         {
@@ -509,6 +500,8 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+    //what checks to see if the player has hit an enemy already hit by cyclone 
+    //so that it wont hit them again 
     bool CycloneAlreadyHitEnemy(AIEnemy _enemy)
     {
         for (int i = 0; i < _enemyHit.Count; i++)
@@ -529,6 +522,8 @@ public class KyleplayerMove : MonoBehaviour
 
     }
 
+    //start up of the charge dash ability
+    //player reels back during this being called
     private void ChargingDashStrike()
     {
         _currComboTime = (Time.time - _startComboTime) / _dashStrikeChargeUpDuration;
@@ -557,6 +552,10 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+    //actual Dash attack
+    //player flings forward and grabs the first enemy
+    //then pushes any other enemies out of the way
+    //if the player pins an enemy to a wall it stuns the enemy and heals the player
     private void UsingDashStrike()
     {
         _currComboTime = (Time.time - _startComboTime) / _dashStrikeForwardDashDuration;
@@ -659,6 +658,7 @@ public class KyleplayerMove : MonoBehaviour
         transform.position = p01;
     }
 
+    //checks to see if the player is comboing so that it can move the sword accordingly
     private void CheckForCombo()
     {
         _LightAttack = _player.GetButtonDown("LightAttack");
@@ -681,6 +681,7 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+    //processes basic attacks
     private void Attack()
     {
         if(!_swinging)
@@ -766,6 +767,7 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+    //resets all the player attack variables and puts the sword back to its basic position
     private void ResetSword()
     {
         //Debug.Log("Sword Reset");
