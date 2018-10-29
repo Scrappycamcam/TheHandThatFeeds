@@ -16,6 +16,28 @@ public class MenuSelection_Script : MonoBehaviour {
     private int _MSelect;
     private float _PInput;
 
+    private KyleplayerMove _playerRef;
+    private PlayerCamera _cameraRef;
+    private PlayerCanvas _canvasRef;
+
+    private void Awake()
+    {
+        if(FindObjectOfType<KyleplayerMove>())
+        {
+            _playerRef = KyleplayerMove.Instance;
+        }
+
+        if(FindObjectOfType<PlayerCanvas>())
+        {
+
+        }
+
+        if(FindObjectOfType<PlayerCamera>())
+        {
+            _cameraRef = PlayerCamera.Instance;
+        }
+    }
+
     public void StartGame()
     {
         _MSelect = 0;
@@ -23,6 +45,7 @@ public class MenuSelection_Script : MonoBehaviour {
         //Temp Start Game Most Likely Will be Changed.
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+
     public void Controls()
     {
         if (ControlImg.activeSelf == false)
@@ -38,13 +61,15 @@ public class MenuSelection_Script : MonoBehaviour {
             ControlImg.SetActive(false);
         }
     }
+
     public void QuitGame()
     {
         Debug.Log("Quit");
         Application.Quit();
     }
-    public void Update()
-    {
+
+    //public void Update()
+    //{
         ////Take Movement Up and Down on left joystick from the controller
         ////Move cursor up/down when going through menu selection
         ////Press A to Select Button
@@ -69,7 +94,7 @@ public class MenuSelection_Script : MonoBehaviour {
         ////    PressedButton(_MSelect);
         ////}
 
-    }
+    //}
 
     private void OnDisable()
     {

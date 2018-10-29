@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657892, g: 0.49641377, b: 0.5748188, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657856, g: 0.49641317, b: 0.5748173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -993,7 +993,6 @@ GameObject:
   - component: {fileID: 24145128}
   - component: {fileID: 24145127}
   - component: {fileID: 24145126}
-  - component: {fileID: 24145125}
   - component: {fileID: 24145124}
   m_Layer: 0
   m_Name: Lever
@@ -1028,24 +1027,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939492ee28732c8418b5971ad618dbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _whatAmI: 2
-  leverNumber: 1
-  _HasBeenStepped: 0
+  _whatAmI: 3
   InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
     type: 2}
   _verticalOffset: 40
---- !u!114 &24145125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114996537476226770, guid: 60bddd9d8e9a5cb4880772d044cc4fca,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 24145122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 062cf77329976624a9d16b3307ee4296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _upgradeToUnlock: 0
+  _KillsTextPrefab: {fileID: 0}
+  _NumOfEnemiesToKill: 0
+  _MuralObj: {fileID: 0}
+  MuralText: 
+  _MuralNo: 0
+  _MuralState: 0
+  leverNumber: 1
+  _HasBeenStepped: 0
 --- !u!65 &24145126
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27485,6 +27479,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1069314664296778, guid: 0acdbcd4ce7f99741a4152b901854e7f,
     type: 2}
   m_PrefabInternal: {fileID: 666996237}
+--- !u!114 &617939429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 617939428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5125a5ea05f6b6c499a7e06faecf3718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _percentToWin: 0.65
 --- !u!1001 &618738990
 Prefab:
   m_ObjectHideFlags: 0
@@ -30002,7 +30008,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1069314664296778, guid: 0acdbcd4ce7f99741a4152b901854e7f, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0acdbcd4ce7f99741a4152b901854e7f, type: 2}
@@ -35868,7 +35874,6 @@ GameObject:
   - component: {fileID: 811706744}
   - component: {fileID: 811706743}
   - component: {fileID: 811706742}
-  - component: {fileID: 811706741}
   - component: {fileID: 811706740}
   m_Layer: 0
   m_Name: Lever
@@ -35903,24 +35908,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939492ee28732c8418b5971ad618dbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _whatAmI: 2
-  leverNumber: 1
-  _HasBeenStepped: 0
+  _whatAmI: 3
   InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
     type: 2}
   _verticalOffset: 40
---- !u!114 &811706741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114996537476226770, guid: 60bddd9d8e9a5cb4880772d044cc4fca,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 811706738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 062cf77329976624a9d16b3307ee4296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _upgradeToUnlock: 0
+  _KillsTextPrefab: {fileID: 0}
+  _NumOfEnemiesToKill: 0
+  _MuralObj: {fileID: 0}
+  MuralText: 
+  _MuralNo: 0
+  _MuralState: 0
+  leverNumber: 1
+  _HasBeenStepped: 0
 --- !u!65 &811706742
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36630,7 +36630,6 @@ GameObject:
   - component: {fileID: 835770500}
   - component: {fileID: 835770499}
   - component: {fileID: 835770498}
-  - component: {fileID: 835770497}
   - component: {fileID: 835770496}
   m_Layer: 0
   m_Name: Lever
@@ -36665,24 +36664,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939492ee28732c8418b5971ad618dbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _whatAmI: 2
-  leverNumber: 1
-  _HasBeenStepped: 0
+  _whatAmI: 3
   InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
     type: 2}
   _verticalOffset: 40
---- !u!114 &835770497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114996537476226770, guid: 60bddd9d8e9a5cb4880772d044cc4fca,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 835770494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 062cf77329976624a9d16b3307ee4296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _upgradeToUnlock: 0
+  _KillsTextPrefab: {fileID: 0}
+  _NumOfEnemiesToKill: 0
+  _MuralObj: {fileID: 0}
+  MuralText: 
+  _MuralNo: 0
+  _MuralState: 0
+  leverNumber: 1
+  _HasBeenStepped: 0
 --- !u!65 &835770498
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54202,7 +54196,6 @@ GameObject:
   - component: {fileID: 1254953935}
   - component: {fileID: 1254953934}
   - component: {fileID: 1254953933}
-  - component: {fileID: 1254953932}
   - component: {fileID: 1254953931}
   m_Layer: 0
   m_Name: Lever
@@ -54237,24 +54230,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939492ee28732c8418b5971ad618dbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _whatAmI: 2
-  leverNumber: 1
-  _HasBeenStepped: 0
+  _whatAmI: 3
   InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
     type: 2}
   _verticalOffset: 40
---- !u!114 &1254953932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114996537476226770, guid: 60bddd9d8e9a5cb4880772d044cc4fca,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1254953929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 062cf77329976624a9d16b3307ee4296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _upgradeToUnlock: 0
+  _KillsTextPrefab: {fileID: 0}
+  _NumOfEnemiesToKill: 0
+  _MuralObj: {fileID: 0}
+  MuralText: 
+  _MuralNo: 0
+  _MuralState: 0
+  leverNumber: 1
+  _HasBeenStepped: 0
 --- !u!65 &1254953933
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54379,7 +54367,6 @@ GameObject:
   - component: {fileID: 1256367463}
   - component: {fileID: 1256367462}
   - component: {fileID: 1256367461}
-  - component: {fileID: 1256367460}
   - component: {fileID: 1256367459}
   m_Layer: 0
   m_Name: Lever
@@ -54414,24 +54401,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939492ee28732c8418b5971ad618dbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _whatAmI: 2
-  leverNumber: 1
-  _HasBeenStepped: 0
+  _whatAmI: 3
   InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
     type: 2}
   _verticalOffset: 40
---- !u!114 &1256367460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114996537476226770, guid: 60bddd9d8e9a5cb4880772d044cc4fca,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1256367457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 062cf77329976624a9d16b3307ee4296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _upgradeToUnlock: 0
+  _KillsTextPrefab: {fileID: 0}
+  _NumOfEnemiesToKill: 0
+  _MuralObj: {fileID: 0}
+  MuralText: 
+  _MuralNo: 0
+  _MuralState: 0
+  leverNumber: 1
+  _HasBeenStepped: 0
 --- !u!65 &1256367461
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60848,7 +60830,6 @@ GameObject:
   - component: {fileID: 1409278913}
   - component: {fileID: 1409278912}
   - component: {fileID: 1409278911}
-  - component: {fileID: 1409278910}
   - component: {fileID: 1409278909}
   m_Layer: 0
   m_Name: Lever
@@ -60883,24 +60864,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939492ee28732c8418b5971ad618dbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _whatAmI: 2
-  leverNumber: 1
-  _HasBeenStepped: 0
+  _whatAmI: 3
   InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
     type: 2}
   _verticalOffset: 40
---- !u!114 &1409278910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114996537476226770, guid: 60bddd9d8e9a5cb4880772d044cc4fca,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1409278907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 062cf77329976624a9d16b3307ee4296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _upgradeToUnlock: 0
+  _KillsTextPrefab: {fileID: 0}
+  _NumOfEnemiesToKill: 0
+  _MuralObj: {fileID: 0}
+  MuralText: 
+  _MuralNo: 0
+  _MuralState: 0
+  leverNumber: 1
+  _HasBeenStepped: 0
 --- !u!65 &1409278911
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -66617,7 +66593,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1471042984927130, guid: 068bb39ea47518845bde443ca30d9667, type: 2}
       propertyPath: m_Name
-      value: HPBar
+      value: PlayerCanvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 068bb39ea47518845bde443ca30d9667, type: 2}
@@ -67862,7 +67838,6 @@ GameObject:
   - component: {fileID: 1588141237}
   - component: {fileID: 1588141236}
   - component: {fileID: 1588141235}
-  - component: {fileID: 1588141234}
   - component: {fileID: 1588141233}
   m_Layer: 0
   m_Name: Lever (1)
@@ -67897,24 +67872,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939492ee28732c8418b5971ad618dbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _whatAmI: 2
-  leverNumber: 2
-  _HasBeenStepped: 0
+  _whatAmI: 3
   InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
     type: 2}
   _verticalOffset: 40
---- !u!114 &1588141234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114261047033621800, guid: 60bddd9d8e9a5cb4880772d044cc4fca,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1588141231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 062cf77329976624a9d16b3307ee4296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _upgradeToUnlock: 0
+  _KillsTextPrefab: {fileID: 0}
+  _NumOfEnemiesToKill: 0
+  _MuralObj: {fileID: 0}
+  MuralText: 
+  _MuralNo: 0
+  _MuralState: 0
+  leverNumber: 2
+  _HasBeenStepped: 0
 --- !u!65 &1588141235
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70182,7 +70152,6 @@ GameObject:
   - component: {fileID: 1661670018}
   - component: {fileID: 1661670017}
   - component: {fileID: 1661670016}
-  - component: {fileID: 1661670015}
   - component: {fileID: 1661670014}
   m_Layer: 0
   m_Name: Lever
@@ -70217,24 +70186,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939492ee28732c8418b5971ad618dbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _whatAmI: 2
-  leverNumber: 1
-  _HasBeenStepped: 0
+  _whatAmI: 3
   InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
     type: 2}
   _verticalOffset: 40
---- !u!114 &1661670015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114996537476226770, guid: 60bddd9d8e9a5cb4880772d044cc4fca,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1661670012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 062cf77329976624a9d16b3307ee4296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _upgradeToUnlock: 0
+  _KillsTextPrefab: {fileID: 0}
+  _NumOfEnemiesToKill: 0
+  _MuralObj: {fileID: 0}
+  MuralText: 
+  _MuralNo: 0
+  _MuralState: 0
+  leverNumber: 1
+  _HasBeenStepped: 0
 --- !u!65 &1661670016
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72184,7 +72148,6 @@ GameObject:
   - component: {fileID: 1708248834}
   - component: {fileID: 1708248833}
   - component: {fileID: 1708248832}
-  - component: {fileID: 1708248831}
   - component: {fileID: 1708248830}
   m_Layer: 0
   m_Name: Lever (1)
@@ -72219,24 +72182,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939492ee28732c8418b5971ad618dbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _whatAmI: 2
-  leverNumber: 2
-  _HasBeenStepped: 0
+  _whatAmI: 3
   InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
     type: 2}
   _verticalOffset: 40
---- !u!114 &1708248831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114261047033621800, guid: 60bddd9d8e9a5cb4880772d044cc4fca,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1708248828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 062cf77329976624a9d16b3307ee4296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _upgradeToUnlock: 0
+  _KillsTextPrefab: {fileID: 0}
+  _NumOfEnemiesToKill: 0
+  _MuralObj: {fileID: 0}
+  MuralText: 
+  _MuralNo: 0
+  _MuralState: 0
+  leverNumber: 2
+  _HasBeenStepped: 0
 --- !u!65 &1708248832
 BoxCollider:
   m_ObjectHideFlags: 0

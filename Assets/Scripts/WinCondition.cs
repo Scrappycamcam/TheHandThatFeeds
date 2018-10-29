@@ -11,11 +11,18 @@ public class WinCondition : MonoBehaviour {
     private float totalEnemies;
     private bool BossDead;
 
-    public GameObject _FinalDoor;
+    private BoxCollider _mycollider;
+    private MeshRenderer _myRenderer;
 
     // Use this for initialization
     void Start()
     {
+        _mycollider = GetComponent<BoxCollider>();
+        _myRenderer = GetComponent<MeshRenderer>();
+
+        _mycollider.enabled = false;
+        _myRenderer.enabled = false;
+
         CountEnemies();
     }
 
@@ -46,6 +53,9 @@ public class WinCondition : MonoBehaviour {
 
     private void OpenEnd()
     {
-        _FinalDoor.SetActive(true);
+        _myRenderer.enabled = true;
+        _mycollider.enabled = true;
     }
+
+    public float GetKilledEnemiesCount { get { return enemiesKilled; } }
 }

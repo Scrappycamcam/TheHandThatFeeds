@@ -164,7 +164,6 @@ GameObject:
   - component: {fileID: 114642032395977338}
   - component: {fileID: 114472619078366174}
   - component: {fileID: 114800310715636262}
-  - component: {fileID: 114548294244053626}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -296,7 +295,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915487573322032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.42, y: 0.014015712, z: 7.2}
+  m_LocalPosition: {x: 4.65, y: 0.014015712, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4384589547783558}
@@ -498,6 +497,7 @@ MonoBehaviour:
   - {fileID: 4299532251040956}
   - {fileID: 4059581852736420}
   - {fileID: 4355824813530972}
+  _TimeForComboToDecay: 5
   _swordDetectDistance: 2
   _lightSwingDuration: 0.2
   _heavySwingDuration: 0.4
@@ -522,20 +522,7 @@ MonoBehaviour:
   _dashStrikeForwardDashDuration: 0.4
   _dashStrikeInitialDetectionDistance: 5
   _dashStrikeDetectionDistanceWhileRammingAnEnemy: 7
-  _debugDashStrike: 1
---- !u!114 &114548294244053626
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1915487573322032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5125a5ea05f6b6c499a7e06faecf3718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _percentToWin: 0.65
-  _FinalDoor: {fileID: 0}
+  _debugDashStrike: 0
 --- !u!114 &114642032395977338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -549,7 +536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentHealthBar: {fileID: 0}
   _HealthDisplay: {fileID: 0}
-  _PHealth: 100
+  _PmaxHealth: 100
   _VictoryDisplay: {fileID: 0}
   _DefeatDisplay: {fileID: 0}
 --- !u!114 &114800310715636262

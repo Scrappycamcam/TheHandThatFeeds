@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
@@ -17,10 +18,17 @@ public class PlayerStats : MonoBehaviour {
     GameObject _DefeatDisplay;
     float _PcurrHealth;
     Vector3 startPos;
+
+    LevelSelection_Script myscript;
+
+    KyleplayerMove _playerRef;
+    PlayerCanvas _canvasRef;
  
     private void Awake()
     {
-        
+        myscript = LevelSelection_Script.Instance;
+        _playerRef = GetComponent<KyleplayerMove>();
+        _canvasRef = PlayerCanvas.Instance;
         startPos = transform.position;
         _PcurrHealth = _PmaxHealth;
 
@@ -81,31 +89,20 @@ public class PlayerStats : MonoBehaviour {
     public void Victory()
     {
         _VictoryDisplay.SetActive(true);
-        LevelSelection_Script myscript = FindObjectOfType<LevelSelection_Script>();
         myscript.LoadScene(LevelSelection_Script.WhatLevel.Level2);
     }
+
     public void Defeat()
     {
-        _DefeatDisplay.SetActive(true);
-        //_PcurrHealth = _PmaxHealth;
-        LevelSelection_Script myscript = FindObjectOfType<LevelSelection_Script>();
-        myscript.ReloadScene();
-        
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("Im In the Area");
-        if(other.tag == "EndOfLevel")
-        {
-            Debug.Log("Level Complete!");
-            Victory();
-        }
+        _PcurrHealth = _PmaxHealth;
+        DisplayHealth();
+        _canvasRef.ResetGame();
     }
 
     public float GetHealth()
     {
         return _PcurrHealth;
     }
+
+    public Vector3 GetStartPos { get { return startPos; } set { startPos = value; } }
 }

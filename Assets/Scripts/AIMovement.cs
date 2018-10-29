@@ -6,48 +6,15 @@ using UnityEngine.AI;
 
 public class AIMovement : AIEnemy {
 
-    public override void Init()
-    {
-        _enemyAgent = GetComponent<NavMeshAgent>();
-        _mySquad = GetComponentInParent<EnemySquad>();
-        _pauseRef = FindObjectOfType<PauseMenu>();
-        _patrolRoute = new List<Vector3>();
-        for (int point = 0; point < _patrolPoints.Count; point++)
-        {
-            _patrolRoute.Add(_patrolPoints[point].gameObject.transform.position);
-        }
-        _startPoint = gameObject.transform.position;
-        _patrolRoute.Add(_startPoint);
-        _currPath = 0;
-
-        _sword = transform.GetChild(0).gameObject;
-        _swordPos = _sword.transform.localPosition;
-        _sword.SetActive(false);
-        _bloodParticle = transform.GetChild(1).gameObject;
-
-
-        _mainCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
-        _mainCanvas = FindObjectOfType<Canvas>().gameObject;
-
-        GameObject _healthBar = Instantiate<GameObject>(_healthBarPrefab, _mainCanvas.transform);
-        _actualHealthBar = _healthBar.GetComponent<Image>();
-        _actualHealthBar.gameObject.SetActive(false);
-        _currEnemyHealth = _enemyHealth;
-
-        _enemyAgent.SetDestination(_patrolRoute[_currPath]);
-        _myCurrState = AIState.NOTALERTED;
-        _init = true;
-    }
-
     // Update is called once per frame
     protected override void Update()
     {
         if (_init)
         {
-            if(!_pauseRef.GameIsPaused)
+            if (!_pauseRef.GameIsPaused)
             {
                 ShowHealthBar();
-                if (_enemyAgent.enabled)
+                if(_enemyAgent.enabled)
                 {
                     switch (_myCurrState)
                     {
@@ -63,14 +30,16 @@ public class AIMovement : AIEnemy {
                         case AIState.STUNNED:
                             Stunned();
                             break;
-                        case AIState.DYING:
-                            Die();
-                            break;
                         default:
                             break;
                     }
                 }
-             }
+                else
+                {
+                    Die();
+                }
+               
+            }
         }
     }
 
@@ -111,7 +80,6 @@ public class AIMovement : AIEnemy {
             {
                 if (hit.collider.GetComponent<KyleplayerMove>())
                 {
-                    _player = hit.collider.GetComponent<KyleplayerMove>();
                     _mySquad.AlertSquad(_player);
                     return true;
                 }
@@ -381,6 +349,7 @@ public class AIMovement : AIEnemy {
 
     protected override void DeadActivate(Vector3 _dirToDie)
     {
+        Debug.Log("activating death");
         _showingTheTell = false;
         _attacking = false;
         _waiting = false;
@@ -395,21 +364,26 @@ public class AIMovement : AIEnemy {
         _startAttackTime = Time.time;
         _enemyAgent.enabled = false;
         _myCurrState = AIState.DYING;
+        Debug.Log(_myCurrState);
+        Debug.Log(_init);
+        
         //_dead = true;
     }
 
     protected override void Die()
     {
+        Debug.Log("dying");
         _currentAttackTime = (Time.time - _startAttackTime) / _deathDuration;
 
         if (_currentAttackTime >= 1)
         {
-            FindObjectOfType<BerzerkMode>().EnemyDied(1);
+            Debug.Log("done dying");
+            _berserkRef.EnemyDied(1);
             if(gameObject.tag == "Boss")
             {
-                FindObjectOfType<WinCondition>().BossDied();
+                _winRef.BossDied();
             }
-            FindObjectOfType<WinCondition>().EnemyDied();
+             _winRef.EnemyDied();
             _currentAttackTime = 1;
 
             _init = false;
@@ -425,30 +399,5 @@ public class AIMovement : AIEnemy {
 
         transform.position = p012;
         transform.rotation = Quaternion.Euler(-90, transform.rotation.y, transform.rotation.z);
-    }
-
-    public override void MyReset()
-    {
-        gameObject.SetActive(true);
-        //_dead = false;
-        //_hit = false;
-        _showingTheTell = false;
-        _attacking = false;
-        _waiting = false;
-        //_stunned = false;
-       // _slammed = false;
-        _canTakeDamage = true;
-
-        _enemyAgent.enabled = true;
-        _enemyAgent.isStopped = false;
-        _currPath = 0;
-
-        transform.position = _startPoint;
-        _sword.transform.localPosition = _swordPos;
-        _sword.SetActive(false);
-
-        _myCurrState = AIState.NOTALERTED;
-        _enemyAgent.SetDestination(_patrolRoute[_currPath]);
-        _init = true;
     }
 }

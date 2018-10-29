@@ -8,17 +8,49 @@ public enum TypeOfObject
 {
     DOOR,
     POTION,
+    UPGRADE,
     PUZZLE,
     Mural
 }
 
+public enum WhichUpgradeAmI
+{
+    CYCLONE,
+    DASHSTRIKE,
+
+}
 
 public class InteractableObject : MonoBehaviour {
+
     private int _playerId = 0;
     private Player _Player;
+
+    KyleplayerMove _playerRef;
+
     [Header("Type of Object")]
     [SerializeField]
     TypeOfObject _whatAmI;
+
+    [Header("UI Variables")]
+    [SerializeField]
+    GameObject InteractImagePrefab;
+    [SerializeField]
+    float _verticalOffset;
+    GameObject _myImage;
+    GameObject _myCanvas;
+    Vector3 _myPos;
+
+    [Header("If an Upgrade Potion")]
+    [SerializeField]
+    WhichUpgradeAmI _upgradeToUnlock;
+    [SerializeField]
+    GameObject _KillsTextPrefab;
+    [SerializeField]
+    float _NumOfEnemiesToKill;
+    GameObject _KillsToUnlockText;
+    bool _killedEnough = false;
+    WinCondition _winRef;
+
     [Header("If a Mural")]
     [SerializeField]
     private GameObject _MuralObj;
@@ -32,8 +64,6 @@ public class InteractableObject : MonoBehaviour {
     [SerializeField]
     private bool _MuralState;
 
-    KyleplayerMove _player;
-
     [Header("If a Puzzle")]
     [SerializeField]
     private int leverNumber;
@@ -46,17 +76,7 @@ public class InteractableObject : MonoBehaviour {
     [Header("If Step Puzzle")]
     [SerializeField]
     bool _HasBeenStepped = false;
-
-    [Header("UI Variables")]
-    [SerializeField]
-    GameObject InteractImagePrefab;
-    [SerializeField]
-    float _verticalOffset;
-    [SerializeField]
-    GameObject _myImage;
-    GameObject _myCanvas;
-    Vector3 _myPos;
-
+    
     bool _active = false;
 
     Camera _playerCam;
@@ -64,17 +84,27 @@ public class InteractableObject : MonoBehaviour {
     public void Awake()
     {
         _Player = ReInput.players.GetPlayer(_playerId);
-        _playerCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
+        _playerCam = FindObjectOfType<PlayerCamera>().gameObject.GetComponent<Camera>();
         _myPos = Vector3.zero;
-        _myCanvas = FindObjectOfType<Canvas>().gameObject;
+        _myCanvas = PlayerCanvas.Instance.gameObject;
         GameObject _ImageRef = Instantiate<GameObject>(InteractImagePrefab, _myPos, _myCanvas.transform.rotation, _myCanvas.transform);
         _myImage = _ImageRef;
         _myImage.SetActive(false);
+
+        _playerRef = KyleplayerMove.Instance;
         switch (_whatAmI)
         {
             case TypeOfObject.DOOR:
                 break;
             case TypeOfObject.POTION:
+                transform.parent = null;
+                break;
+            case TypeOfObject.UPGRADE:
+                _winRef = FindObjectOfType<WinCondition>();
+                GameObject _killtext = Instantiate<GameObject>(_KillsTextPrefab, _myPos, _myCanvas.transform.rotation, _myCanvas.transform);
+                _KillsToUnlockText = _killtext;
+                _KillsToUnlockText.SetActive(false);
+
                 transform.parent = null;
                 break;
             case TypeOfObject.PUZZLE:
@@ -90,7 +120,6 @@ public class InteractableObject : MonoBehaviour {
 
     // Use this for initialization
     public void Init () {
-        _player = KyleplayerMove.Instance;
         
         switch (_whatAmI)
         {
@@ -114,29 +143,43 @@ public class InteractableObject : MonoBehaviour {
 
     private void Update()
     {
-        if(this._whatAmI == TypeOfObject.Mural)
-        {
-
-            if (_MuralState)
-            {
-                _MuralObj.SetActive(true);
-                //Take Player Input B Button.
-                if (_Player.GetButtonDown("Dash"))
-                {
-                    _MuralState = false;
-                    _MuralObj.SetActive(false);
-                }
-                
-
-                
-            }
-
-        }
-        if(_active)
+        if (_active)
         {
             _myPos = _playerCam.WorldToScreenPoint(transform.position) + (Vector3.up * _verticalOffset);
             _myImage.transform.position = _myPos;
         }
+
+        switch (_whatAmI)
+        {
+            case TypeOfObject.DOOR:
+                break;
+            case TypeOfObject.POTION:
+                break;
+            case TypeOfObject.UPGRADE:
+                if (!_killedEnough && _active)
+                {
+                    _KillsToUnlockText.GetComponent<Text>().text = "" + (_NumOfEnemiesToKill - _winRef.GetKilledEnemiesCount);
+                    _KillsToUnlockText.transform.position = _myPos;
+                }
+                break;
+            case TypeOfObject.PUZZLE:
+                if (_MuralState)
+                {
+                    _MuralObj.SetActive(true);
+                    //Take Player Input B Button.
+                    if (_Player.GetButtonDown("Dash"))
+                    {
+                        _MuralState = false;
+                        _MuralObj.SetActive(false);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+
+
+        
     }
 
     public void Interact()
@@ -147,9 +190,32 @@ public class InteractableObject : MonoBehaviour {
                 break;
             case TypeOfObject.POTION:
                 Debug.Log("Got hit");
-                _player.GetPlayerStats.PHeal(20);
+                _playerRef.GetPlayerStats.PHeal(20);
                 TurnOffIcon();
                 gameObject.SetActive(false);
+                break;
+            case TypeOfObject.UPGRADE:
+                if(_killedEnough)
+                {
+                    Debug.Log("upgrade given");
+                    switch (_upgradeToUnlock)
+                    {
+                        case WhichUpgradeAmI.CYCLONE:
+                            Debug.Log("cyclone get");
+                            _playerRef.GetCycloneUnlock = true;
+                            Debug.Log(_playerRef.GetCycloneUnlock);
+                            TurnOffIcon();
+                            gameObject.SetActive(false);
+                            break;
+                        case WhichUpgradeAmI.DASHSTRIKE:
+                            _playerRef.GetDashStrikeUnlock = true;
+                            TurnOffIcon();
+                            gameObject.SetActive(false);
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 break;
             case TypeOfObject.PUZZLE:
                 Debug.Log("Puzzle Type Found");
@@ -204,10 +270,29 @@ public class InteractableObject : MonoBehaviour {
     {
         _myImage.SetActive(true);
         _active = true;
+        if(_whatAmI == TypeOfObject.UPGRADE)
+        {
+            if (_winRef.GetKilledEnemiesCount >= _NumOfEnemiesToKill)
+            {
+                _killedEnough = true;
+            }
+
+            if(!_killedEnough)
+            {
+                _KillsToUnlockText.SetActive(true);
+                _myImage.SetActive(false);
+            }
+        }
+        
     }
 
     public void TurnOffIcon()
     {
+        if (_whatAmI == TypeOfObject.UPGRADE && !_killedEnough)
+        {
+            _KillsToUnlockText.SetActive(false);
+        }
+
         _myImage.SetActive(false);
         _active = false;
     }
@@ -225,6 +310,27 @@ public class InteractableObject : MonoBehaviour {
         Debug.Log(_ImageToUse);
         _MuralObj.GetComponent<Image>().sprite = _ImageToUse;
 
+    }
+
+    public void InteractableReset()
+    {
+        switch (_whatAmI)
+        {
+            case TypeOfObject.DOOR:
+                break;
+            case TypeOfObject.POTION:
+                gameObject.SetActive(true);
+                break;
+            case TypeOfObject.UPGRADE:
+                gameObject.SetActive(true);
+                break;
+            case TypeOfObject.PUZZLE:
+                break;
+            case TypeOfObject.Mural:
+                break;
+            default:
+                break;
+        }
     }
 
     public PuzzleManager GetPuzzleManager { get { return _pzManager; } }

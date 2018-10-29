@@ -5,6 +5,31 @@ using UnityEngine;
 
 public class LevelSelection_Script : MonoBehaviour {
 
+    private static LevelSelection_Script _instance;
+    public static LevelSelection_Script Instance
+    {
+        get
+        {
+            if (_instance != null)
+            {
+                return _instance;
+            }
+            else
+            {
+                if (FindObjectOfType<LevelSelection_Script>())
+                {
+                    _instance = FindObjectOfType<LevelSelection_Script>();
+                    return _instance;
+                }
+                else
+                {
+                    Debug.Log("no Player");
+                    return null;
+                }
+            }
+        }
+    }
+
     public enum WhatLevel
     {
         MainMenu,
@@ -12,20 +37,17 @@ public class LevelSelection_Script : MonoBehaviour {
         Level2,
         BossRoom
     }
+
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-    }
-    // Use this for initialization
-    void Start()
-    {
-        //LoadScene(WhatLevel.Level1);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if(Instance == this)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void LoadScene(WhatLevel Level)
@@ -36,6 +58,6 @@ public class LevelSelection_Script : MonoBehaviour {
 
     public void ReloadScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -15,35 +15,6 @@ public class AIMovementRanged : AIEnemy {
     [SerializeField]
     float _maxRange;
 
-    public override void Init()
-    {
-        _currEnemyHealth = _enemyHealth;
-        _enemyAgent = GetComponent<NavMeshAgent>();
-        _mySquad = GetComponentInParent<EnemySquad>();
-        _patrolRoute = new List<Vector3>();
-        for (int point = 0; point < _patrolPoints.Count; point++)
-        {
-            _patrolRoute.Add(_patrolPoints[point].gameObject.transform.position);
-        }
-        _startPoint = gameObject.transform.position;
-        _patrolRoute.Add(_startPoint);
-        _currPath = 0;
-
-        _sword = transform.GetChild(0).gameObject;
-        _swordPos = _sword.transform.localPosition;
-        _sword.SetActive(false);
-
-        _mainCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
-        _mainCanvas = FindObjectOfType<Canvas>().gameObject;
-
-        GameObject _healthBar = Instantiate<GameObject>(_healthBarPrefab, _mainCanvas.transform);
-        _actualHealthBar = _healthBar.GetComponent<Image>();
-        _actualHealthBar.gameObject.SetActive(false);
-
-        _enemyAgent.SetDestination(_patrolRoute[_currPath]);
-        _init = true;
-    }
-
     // Update is called once per frame
     protected override void Update()
     {
@@ -407,12 +378,12 @@ public class AIMovementRanged : AIEnemy {
 
         if (_currentAttackTime >= 1)
         {
-            FindObjectOfType<BerzerkMode>().EnemyDied(1);
+            _berserkRef.EnemyDied(1);
             if (gameObject.tag == "Boss")
             {
-                FindObjectOfType<WinCondition>().BossDied();
+                _winRef.BossDied();
             }
-            FindObjectOfType<WinCondition>().EnemyDied();
+            _winRef.EnemyDied();
             _currentAttackTime = 1;
 
             _init = false;
@@ -450,6 +421,10 @@ public class AIMovementRanged : AIEnemy {
         transform.position = _startPoint;
         _sword.transform.localPosition = _swordPos;
         _sword.SetActive(false);
+        _actualHealthBar.fillAmount = 1;
+        _currEnemyHealth = _enemyHealth;
+        _actualHealthBar.gameObject.SetActive(true);
+
 
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
         _init = true;

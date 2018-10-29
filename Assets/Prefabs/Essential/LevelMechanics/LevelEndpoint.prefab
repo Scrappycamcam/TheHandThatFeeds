@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4118516417193744}
   - component: {fileID: 33449765885138468}
   - component: {fileID: 23072032781847048}
-  - component: {fileID: 135188640216053482}
   - component: {fileID: 65013218997943434}
+  - component: {fileID: 114708511581017212}
   m_Layer: 0
   m_Name: LevelEndpoint
   m_TagString: EndOfLevel
@@ -36,8 +36,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1069314664296778}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.28, y: 1.525, z: 262.47}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 124.9, y: 0.52048075, z: 64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,15 +97,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8, y: 4, z: 8}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &135188640216053482
-SphereCollider:
+--- !u!114 &114708511581017212
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1069314664296778}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5125a5ea05f6b6c499a7e06faecf3718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _percentToWin: 0.65

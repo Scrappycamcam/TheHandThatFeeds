@@ -103,13 +103,47 @@ public class AIEnemy : MonoBehaviour {
     protected RaycastHit hit;
     protected KyleplayerMove _player;
     protected EnemySquad _mySquad;
+    protected BerzerkMode _berserkRef;
+    protected WinCondition _winRef;
 
     protected AIState _myCurrState;
     protected AIState _myPreviousState;
 
     public virtual void Init()
     {
+        _mainCanvas = PlayerCanvas.Instance.gameObject;
+        _mainCanvas.GetComponent<PlayerCanvas>().SetGameReset += MyReset;
+        _player = KyleplayerMove.Instance;
+        _berserkRef = FindObjectOfType<BerzerkMode>();
+        _winRef = FindObjectOfType<WinCondition>();
+        _enemyAgent = GetComponent<NavMeshAgent>();
+        _mySquad = GetComponentInParent<EnemySquad>();
+        _pauseRef = PauseMenu.Instance;
 
+        _patrolRoute = new List<Vector3>();
+        for (int point = 0; point < _patrolPoints.Count; point++)
+        {
+            _patrolRoute.Add(_patrolPoints[point].gameObject.transform.position);
+        }
+        _startPoint = gameObject.transform.position;
+        _patrolRoute.Add(_startPoint);
+        _currPath = 0;
+
+        _sword = transform.GetChild(0).gameObject;
+        _swordPos = _sword.transform.localPosition;
+        _sword.SetActive(false);
+        _bloodParticle = transform.GetChild(1).gameObject;
+
+        _mainCam = PlayerCamera.Instance.gameObject.GetComponent<Camera>();
+
+        GameObject _healthBar = Instantiate<GameObject>(_healthBarPrefab, _mainCanvas.transform);
+        _actualHealthBar = _healthBar.GetComponent<Image>();
+        _actualHealthBar.gameObject.SetActive(false);
+        _currEnemyHealth = _enemyHealth;
+
+        _enemyAgent.SetDestination(_patrolRoute[_currPath]);
+        _myCurrState = AIState.NOTALERTED;
+        _init = true;
     }
 
     // Update is called once per frame
@@ -183,13 +217,17 @@ public class AIEnemy : MonoBehaviour {
 
     protected virtual void ShowHealthBar()
     {
-        _screenPos = _mainCam.WorldToScreenPoint(transform.position + Vector3.up);
+       
         if (!_actualHealthBar.gameObject.activeInHierarchy)
         {
             _actualHealthBar.gameObject.SetActive(true);
         }
-        _HPBarPos = _screenPos;
-        _actualHealthBar.gameObject.transform.position = _HPBarPos + (Vector3.up * _verticalOffset);
+        else
+        {
+            _screenPos = _mainCam.WorldToScreenPoint(transform.position + Vector3.up);
+            _HPBarPos = _screenPos;
+            _actualHealthBar.gameObject.transform.position = _HPBarPos + (Vector3.up * _verticalOffset);
+        }
     }
 
     public virtual void GotDashStruck(float _damageRecieved)
@@ -257,7 +295,30 @@ public class AIEnemy : MonoBehaviour {
 
     public virtual void MyReset()
     {
+        _myCurrState = AIState.NOTALERTED;
+        gameObject.SetActive(true);
+        //_dead = false;
+        //_hit = false;
+        _showingTheTell = false;
+        _attacking = false;
+        _waiting = false;
+        //_stunned = false;
+        // _slammed = false;
+        _canTakeDamage = true;
 
+        _enemyAgent.enabled = true;
+        _enemyAgent.isStopped = false;
+        _currPath = 0;
+
+        transform.position = _startPoint;
+        _sword.transform.localPosition = _swordPos;
+        _sword.SetActive(false);
+        _actualHealthBar.fillAmount = 1;
+        _currEnemyHealth = _enemyHealth;
+        _actualHealthBar.gameObject.SetActive(true);
+
+        _enemyAgent.SetDestination(_patrolRoute[_currPath]);
+        _init = true;
     }
     
     public virtual AIState GetAIState { get{return _myCurrState;} set { _myCurrState = value; } }

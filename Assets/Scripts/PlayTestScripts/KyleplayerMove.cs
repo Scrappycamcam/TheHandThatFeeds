@@ -12,7 +12,23 @@ public class KyleplayerMove : MonoBehaviour
     {
         get
         {
-            return _instance;
+            if(_instance != null)
+            {
+                return _instance;
+            }
+            else
+            {
+                if(FindObjectOfType<KyleplayerMove>())
+                {
+                    _instance = FindObjectOfType<KyleplayerMove>();
+                    return _instance;
+                }
+                else
+                {
+                    Debug.Log("no Player");
+                    return null;
+                }
+            }
         }
     }
 
@@ -55,6 +71,7 @@ public class KyleplayerMove : MonoBehaviour
     private PlayerStats _pStats;
     private Player _player; // The Rewired Player
     private CharacterController _cc;
+    private PlayerCanvas _canvasRef;
     private PauseMenu _pauseRef;
     private Vector3 _moveVector = Vector3.zero;
     private Vector3 _lastMove = Vector3.zero;
@@ -86,7 +103,6 @@ public class KyleplayerMove : MonoBehaviour
     [SerializeField]
     float _TimeForComboToDecay;
     float _TimeComboStart;
-    [SerializeField]
     GameObject _ComboPartsParent;
 
     private Text _ComboText;
@@ -112,9 +128,11 @@ public class KyleplayerMove : MonoBehaviour
     [Header("Special Ability Variables")]
     [SerializeField]
     bool _AbilitiesCostHealth = true;
+
     [Header("Cyclone")]
     [SerializeField]
     bool _cycloneIsUnlocked;
+    bool _levelStartCycloneUnlock;
     [SerializeField]
     float _cycloneAttackDamage;
     [SerializeField]
@@ -137,6 +155,7 @@ public class KyleplayerMove : MonoBehaviour
     [Header("Dash Strike")]
     [SerializeField]
     bool _dashIsUnlocked;
+    bool _levelStartDashUnlock;
     [SerializeField]
     float _dashStrikeAttackDamage;
     [SerializeField]
@@ -169,17 +188,17 @@ public class KyleplayerMove : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
+        if (_instance == this)
         {
-            _instance = this;
-            //DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
+            KyleplayerMove.Instance.GetPlayerStats.GetStartPos = transform.position;
+            KyleplayerMove.Instance.ResetPlayer();
             Destroy(gameObject);
         }
-
-        _pauseRef = FindObjectOfType<PauseMenu>();
+        
         _pStats = GetComponent<PlayerStats>();
 
         //_LastAttack = _BaseAttack;
@@ -193,13 +212,34 @@ public class KyleplayerMove : MonoBehaviour
         _sword = transform.GetChild(0).gameObject;
         _swordReset = _sword.transform.localPosition;
         _enemyHit = new List<AIEnemy>();
+        PlayerLevelStart();
+    }
+
+    private void PlayerLevelStart()
+    {
+        transform.position = _pStats.GetStartPos;
+        _canvasRef = PlayerCanvas.Instance;
+        _ComboPartsParent = _canvasRef.transform.GetChild(0).gameObject;
         _ComboText = _ComboPartsParent.transform.GetChild(0).GetComponent<Text>();
         _DecayBar = _ComboPartsParent.transform.GetChild(1).GetComponent<Image>();
+        _pauseRef = PauseMenu.Instance;
+        _levelStartCycloneUnlock = _cycloneIsUnlocked;
+        _levelStartDashUnlock = _dashIsUnlocked;
+
+    }
+
+    public void ResetPlayer()
+    {
+        transform.position = _pStats.GetStartPos;
+        _cycloneIsUnlocked = _levelStartCycloneUnlock;
+        _dashIsUnlocked = _levelStartDashUnlock;
+        ResetSword();
+        ResetAbilities();
+        PlayerLevelStart();
     }
 
     void Update()
     {
-
         if(!_pauseRef.GameIsPaused)
         {
             if (!_attacking)
@@ -232,24 +272,49 @@ public class KyleplayerMove : MonoBehaviour
                 ProcessDash();
             }
         }
+        else
+        {
+            CheckMenuInput();
+        }
         
+    }
+
+    void CheckMenuInput()
+    {
+       float _menuMove = _player.GetAxis("Move Vertical");
+
+        if(_menuMove > 0)
+        {
+            _pauseRef.MenuMovement(true);
+        }
+        else if(_menuMove < 0)
+        {
+            _pauseRef.MenuMovement(false);
+        }
+
+        bool _buttonPressed = _player.GetButtonDown("Interact");
+
+        if(_buttonPressed)
+        {
+            _pauseRef.ButtonPush();
+        }
     }
 
     private void CheckFall()
     {
         RaycastHit hit;
-        if (!Physics.Raycast(transform.position, Vector3.down, out hit, .2f) && !_isDashing){ //if there is nothing below the player
-            _cc.Move(Vector3.down * _gravity);//fall at rate gravity
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, .2f) && !_isDashing) { //if there is nothing below the player
+            _cc.Move(Vector3.down * _gravity); //fall at rate gravity
         }
         else //if there is something below the player
         {
-            if (hit.transform.tag == "Death")//if it is not meant to kill you
+            if (hit.transform.tag == "Death") //if it is not meant to kill you
             {
                 checkPoint(); //teleport to last position
             }
             else //it is meant to kill you
             {
-                _lastPos = transform.position;   //set the last position
+                _lastPos = transform.position; //set the last position
             }
         }
     }
@@ -272,6 +337,10 @@ public class KyleplayerMove : MonoBehaviour
             if(hit.collider.GetComponent<ProgressionLighting>())
             {
                 hit.collider.GetComponent<ProgressionLighting>().TurnOnTorch();
+            }
+            else if(hit.collider.GetComponent<WinCondition>())
+            {
+                LevelSelection_Script.Instance.LoadScene(LevelSelection_Script.WhatLevel.Level2);
             }
         }
         if (Physics.Raycast(transform.position + Vector3.up, -transform.up, out hit, 1f))
@@ -838,7 +907,6 @@ public class KyleplayerMove : MonoBehaviour
     private void DecayCombo()
     {
         float ratio = ((_TimeComboStart - Time.time) / _TimeForComboToDecay);
-        _DecayBar.fillAmount = ratio;
         if(ratio <= 0)
         {
             Debug.Log("combo eneded");
@@ -864,4 +932,7 @@ public class KyleplayerMove : MonoBehaviour
     public float GetDashDamage { get { return _dashStrikeAttackDamage; } set { _dashStrikeAttackDamage = value; } }
     public bool GetCostHealth { get { return _AbilitiesCostHealth; } set { _AbilitiesCostHealth = value; } }
     public int GetCurrentCombo { get { return _currTotalCombo; } }
+
+    public bool GetCycloneUnlock { get { return _cycloneIsUnlocked; } set { _cycloneIsUnlocked = value; } }
+    public bool GetDashStrikeUnlock { get { return _dashIsUnlocked; } set { _dashIsUnlocked = value; } }
 }

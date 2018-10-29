@@ -41,23 +41,27 @@ public class BerzerkMode : MonoBehaviour {
     public Image _currentBerzerkBar;
 
     [SerializeField]
-    float _vertOffset;
+    float _vertOffsetPercentage;
 
     Camera _playerCam;
 
     private void Awake()
     {
-        _playerCam = FindObjectOfType<camera>().gameObject.GetComponent<Camera>();
-        player = GameObject.Find("Player").transform;
-        _player = ReInput.players.GetPlayer(0);
+        _playerCam = FindObjectOfType<PlayerCamera>().gameObject.GetComponent<Camera>();
         _playerMove = KyleplayerMove.Instance;
+        player = _playerMove.transform;
+        _player = ReInput.players.GetPlayer(0);
+
+        _vertOffsetPercentage /= 100f;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        float _actualOffset = _vertOffsetPercentage * Screen.height;
+
         _playerPos = _playerCam.WorldToScreenPoint(player.transform.position);
-        transform.position = _playerPos + (Vector3.up * _vertOffset);
+        transform.position = _playerPos + (Vector3.up * _actualOffset);
         if (!_berzerking)
         {
             if (!_isCharged)
