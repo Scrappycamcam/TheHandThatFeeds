@@ -37,8 +37,15 @@ public class InteractableObject : MonoBehaviour {
     [SerializeField]
     float _verticalOffset;
     GameObject _myImage;
-    GameObject _myCanvas;
+    PlayerCanvas _myCanvas;
     Vector3 _myPos;
+    BoxCollider _myCollider;
+    MeshRenderer _myRenderer;
+
+
+    [Header("If a Health Potion")]
+    [SerializeField]
+    float _healingAmount;
 
     [Header("If an Upgrade Potion")]
     [SerializeField]
@@ -81,12 +88,13 @@ public class InteractableObject : MonoBehaviour {
 
     Camera _playerCam;
 
-    public void Awake()
+    public void Start()
     {
         _Player = ReInput.players.GetPlayer(_playerId);
         _playerCam = FindObjectOfType<PlayerCamera>().gameObject.GetComponent<Camera>();
         _myPos = Vector3.zero;
-        _myCanvas = PlayerCanvas.Instance.gameObject;
+        _myCanvas = PlayerCanvas.Instance;
+        _myCanvas.SetGameReset += InteractableReset;
         GameObject _ImageRef = Instantiate<GameObject>(InteractImagePrefab, _myPos, _myCanvas.transform.rotation, _myCanvas.transform);
         _myImage = _ImageRef;
         _myImage.SetActive(false);
@@ -190,7 +198,7 @@ public class InteractableObject : MonoBehaviour {
                 break;
             case TypeOfObject.POTION:
                 Debug.Log("Got hit");
-                _playerRef.GetPlayerStats.PHeal(20);
+                _playerRef.GetPlayerStats.PHeal(_healingAmount);
                 TurnOffIcon();
                 gameObject.SetActive(false);
                 break;
@@ -312,7 +320,7 @@ public class InteractableObject : MonoBehaviour {
 
     }
 
-    public void InteractableReset()
+    private void InteractableReset()
     {
         switch (_whatAmI)
         {

@@ -299,7 +299,7 @@ MonoBehaviour:
     - _id: 11
       _name: Pause
       _type: 1
-      _descriptiveName: Pause Game
+      _descriptiveName: Pause
       _positiveDescriptiveName: 
       _negativeDescriptiveName: 
       _behaviorId: 0
@@ -332,7 +332,7 @@ MonoBehaviour:
       _id: 4
       _userAssignable: 1
     - _name: Menu
-      _descriptiveName: Menuing
+      _descriptiveName: Menu
       _tag: 
       _id: 5
       _userAssignable: 1

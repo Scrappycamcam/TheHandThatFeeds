@@ -63,6 +63,8 @@ public class KyleplayerMove : MonoBehaviour
     float missDamage;
     [SerializeField]
     float _gravity;
+    [SerializeField]
+    Vector3 _startPos;
 
     //public Attack _BaseAttack;
     //private Attack _LastAttack;
@@ -188,13 +190,13 @@ public class KyleplayerMove : MonoBehaviour
 
     void Awake()
     {
-        if (_instance == this)
+        if (Instance == this)
         {
             DontDestroyOnLoad(gameObject);
         }
         else
         {
-            KyleplayerMove.Instance.GetPlayerStats.GetStartPos = transform.position;
+            KyleplayerMove.Instance.GetStartPos = transform.position;
             KyleplayerMove.Instance.ResetPlayer();
             Destroy(gameObject);
         }
@@ -209,19 +211,23 @@ public class KyleplayerMove : MonoBehaviour
         // Get the character controller
         _cc = GetComponent<CharacterController>();
 
+        _startPos = transform.position;
         _sword = transform.GetChild(0).gameObject;
         _swordReset = _sword.transform.localPosition;
         _enemyHit = new List<AIEnemy>();
         PlayerLevelStart();
     }
 
-    private void PlayerLevelStart()
+    public void PlayerLevelStart()
     {
-        transform.position = _pStats.GetStartPos;
+        Debug.Log("level start called");
+        transform.position = _startPos;
         _canvasRef = PlayerCanvas.Instance;
         _ComboPartsParent = _canvasRef.transform.GetChild(0).gameObject;
         _ComboText = _ComboPartsParent.transform.GetChild(0).GetComponent<Text>();
         _DecayBar = _ComboPartsParent.transform.GetChild(1).GetComponent<Image>();
+        _pStats.FindHealthBar();
+        
         _pauseRef = PauseMenu.Instance;
         _levelStartCycloneUnlock = _cycloneIsUnlocked;
         _levelStartDashUnlock = _dashIsUnlocked;
@@ -230,7 +236,7 @@ public class KyleplayerMove : MonoBehaviour
 
     public void ResetPlayer()
     {
-        transform.position = _pStats.GetStartPos;
+        Debug.Log("called reset");
         _cycloneIsUnlocked = _levelStartCycloneUnlock;
         _dashIsUnlocked = _levelStartDashUnlock;
         ResetSword();
@@ -340,7 +346,10 @@ public class KyleplayerMove : MonoBehaviour
             }
             else if(hit.collider.GetComponent<WinCondition>())
             {
+                _canvasRef.WipeCanvas();
+                _canvasRef.SetGameReset = ResetPlayer;
                 LevelSelection_Script.Instance.LoadScene(LevelSelection_Script.WhatLevel.Level2);
+                PlayerLevelStart();
             }
         }
         if (Physics.Raycast(transform.position + Vector3.up, -transform.up, out hit, 1f))
@@ -924,6 +933,7 @@ public class KyleplayerMove : MonoBehaviour
     }
 
     public SpecialAbility GetCurrAbility { get { return _myability; } }
+    public Vector3 GetStartPos { get { return _startPos; } set { _startPos = value; } }
     public bool AmIInvincible { get { return _invincible; } }
     public float GetLightDamage { get { return _lightAttackDamage; } set { _lightAttackDamage = value; } }
     public float GetHeavyDamage { get { return _heavyAttackDamage; } set { _heavyAttackDamage = value; } }

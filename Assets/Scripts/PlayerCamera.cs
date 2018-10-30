@@ -47,7 +47,7 @@ public class PlayerCamera : MonoBehaviour {
     {
         if(Instance == this)
         {
-            //DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {

@@ -48,35 +48,6 @@ public class AIOverlord : MonoBehaviour {
         StartCoroutine(InitSquads());
     }
 
-    private void ResetEnemies()
-    {
-        for (int i = 0; i < _squadList.Count; i++)
-        {
-            _squadList[i].GetComponent<EnemySquad>().ResetSquad();
-        }
-    }
-
-    public void PauseEnemies()
-    {
-        for (int i = 0; i < _squadList.Count; i++)
-        {
-            _squadList[i].PauseSquad();
-        }
-    }
-
-    public void UnPauseEnemies()
-    {
-        for (int i = 0; i < _squadList.Count; i++)
-        {
-            _squadList[i].UnPauseSquad();
-        }
-    }
-
-    public void ResetMe()
-    {
-        _squadList = new List<EnemySquad>();
-    }
-
     IEnumerator InitSquads()
     {
         for (int i = 0; i < _squadList.Count; i++)

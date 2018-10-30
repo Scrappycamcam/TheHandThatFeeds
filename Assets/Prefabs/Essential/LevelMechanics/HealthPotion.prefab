@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1611768822148416}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 88, y: 0.9, z: 20.5}
+  m_LocalPosition: {x: -10.948, y: 0.9, z: 29.399}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children: []
   m_Father: {fileID: 0}
@@ -109,7 +109,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0, b: 0.09661579, a: 1}
   m_Intensity: 2
-  m_Range: 10
+  m_Range: 5
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -150,6 +150,7 @@ MonoBehaviour:
   InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
     type: 2}
   _verticalOffset: 40
+  _healingAmount: 200
   _upgradeToUnlock: 0
   _KillsTextPrefab: {fileID: 0}
   _NumOfEnemiesToKill: 0

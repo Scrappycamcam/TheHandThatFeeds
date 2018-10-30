@@ -811,6 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasObjectsToKeep: 6
   _baseCanvasObjects: []
+  _childrenAtStart: 0
 --- !u!114 &114515274856240624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1063,6 +1064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f6e3584f5a04a4ca6a488c5a87dcde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pauseMenuButtons: []
   _menuMoveDelayDuration: 25
 --- !u!114 &114859743040573700
 MonoBehaviour:

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySquad : MonoBehaviour {
-
-    [SerializeField]
+    
     List<AIEnemy> _enemyList;
 
     AIOverlord _myOverlord;
@@ -36,30 +35,6 @@ public class EnemySquad : MonoBehaviour {
         {
             _enemyList[i].SetPlayer = _playerToAttack;
             _enemyList[i].GetAIState = AIState.ALERTED;
-        }
-    }
-
-    public void PauseSquad()
-    {
-        for (int i = 0; i < _enemyList.Count; i++)
-        {
-            _enemyList[i].PauseMe();
-        }
-    }
-
-    public void UnPauseSquad()
-    {
-        for (int i = 0; i < _enemyList.Count; i++)
-        {
-            _enemyList[i].UnPauseMe();
-        }
-    }
-
-    public void ResetSquad()
-    {
-        for (int i = 0; i < _enemyList.Count; i++)
-        {
-            _enemyList[i].MyReset();
         }
     }
 }

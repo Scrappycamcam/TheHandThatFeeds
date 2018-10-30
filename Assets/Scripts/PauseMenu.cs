@@ -59,7 +59,7 @@ public class PauseMenu : MonoBehaviour {
 
     private void Awake()
     {
-        if (_instance == this)
+        if (Instance == this)
         {
             //DontDestroyOnLoad(gameObject);
         }

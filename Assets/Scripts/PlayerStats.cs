@@ -17,7 +17,6 @@ public class PlayerStats : MonoBehaviour {
     [SerializeField]
     GameObject _DefeatDisplay;
     float _PcurrHealth;
-    Vector3 startPos;
 
     LevelSelection_Script myscript;
 
@@ -29,16 +28,15 @@ public class PlayerStats : MonoBehaviour {
         myscript = LevelSelection_Script.Instance;
         _playerRef = GetComponent<KyleplayerMove>();
         _canvasRef = PlayerCanvas.Instance;
-        startPos = transform.position;
         _PcurrHealth = _PmaxHealth;
 
         _currentHealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
-        //PDamage(100);
     }
 
-    public void ResetStartPos()
+    public void FindHealthBar()
     {
-        startPos = transform.position;
+        _currentHealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
+        DisplayHealth();
     }
 
     void DisplayHealth()
@@ -103,6 +101,4 @@ public class PlayerStats : MonoBehaviour {
     {
         return _PcurrHealth;
     }
-
-    public Vector3 GetStartPos { get { return startPos; } set { startPos = value; } }
 }
