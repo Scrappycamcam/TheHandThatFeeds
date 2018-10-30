@@ -33,11 +33,8 @@ public class PlayerCanvas : MonoBehaviour {
 
     [SerializeField]
     int _canvasObjectsToKeep;
-    [SerializeField]
     List<GameObject> _baseCanvasObjects;
     KyleplayerMove _playerRef;
-    [SerializeField]
-    float _childrenAtStart;
 
 
     private ResetDelegate Reset;
@@ -56,7 +53,6 @@ public class PlayerCanvas : MonoBehaviour {
 
         _playerRef = KyleplayerMove.Instance;
         Reset = _playerRef.ResetPlayer;
-        _childrenAtStart = transform.childCount;
     }
 
     public void WipeCanvas()

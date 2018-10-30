@@ -37,6 +37,8 @@ public class PauseMenu : MonoBehaviour {
     Player _player;
 
     GameObject _PauseMenu;
+    GameObject _ControlsMenu;
+
     [SerializeField]
     List<Button> _pauseMenuButtons;
     int _currButton = 0;
@@ -73,6 +75,7 @@ public class PauseMenu : MonoBehaviour {
         _playerRef = KyleplayerMove.Instance;
         
         _PauseMenu = transform.GetChild(0).gameObject;
+        _ControlsMenu = transform.GetChild(1).gameObject;
 
         _pauseMenuButtons = new List<Button>();
         for (int i = 0; i < _PauseMenu.transform.childCount; i++)
@@ -83,11 +86,13 @@ public class PauseMenu : MonoBehaviour {
             }
         }
         _currButton = 0;
-        _pauseMenuButtons[_currButton].Select();
         Debug.Log("init");
         _currScene = SceneManager.GetActiveScene().buildIndex;
 
+
+        _pauseMenuButtons[_currButton].Select();
         _PauseMenu.SetActive(false);
+        _ControlsMenu.SetActive(false);
     }
 
     private void Update()
@@ -108,7 +113,7 @@ public class PauseMenu : MonoBehaviour {
         if(_paused)
         {
             _PauseMenu.SetActive(false);
-
+            _ControlsMenu.SetActive(false);
             Time.timeScale = _pastTimeScale;
             _paused = false;
             _canMenu = true;
@@ -121,11 +126,11 @@ public class PauseMenu : MonoBehaviour {
             Time.timeScale = 0;
 
             _currButton = 0;
-            _pauseMenuButtons[_currButton].Select();
             
             _paused = true;
             _canMenu = true;
 
+            _pauseMenuButtons[_currButton].Select();
         }
     }
 
@@ -176,8 +181,6 @@ public class PauseMenu : MonoBehaviour {
 
     public void ButtonPush()
     {
-        Time.timeScale = 1f;
-        _paused = false;
         _pauseMenuButtons[_currButton].onClick.Invoke();
     }
 
@@ -186,9 +189,38 @@ public class PauseMenu : MonoBehaviour {
         Pause();
     }
 
-    public void RetryLevel()
+    public void Controls()
     {
-        _canvasRef.ResetGame();
+        _ControlsMenu.SetActive(true);
+
+        _pauseMenuButtons = new List<Button>();
+        for (int i = 0; i < _ControlsMenu.transform.childCount; i++)
+        {
+            if (_ControlsMenu.transform.GetChild(i).GetComponent<Button>())
+            {
+                _pauseMenuButtons.Add(_ControlsMenu.transform.GetChild(i).gameObject.GetComponent<Button>());
+            }
+        }
+
+        _currButton = 0;
+        _pauseMenuButtons[_currButton].Select();
+    }
+
+    public void BackFromControls()
+    {
+        _ControlsMenu.SetActive(false);
+
+        _pauseMenuButtons = new List<Button>();
+        for (int i = 0; i < _PauseMenu.transform.childCount; i++)
+        {
+            if (_PauseMenu.transform.GetChild(i).GetComponent<Button>())
+            {
+                _pauseMenuButtons.Add(_PauseMenu.transform.GetChild(i).gameObject.GetComponent<Button>());
+            }
+        }
+
+        _currButton = 1;
+        _pauseMenuButtons[_currButton].Select();
     }
 
     public void BackToMainMenu()
