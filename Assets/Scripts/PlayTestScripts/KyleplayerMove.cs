@@ -309,7 +309,7 @@ public class KyleplayerMove : MonoBehaviour
     private void CheckFall()
     {
         RaycastHit hit;
-        if (!Physics.Raycast(transform.position, Vector3.down, out hit, .2f) && !_isDashing) { //if there is nothing below the player
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, .05f) && !_isDashing) { //if there is nothing below the player
             _cc.Move(Vector3.down * _gravity); //fall at rate gravity
         }
         else //if there is something below the player
@@ -916,6 +916,7 @@ public class KyleplayerMove : MonoBehaviour
     private void DecayCombo()
     {
         float ratio = ((_TimeComboStart - Time.time) / _TimeForComboToDecay);
+        _DecayBar.fillAmount = ratio;
         if(ratio <= 0)
         {
             Debug.Log("combo eneded");

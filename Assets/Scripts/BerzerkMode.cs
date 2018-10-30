@@ -24,11 +24,11 @@ public class BerzerkMode : MonoBehaviour {
     [SerializeField]
     float _BerzerkLength;
 
-    private float _origSpeed;
-    private float _origLightDamage;
-    private float _origHeavyDamage;
-    private float _origCycloneDamage;
-    private float _origDashDamage;
+    private float _origSpeed = 5f;
+    private float _origLightDamage = 10f;
+    private float _origHeavyDamage = 15f;
+    private float _origCycloneDamage = 20f;
+    private float _origDashDamage = 20f;
 
     private float _BerzerkTimer;
     private Player _player;
@@ -54,9 +54,15 @@ public class BerzerkMode : MonoBehaviour {
 
         _vertOffsetPercentage /= 100f;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    private void Start()
+    {
+        BerzerkReset();
+        PlayerCanvas.Instance.SetGameReset += BerzerkReset;
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         float _actualOffset = _vertOffsetPercentage * Screen.height;
 
@@ -130,15 +136,7 @@ public class BerzerkMode : MonoBehaviour {
         if(ratio <= 0)
         {
             ratio = 0;
-            _numKillsSoFar = 0;
-            _playerMove.GetCostHealth = true;
-            _playerMove.GetLightDamage = _origLightDamage;
-            _playerMove.GetHeavyDamage = _origHeavyDamage;
-            _playerMove.GetMoveSpeed = _origSpeed;
-            _playerMove.GetCycloneDamage = _origCycloneDamage;
-            _playerMove.GetDashDamage = _origDashDamage;
-            _berzerking = false;
-            _isCharged = false;
+            BerzerkReset();
         }
     }
 
@@ -150,5 +148,18 @@ public class BerzerkMode : MonoBehaviour {
         Debug.Log(mult);
         _numKillsSoFar += (float)(killWorth*mult);
         Debug.Log(_numKillsSoFar);
+    }
+
+    public void BerzerkReset()
+    {
+        _numKillsSoFar = 0;
+        _playerMove.GetCostHealth = true;
+        _playerMove.GetLightDamage = _origLightDamage;
+        _playerMove.GetHeavyDamage = _origHeavyDamage;
+        _playerMove.GetMoveSpeed = _origSpeed;
+        _playerMove.GetCycloneDamage = _origCycloneDamage;
+        _playerMove.GetDashDamage = _origDashDamage;
+        _berzerking = false;
+        _isCharged = false;
     }
 }
