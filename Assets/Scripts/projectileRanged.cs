@@ -25,7 +25,7 @@ public class projectileRanged : MonoBehaviour {
             //Debug.Log(hit);
             if (!hit.collider.GetComponent<AIEnemy>())
             {
-                Debug.Log("Hit Somthing");
+                Debug.Log("Hit Something");
                 if (hit.collider.GetComponent<PlayerStats>())
                 {
                     Debug.Log("Hit Player");

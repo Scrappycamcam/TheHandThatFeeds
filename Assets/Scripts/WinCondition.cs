@@ -17,13 +17,16 @@ public class WinCondition : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+
         _mycollider = GetComponent<BoxCollider>();
         _myRenderer = GetComponent<MeshRenderer>();
 
         _mycollider.enabled = false;
         _myRenderer.enabled = false;
 
-        CountEnemies();
+        ResetWin();
+
+        PlayerCanvas.Instance.SetGameReset += ResetWin;
     }
 
     private void CountEnemies()
@@ -55,6 +58,12 @@ public class WinCondition : MonoBehaviour {
     {
         _myRenderer.enabled = true;
         _mycollider.enabled = true;
+    }
+
+    public void ResetWin()
+    {
+        enemiesKilled = 0;
+        CountEnemies();
     }
 
     public float GetKilledEnemiesCount { get { return enemiesKilled; } }

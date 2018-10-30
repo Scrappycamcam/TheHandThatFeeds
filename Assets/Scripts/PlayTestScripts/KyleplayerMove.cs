@@ -63,8 +63,8 @@ public class KyleplayerMove : MonoBehaviour
     float missDamage;
     [SerializeField]
     float _gravity;
-    [SerializeField]
     Vector3 _startPos;
+    Animator _myAnimations;
 
     //public Attack _BaseAttack;
     //private Attack _LastAttack;
@@ -211,6 +211,8 @@ public class KyleplayerMove : MonoBehaviour
         // Get the character controller
         _cc = GetComponent<CharacterController>();
 
+        _myAnimations = GetComponent<Animator>();
+
         _startPos = transform.position;
         _sword = transform.GetChild(0).gameObject;
         _swordReset = _sword.transform.localPosition;
@@ -309,7 +311,7 @@ public class KyleplayerMove : MonoBehaviour
     private void CheckFall()
     {
         RaycastHit hit;
-        if (!Physics.Raycast(transform.position, Vector3.down, out hit, .2f) && !_isDashing) { //if there is nothing below the player
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, .05f) && !_isDashing) { //if there is nothing below the player
             _cc.Move(Vector3.down * _gravity); //fall at rate gravity
         }
         else //if there is something below the player
@@ -421,6 +423,7 @@ public class KyleplayerMove : MonoBehaviour
 
         if (_LightAttack)
         {
+            _myAnimations.Play("LightAttack1", 0);
             _currComboNum = 0;
             _nextComboTransform = _myLightComboPos[_currComboNum];
             //Debug.Log(_nextComboTransform);
@@ -916,6 +919,7 @@ public class KyleplayerMove : MonoBehaviour
     private void DecayCombo()
     {
         float ratio = ((_TimeComboStart - Time.time) / _TimeForComboToDecay);
+        _DecayBar.fillAmount = ratio;
         if(ratio <= 0)
         {
             Debug.Log("combo eneded");

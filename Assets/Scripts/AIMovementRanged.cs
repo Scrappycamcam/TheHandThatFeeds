@@ -10,6 +10,8 @@ public class AIMovementRanged : AIEnemy {
     public GameObject _projectile;
     public Transform _launchPos;
 
+    
+
     [SerializeField]
     float _projSpeed;
     [SerializeField]
@@ -18,6 +20,7 @@ public class AIMovementRanged : AIEnemy {
     // Update is called once per frame
     protected override void Update()
     {
+        
         if (_init)
         {
             if (!_pauseRef.GameIsPaused)
@@ -58,10 +61,10 @@ public class AIMovementRanged : AIEnemy {
         if (!_showingTheTell)
         {
             _enemyAgent.isStopped = true;
-            c0 = _swordPos;
-            c1 = _swordPos + Vector3.up;
             _startAttackTime = Time.time;
             _showingTheTell = true;
+            Animator anim = GetComponent<Animator>();
+            anim.SetTrigger("Attack");
         }
         else
         {
@@ -70,22 +73,12 @@ public class AIMovementRanged : AIEnemy {
             if (_currentAttackTime > 1)
             {
                 _currentAttackTime = 1;
-
-                c0 = transform.position;
-                c1 = _player.transform.position - transform.forward;
-                c1.y = transform.position.y;
                 _attacking = true;
-                _sword.transform.localPosition = _swordPos;
                 _startAttackTime = Time.time;
             }
             else
             {
-                Vector3 p01;
-
-                p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
-
                 transform.LookAt(_player.transform.position + Vector3.up);
-                _sword.transform.localPosition = p01;
             }
         }
     }
@@ -130,7 +123,7 @@ public class AIMovementRanged : AIEnemy {
             }
             else
             {
-                transform.LookAt(c1);
+                transform.LookAt(_player.transform.position);
 
                 projectileRanged _proj = Instantiate<GameObject>(_projectile, _launchPos.position, transform.rotation, null).GetComponent<projectileRanged>();
                 _proj._speed = _projSpeed;
@@ -148,5 +141,30 @@ public class AIMovementRanged : AIEnemy {
 
             transform.position = p01;
         }
+    }
+    protected override void DeadActivate(Vector3 _dirToDie)
+    {
+
+        Animator anim = GetComponent<Animator>();
+        anim.SetTrigger("Death");
+        Debug.Log("activating death");
+        _showingTheTell = false;
+        _attacking = false;
+        _waiting = false;
+        //_slammed = false;
+        //_stunned = false;
+        _enemyAgent.isStopped = false;
+        _canTakeDamage = false;
+
+        c0 = transform.position;
+        c1 = transform.position + _dirToDie;
+        c2 = transform.position + _dirToDie + (Vector3.down);
+        _startAttackTime = Time.time;
+        _enemyAgent.enabled = false;
+        _myCurrState = AIState.DYING;
+        Debug.Log(_myCurrState);
+        Debug.Log(_init);
+
+        //_dead = true;
     }
 }
