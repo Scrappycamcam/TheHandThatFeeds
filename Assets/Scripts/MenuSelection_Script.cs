@@ -3,23 +3,52 @@ using System.Collections.Generic;
 using Rewired;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 //using UnityEngine.UI;
 
 public class MenuSelection_Script : MonoBehaviour {
-    [Header("Menu Buttons.")]
-    [SerializeField] private GameObject ControlImg;
-    [SerializeField] private GameObject StartBtn;
-    [SerializeField] private GameObject QuitBtn;
+    [SerializeField]
+    private GameObject _ControlsMap;
+    [SerializeField]
+    private GameObject _StartBtn;
+    [SerializeField]
+    private GameObject _QuitBtn;
     private Player _player;
     private bool _buttonSelected;
     private int _MSelect;
     private float _PInput;
+    private int _playerId = 0; // The Rewired player id of this character
+    float _currDelayTime;
+    float _startDelayTime;
+    bool _menuDelay = false;
+    float _menuMoveDelayDuration = 25.0f;
+    List<Button> _MainMenuButtons;
+    int _currButton = 0;
+    int _currScene;
+    bool _canMenu;
 
-    private KyleplayerMove _playerRef;
-    private PlayerCamera _cameraRef;
-    private PlayerCanvas _canvasRef;
+    private void Awake()
+    {
+        
+        _player = ReInput.players.GetPlayer(_playerId);
 
+        _MainMenuButtons = new List<Button>();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).GetComponent<Button>())
+            {
+                _MainMenuButtons.Add(transform.GetChild(i).gameObject.GetComponent<Button>());
+            }
+        }
+        _currButton = 0;
+        _MainMenuButtons[_currButton].Select();
+        Debug.Log("init");
+        _currScene = SceneManager.GetActiveScene().buildIndex;
+
+        //_MainMenu.SetActive(false);
+    }
+/*
     private void Awake()
     {
         if(FindObjectOfType<KyleplayerMove>())
@@ -37,7 +66,7 @@ public class MenuSelection_Script : MonoBehaviour {
             _cameraRef = PlayerCamera.Instance;
         }
     }
-
+    */
     public void StartGame()
     {
         _MSelect = 0;
@@ -48,17 +77,17 @@ public class MenuSelection_Script : MonoBehaviour {
 
     public void Controls()
     {
-        if (ControlImg.activeSelf == false)
+        if(_ControlsMap.activeSelf == false)
         {
-            StartBtn.SetActive(false);
-            QuitBtn.SetActive(false);
-            ControlImg.SetActive(true);
+            _ControlsMap.SetActive(true);
+            _StartBtn.SetActive(false);
+            _QuitBtn.SetActive(false);
         }
         else
         {
-            StartBtn.SetActive(true);
-            QuitBtn.SetActive(true);
-            ControlImg.SetActive(false);
+            _ControlsMap.SetActive(false);
+            _StartBtn.SetActive(true);
+            _QuitBtn.SetActive(true);
         }
     }
 
@@ -68,8 +97,8 @@ public class MenuSelection_Script : MonoBehaviour {
         Application.Quit();
     }
 
-    //public void Update()
-    //{
+    public void Update()
+    {
         ////Take Movement Up and Down on left joystick from the controller
         ////Move cursor up/down when going through menu selection
         ////Press A to Select Button
@@ -93,34 +122,82 @@ public class MenuSelection_Script : MonoBehaviour {
         ////{
         ////    PressedButton(_MSelect);
         ////}
+        if(_player.GetAxis("Move Vertical") > 0.1)
+        {
+            MenuMovement(true);
+        }
+        else if(_player.GetAxis("Move Vertical") < -0.1)
+        {
+            MenuMovement(false);
+        }
+        else
+        {
 
-    //}
+        }
+        if (_player.GetButtonDown("Interact"))
+        {
+            ButtonPush();
+        }
+        if (_menuDelay)
+        {
+            MenuDelay();
+        }
+    }
 
     private void OnDisable()
     {
         _buttonSelected = false;
     }
 
-
-    void PressedButton(int WhatWasPressed)
+    public void MenuMovement(bool UpMenu)
     {
-        switch (WhatWasPressed)
+        if (!_menuDelay)
         {
-            default:
-                StartGame();
+            Debug.Log("Menu Moving");
+            //_canMenu = false;
+            if (UpMenu)
+            {
+                _currButton--;
+                if (_currButton < 0)
+                {
+                    _currButton = _MainMenuButtons.Count - 1;
+                }
+            }
+            else if (!UpMenu)
+            {
+                _currButton++;
+                if (_currButton > _MainMenuButtons.Count - 1)
+                {
+                    _currButton = 0;
+                }
+            }
 
-
-                break;
-            case 0:
-                StartGame();
-
-                break;
-            case 1:
-                Controls();
-                break;
-            case 2:
-                QuitGame();
-                break;
+            Debug.Log(_MainMenuButtons[_currButton].transform.name);
+            _MainMenuButtons[_currButton].Select();
+            _startDelayTime = 1;
+            _menuDelay = true;
         }
+    }
+
+    void MenuDelay()
+    {
+        _currDelayTime = _startDelayTime / _menuMoveDelayDuration;
+
+        _startDelayTime++;
+
+        if (_currDelayTime >= 1)
+        {
+            _currDelayTime = 1;
+
+            _menuDelay = false;
+            _canMenu = true;
+        }
+    }
+
+    public void ButtonPush()
+    {
+        //Time.timeScale = 1f;
+        //_paused = false;
+        _MainMenuButtons[_currButton].onClick.Invoke();
     }
 }

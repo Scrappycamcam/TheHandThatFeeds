@@ -170,7 +170,7 @@ public class InteractableObject : MonoBehaviour {
                     _KillsToUnlockText.transform.position = _myPos;
                 }
                 break;
-            case TypeOfObject.PUZZLE:
+            case TypeOfObject.Mural:
                 if (_MuralState)
                 {
                     _MuralObj.SetActive(true);
