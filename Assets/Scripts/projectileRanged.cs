@@ -32,7 +32,7 @@ public class projectileRanged : MonoBehaviour {
                     hit.collider.gameObject.GetComponent<PlayerStats>().PDamage(_damage);
                     Destroy(gameObject);
                 }
-                if (!hit.collider.GetComponent<ProgressionLighting>())
+                if (!hit.collider.GetComponent<ProgressionLighting>() && !hit.collider.GetComponent<projectileRanged>())
                 {
                     Destroy(gameObject);
                 }

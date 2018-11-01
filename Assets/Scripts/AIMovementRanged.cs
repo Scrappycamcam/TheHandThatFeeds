@@ -63,8 +63,11 @@ public class AIMovementRanged : AIEnemy {
             _enemyAgent.isStopped = true;
             _startAttackTime = Time.time;
             _showingTheTell = true;
-            Animator anim = GetComponent<Animator>();
-            anim.SetTrigger("Attack");
+            if (gameObject.name.Contains("Courtyard"))
+            {
+                Animator anim = GetComponent<Animator>();
+                anim.SetTrigger("Attack");
+            }
         }
         else
         {
@@ -145,8 +148,11 @@ public class AIMovementRanged : AIEnemy {
     protected override void DeadActivate(Vector3 _dirToDie)
     {
 
-        Animator anim = GetComponent<Animator>();
-        anim.SetTrigger("Death");
+        if (gameObject.name.Contains("Courtyard"))
+        {
+            Animator anim = GetComponent<Animator>();
+            anim.SetTrigger("Death");
+        }
         Debug.Log("activating death");
         _showingTheTell = false;
         _attacking = false;

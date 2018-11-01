@@ -311,7 +311,7 @@ public class KyleplayerMove : MonoBehaviour
     private void CheckFall()
     {
         RaycastHit hit;
-        if (!Physics.Raycast(transform.position, Vector3.down, out hit, .05f) && !_isDashing) { //if there is nothing below the player
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, .8f) && !_isDashing) { //if there is nothing below the player
             _cc.Move(Vector3.down * _gravity); //fall at rate gravity
         }
         else //if there is something below the player
@@ -319,6 +319,10 @@ public class KyleplayerMove : MonoBehaviour
             if (hit.transform.tag == "Death") //if it is not meant to kill you
             {
                 checkPoint(); //teleport to last position
+            }else if(hit.transform.tag == "DOT")
+            {
+                Debug.Log("Ow");
+                _pStats.PDamage(hit.transform.GetComponent<DOT>()._DamagePerTick);
             }
             else //it is meant to kill you
             {
