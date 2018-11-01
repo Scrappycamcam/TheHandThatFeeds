@@ -40,6 +40,14 @@ public class PuzzleManager : MonoBehaviour {
     [Tooltip("This Activates a Timer for the puzzle")]
     [SerializeField]
     private bool _HasTimer = false;
+
+    [Tooltip("This is the players current kill count.")]
+    [SerializeField]
+    private uint _CurKillCount; 
+
+    [Tooltip("This Will set the required amount of Kills to get")]
+    [SerializeField]
+    private uint _KillsToGet;
     
     private bool _PzResetting = false;
     private Color DefaultColor = Color.white;
@@ -129,6 +137,25 @@ public class PuzzleManager : MonoBehaviour {
     public PzType GetPzType()
     {
         return TypeOfPuzzle;
+    }
+
+    public uint GetCurKillCount()
+    {
+        return _CurKillCount;
+    }
+    public uint CurrentKCPlusOne()
+    {
+        _CurKillCount++;
+        return _CurKillCount;
+    }
+    public uint SetCurKillCount(uint value)
+    {
+        _CurKillCount = value;
+        return _CurKillCount;
+    }
+    public uint KillsToGet()
+    {
+        return _KillsToGet;
     }
 
    

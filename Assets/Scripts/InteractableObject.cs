@@ -77,6 +77,10 @@ public class InteractableObject : MonoBehaviour {
     private Color CorrectColor = Color.green;
     private Color DefaultColor = Color.white;
 
+    [Tooltip("This Allows a Particle effect to trigger")]
+    [SerializeField]
+    private GameObject _ParticleEffect;
+
     private GameObject _pzManagerOBJ;
     private PuzzleManager _pzManager;
 
@@ -179,6 +183,7 @@ public class InteractableObject : MonoBehaviour {
                     {
                         _MuralState = false;
                         _MuralObj.SetActive(false);
+                        Time.timeScale = 1;
                     }
                 }
                 break;
@@ -233,6 +238,11 @@ public class InteractableObject : MonoBehaviour {
                 {
                     Debug.Log("Lever Pulled.");
                     gameObject.GetComponent<MeshRenderer>().material.color = CorrectColor;
+                    if (_ParticleEffect != null)
+                    {
+                        _ParticleEffect.SetActive(true);
+
+                    }
                     _pzManager._OrderProg = _pzManager._OrderProg + leverNumber;
                     _pzManager.PzCheck();
 
@@ -243,6 +253,11 @@ public class InteractableObject : MonoBehaviour {
                     if (!_HasBeenStepped)
                     {
                         gameObject.GetComponent<MeshRenderer>().material.color = CorrectColor;
+                        if (_ParticleEffect != null)
+                        {
+                            _ParticleEffect.SetActive(true);
+
+                        }
                         _pzManager._OrderProg = _pzManager._OrderProg + leverNumber;
                         this._HasBeenStepped = true;
                         _pzManager.PzCheck();
@@ -252,7 +267,7 @@ public class InteractableObject : MonoBehaviour {
                 }
                 else if(_pzManager.GetPzType() == PzType.KillPz)
                 {
-
+                    
                 }
                 else
                 {
@@ -267,6 +282,7 @@ public class InteractableObject : MonoBehaviour {
                 //Activate Mural Object.
                 _MuralState = true;
                 MuralManager(this._MuralNo);
+                Time.timeScale = 0;
                 //Activate Text Box
                 break;
             default:
@@ -308,6 +324,12 @@ public class InteractableObject : MonoBehaviour {
     public void PuzzleReset()
     {
         GetComponent<MeshRenderer>().material.color = DefaultColor;
+        if (_ParticleEffect != null)
+        {
+            _ParticleEffect.SetActive(false);
+
+        }
+        
         _HasBeenStepped = false;
         
     }
