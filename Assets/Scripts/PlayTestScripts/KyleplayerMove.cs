@@ -211,7 +211,10 @@ public class KyleplayerMove : MonoBehaviour
         // Get the character controller
         _cc = GetComponent<CharacterController>();
 
-        _myAnimations = GetComponent<Animator>();
+        if (GetComponent<Animator>())
+        {
+            _myAnimations = GetComponent<Animator>();
+        }
 
         _startPos = transform.position;
         _sword = transform.GetChild(0).gameObject;
@@ -319,14 +322,15 @@ public class KyleplayerMove : MonoBehaviour
             if (hit.transform.tag == "Death") //if it is not meant to kill you
             {
                 checkPoint(); //teleport to last position
-            }else if(hit.transform.tag == "DOT")
-            {
-                Debug.Log("Ow");
-                _pStats.PDamage(hit.transform.GetComponent<DOT>()._DamagePerTick);
             }
             else //it is meant to kill you
             {
                 _lastPos = transform.position; //set the last position
+            }
+            if (hit.transform.tag == "DOT")
+            {
+                Debug.Log("Ow");
+                _pStats.PDamage(hit.transform.GetComponent<DOT>()._DamagePerTick);
             }
         }
     }
@@ -427,7 +431,10 @@ public class KyleplayerMove : MonoBehaviour
 
         if (_LightAttack)
         {
-            _myAnimations.Play("LightAttack1", 0);
+            if (_myAnimations)
+            {
+                _myAnimations.Play("LightAttack1", 0);
+            }
             _currComboNum = 0;
             _nextComboTransform = _myLightComboPos[_currComboNum];
             //Debug.Log(_nextComboTransform);

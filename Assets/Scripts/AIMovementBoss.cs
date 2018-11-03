@@ -32,6 +32,14 @@ public class AIMovementBoss : AIEnemy {
     [SerializeField]
     float _percentHeal;//percent chance that he will perform the Heal move
 
+    [Header("Heal Move Specifics")]
+    [SerializeField]
+    float _sacrificeHeal;
+    [SerializeField]
+    float _durationOfHealMove;
+
+    private float _healTimer;
+
     private enum whichAttack{Melee, Ranged, Ring, Shield, Heal, None};
 
     private whichAttack _myAtk = whichAttack.None;
@@ -60,6 +68,9 @@ public class AIMovementBoss : AIEnemy {
                             break;
                         case AIState.STUNNED:
                             Stunned();
+                            break;
+                        case AIState.SACRIFICING:
+                            Sacrificing();
                             break;
                         default:
                             break;
@@ -182,8 +193,19 @@ public class AIMovementBoss : AIEnemy {
                             ShieldAttack();
                             break;
                         case whichAttack.Heal:
-                            Debug.Log("Heal");
-                            HealAttack();
+                            if (_currEnemyHealth < _enemyHealth)
+                            {
+                                Debug.Log("Heal");
+                                HealAttack();
+                            }
+                            else
+                            {
+                                _waiting = false;
+                                _attacking = false;
+                                _showingTheTell = false;
+                                _myCurrState = AIState.ALERTED;
+                                _myAtk = whichAttack.None;
+                            }
                             break;
                         case whichAttack.None:
                             Debug.Log("Something Went Wrong With Boss Attack Selection");
@@ -340,6 +362,11 @@ public class AIMovementBoss : AIEnemy {
     {
         Instantiate(DOTObj, transform.position + (Vector3.down/2), DOTObj.transform.rotation, null);
         _myAtk = whichAttack.None;
+
+        _waiting = false;
+        _attacking = false;
+        _showingTheTell = false;
+        _myCurrState = AIState.ALERTED;
     }
 
     private void ShieldAttack()
@@ -347,11 +374,65 @@ public class AIMovementBoss : AIEnemy {
         transform.Find("Shield").gameObject.SetActive(true);
         _isShielded = true;
         _myAtk = whichAttack.None;
+
+        _waiting = false;
+        _attacking = false;
+        _showingTheTell = false;
+        _myCurrState = AIState.ALERTED;
     }
 
     private void HealAttack()
     {
+        List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
+        _healTimer = Time.time + _durationOfHealMove;
+        gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        foreach(AIEnemy enemy in MyEnemies)
+        {
+            if (enemy.isActiveAndEnabled)
+            {
+                enemy.Sacrifice(transform.position);
+            }
+        }
+    }
 
+    private void Sacrificing()
+    {
+        if(Time.time >= _healTimer || _currEnemyHealth >= _enemyHealth)
+        {
+            ResetState();
+            List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
+            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            foreach (AIEnemy enemy in MyEnemies)
+            {
+                if (enemy.isActiveAndEnabled)
+                {
+                    enemy.ResetState();
+                }
+            }
+        }
+        else
+        {
+            List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
+            foreach (AIEnemy enemy in MyEnemies)
+            {
+                if (enemy.isActiveAndEnabled)
+                {
+                    enemy.Sacrifice(transform.position);
+                }
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(_myCurrState == AIState.SACRIFICING)
+        {
+            if (collision.gameObject.GetComponent<AIEnemy>())
+            {
+                collision.gameObject.GetComponent<AIEnemy>().GotHit(1000f, transform.forward, hit.point);
+                UpdateHealth(-_sacrificeHeal);
+            }
+        }
     }
 
     public override void GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos)

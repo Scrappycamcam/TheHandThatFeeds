@@ -37,4 +37,6 @@ public class EnemySquad : MonoBehaviour {
             _enemyList[i].GetAIState = AIState.ALERTED;
         }
     }
+    
+    public List<AIEnemy> GetEnemySquad { get { return _enemyList; } }
 }

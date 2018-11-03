@@ -12,6 +12,7 @@ public enum AIState
     HIT,
     STUNNED,
     DYING,
+    SACRIFICING,
 }
 
 public class AIEnemy : MonoBehaviour {
@@ -305,9 +306,12 @@ public class AIEnemy : MonoBehaviour {
     {
         _currEnemyHealth -= _damage;
 
-        if (_enemyHealth < 0)
+        if (_currEnemyHealth < 0)
         {
-            _enemyHealth = 0;
+            _currEnemyHealth = 0;
+        }else if(_currEnemyHealth > _enemyHealth)
+        {
+            _currEnemyHealth = _enemyHealth;
         }
 
         _actualHealthBar.fillAmount = _currEnemyHealth / _enemyHealth;
@@ -487,6 +491,15 @@ public class AIEnemy : MonoBehaviour {
         _init = true;
     }
     
+    public virtual void Sacrifice(Vector3 Boss)
+    {
+        _myCurrState = AIState.SACRIFICING;
+        if(gameObject.tag != "Boss")
+        {
+            _enemyAgent.SetDestination(Boss);
+        }
+    }
+
     public virtual AIState GetAIState { get{return _myCurrState;} set { _myCurrState = value; } }
     public virtual KyleplayerMove SetPlayer { set { _player = value; } }
 }
