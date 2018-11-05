@@ -11,14 +11,14 @@ public class WinCondition : MonoBehaviour {
     private float totalEnemies;
     private bool BossDead;
 
-    private BoxCollider _mycollider;
+    private SphereCollider _mycollider;
     private MeshRenderer _myRenderer;
 
     // Use this for initialization
     void Start()
     {
 
-        _mycollider = GetComponent<BoxCollider>();
+        _mycollider = GetComponent<SphereCollider>();
         _myRenderer = GetComponent<MeshRenderer>();
 
         _mycollider.enabled = false;
@@ -63,6 +63,7 @@ public class WinCondition : MonoBehaviour {
     public void ResetWin()
     {
         enemiesKilled = 0;
+        BossDead = false;
         CountEnemies();
     }
 

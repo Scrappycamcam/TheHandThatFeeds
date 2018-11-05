@@ -122,9 +122,12 @@ public class AIEnemy : MonoBehaviour {
         _pauseRef = PauseMenu.Instance;
 
         _patrolRoute = new List<Vector3>();
-        for (int point = 0; point < _patrolPoints.Count; point++)
+            for (int point = 0; point < _patrolPoints.Count; point++)
         {
-            _patrolRoute.Add(_patrolPoints[point].gameObject.transform.position);
+            if (_patrolPoints[point])
+            {
+                _patrolRoute.Add(_patrolPoints[point].gameObject.transform.position);
+            }
         }
         _startPoint = gameObject.transform.position;
         _patrolRoute.Add(_startPoint);
@@ -439,11 +442,14 @@ public class AIEnemy : MonoBehaviour {
         {
             Debug.Log("done dying");
             _berserkRef.EnemyDied(1);
-            if (gameObject.tag == "Boss")
+            if (gameObject.tag == "Boss" && _winRef)
             {
                 _winRef.BossDied();
             }
-            _winRef.EnemyDied();
+            if (_winRef)
+            {
+                _winRef.EnemyDied();
+            }
             _currentAttackTime = 1;
 
             _init = false;

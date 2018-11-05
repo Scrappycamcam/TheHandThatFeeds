@@ -81,7 +81,7 @@ public class AIMovementRanged : AIEnemy {
             }
             else
             {
-                transform.LookAt(_player.transform.position + Vector3.up);
+                transform.LookAt(_player.transform.position);
             }
         }
     }

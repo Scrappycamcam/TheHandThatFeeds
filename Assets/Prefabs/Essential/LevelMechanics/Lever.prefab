@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33588314121606872}
   - component: {fileID: 23639834922572126}
   - component: {fileID: 65088129864615582}
+  - component: {fileID: 114713151561899900}
   - component: {fileID: 114568488569734642}
   m_Layer: 0
   m_Name: Lever
@@ -112,6 +113,7 @@ MonoBehaviour:
   InteractImagePrefab: {fileID: 1422227017219718, guid: 7c82668cd0844da4396abfdbacd7c04f,
     type: 2}
   _verticalOffset: 0
+  _healingAmount: 0
   _upgradeToUnlock: 0
   _KillsTextPrefab: {fileID: 0}
   _NumOfEnemiesToKill: 0
@@ -120,4 +122,16 @@ MonoBehaviour:
   _MuralNo: 0
   _MuralState: 0
   leverNumber: 1
+  _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+--- !u!114 &114713151561899900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1843981354254696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 062cf77329976624a9d16b3307ee4296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

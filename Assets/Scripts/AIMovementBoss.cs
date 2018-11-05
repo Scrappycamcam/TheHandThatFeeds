@@ -9,6 +9,8 @@ public class AIMovementBoss : AIEnemy {
     [SerializeField]
     GameObject DOTObj;
 
+    private GameObject _DotGameObj;
+
     [Header("Ranged Variables")]
     public GameObject _projectile;
     public Transform _launchPos;
@@ -117,7 +119,7 @@ public class AIMovementBoss : AIEnemy {
 
                 p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
 
-                transform.LookAt(_player.transform.position + Vector3.up);
+                transform.LookAt(_player.transform.position);
                 _sword.transform.localPosition = p01;
             }
         }
@@ -329,7 +331,7 @@ public class AIMovementBoss : AIEnemy {
             }
             else
             {
-                transform.LookAt(_player.transform.position + Vector3.up);
+                transform.LookAt(c1);
 
                 projectileRanged _proj = Instantiate<GameObject>(_projectile, _launchPos.position, transform.rotation, null).GetComponent<projectileRanged>();
                 projectileRanged _proj2 = Instantiate<GameObject>(_projectile, _launchPos.position, transform.rotation * Quaternion.Euler(0, _shotSpread, 0), null).GetComponent<projectileRanged>();
@@ -360,13 +362,15 @@ public class AIMovementBoss : AIEnemy {
 
     private void RingAttack()
     {
-        Instantiate(DOTObj, transform.position + (Vector3.down/2), DOTObj.transform.rotation, null);
-        _myAtk = whichAttack.None;
-
+        if (!_DotGameObj)
+        {
+            _DotGameObj = Instantiate(DOTObj, transform.position + (Vector3.down / 2), DOTObj.transform.rotation, null);
+        }
         _waiting = false;
         _attacking = false;
         _showingTheTell = false;
         _myCurrState = AIState.ALERTED;
+        _myAtk = whichAttack.None;
     }
 
     private void ShieldAttack()
@@ -384,14 +388,21 @@ public class AIMovementBoss : AIEnemy {
     private void HealAttack()
     {
         List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
-        _healTimer = Time.time + _durationOfHealMove;
-        gameObject.GetComponent<Rigidbody>().isKinematic = false;
-        foreach(AIEnemy enemy in MyEnemies)
+        if (MyEnemies.Count > 1)
         {
-            if (enemy.isActiveAndEnabled)
+            foreach (AIEnemy enemy in MyEnemies)
             {
-                enemy.Sacrifice(transform.position);
+                if (enemy.isActiveAndEnabled)
+                {
+                    _healTimer = Time.time + _durationOfHealMove;
+                    gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                    enemy.Sacrifice(transform.position);
+                }
             }
+        }
+        else
+        {
+            ResetState();
         }
     }
 
@@ -499,7 +510,7 @@ public class AIMovementBoss : AIEnemy {
 
         if (_currEnemyHealth <= 0)
         {
-            DeadActivate(Vector3.zero);
+            DeadActivate(Vector3.down);
         }
     }
 }
