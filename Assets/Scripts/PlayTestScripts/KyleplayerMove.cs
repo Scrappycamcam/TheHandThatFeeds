@@ -361,10 +361,10 @@ public class KyleplayerMove : MonoBehaviour
             }
             else if (hit.collider.GetComponent<WinCondition>())
             {
+                _pStats.Victory();
                 _canvasRef.WipeCanvas();
                 _canvasRef.SetGameReset = ResetPlayer;
-                LevelSelection_Script.Instance.LoadScene(LevelSelection_Script.WhatLevel.Level2);
-                PlayerLevelStart();
+                //PlayerLevelStart();
             }
         }
         if (Physics.Raycast(transform.position + Vector3.up, -transform.up, out hit, 1.5f))

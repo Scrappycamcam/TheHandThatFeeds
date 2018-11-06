@@ -1610,7 +1610,7 @@ MonoBehaviour:
     type: 2}
   _verticalOffset: 75
   _bloodParticle: {fileID: 1881056033283662}
-  _enemyHealth: 50
+  _enemyHealth: 25
   _enemyDamage: 50
   _damageDistance: 10
   _sightDistance: 20

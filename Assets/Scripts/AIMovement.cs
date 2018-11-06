@@ -30,6 +30,9 @@ public class AIMovement : AIEnemy {
                         case AIState.STUNNED:
                             Stunned();
                             break;
+                        case AIState.SACRIFICING:
+                            Saccing();
+                            break;
                         default:
                             break;
                     }

@@ -86,8 +86,8 @@ public class PlayerStats : MonoBehaviour {
 
     public void Victory()
     {
-        _VictoryDisplay.SetActive(true);
-        myscript.LoadScene(LevelSelection_Script.WhatLevel.Level2);
+        //_VictoryDisplay.SetActive(true);
+        GameObject.Find("SceneManager").GetComponent<LevelSelection_Script>().LoadScene();
     }
 
     public void Defeat()

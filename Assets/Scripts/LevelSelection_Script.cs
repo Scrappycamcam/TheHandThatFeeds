@@ -38,7 +38,7 @@ public class LevelSelection_Script : MonoBehaviour {
         BossRoom
     }
 
-    public WhatLevel _CurLevel = (WhatLevel)1;
+    public int _CurLevel = 1;
 
     void Awake()
     {
@@ -52,11 +52,11 @@ public class LevelSelection_Script : MonoBehaviour {
         }
     }
 
-    public void LoadScene(WhatLevel Level)
+    public void LoadScene()
     {
-        Debug.Log("level");
-        _CurLevel = Level;
-        SceneManager.LoadScene((int)Level);
+        Debug.Log(_CurLevel);
+        _CurLevel++;
+        SceneManager.LoadScene(_CurLevel);
     }
 
 

@@ -110,6 +110,8 @@ public class AIEnemy : MonoBehaviour {
     protected AIState _myCurrState;
     protected AIState _myPreviousState;
 
+    protected Vector3 _BossPos;
+
     public virtual void Init()
     {
         _mainCanvas = PlayerCanvas.Instance.gameObject;
@@ -500,10 +502,16 @@ public class AIEnemy : MonoBehaviour {
     public virtual void Sacrifice(Vector3 Boss)
     {
         _myCurrState = AIState.SACRIFICING;
+        _BossPos = Boss;
         if(gameObject.tag != "Boss")
         {
-            _enemyAgent.SetDestination(Boss);
+            _enemyAgent.SetDestination(_BossPos);
         }
+    }
+
+    protected virtual void Saccing()
+    {
+        _enemyAgent.SetDestination(_BossPos);
     }
 
     public virtual AIState GetAIState { get{return _myCurrState;} set { _myCurrState = value; } }

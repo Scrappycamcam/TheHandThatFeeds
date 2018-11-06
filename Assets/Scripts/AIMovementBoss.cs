@@ -394,11 +394,11 @@ public class AIMovementBoss : AIEnemy {
             {
                 if (enemy.isActiveAndEnabled)
                 {
-                    _healTimer = Time.time + _durationOfHealMove;
-                    gameObject.GetComponent<Rigidbody>().isKinematic = false;
                     enemy.Sacrifice(transform.position);
                 }
             }
+            _healTimer = Time.time + _durationOfHealMove;
+            gameObject.GetComponent<Rigidbody>().isKinematic = false;
         }
         else
         {
