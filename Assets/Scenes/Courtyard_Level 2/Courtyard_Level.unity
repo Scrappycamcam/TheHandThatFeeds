@@ -25608,6 +25608,10 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 1342635973712896, guid: 3c373982b6586c24e88b788738109ca0, type: 2}
+      propertyPath: m_TagString
+      value: Boss
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c373982b6586c24e88b788738109ca0, type: 2}
   m_IsPrefabAsset: 0
@@ -26740,6 +26744,16 @@ Prefab:
     - target: {fileID: 1065639728019988, guid: df2429e020fe0be4baaab63925fe7922, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23021848545243632, guid: df2429e020fe0be4baaab63925fe7922,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65005257795772736, guid: df2429e020fe0be4baaab63925fe7922,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df2429e020fe0be4baaab63925fe7922, type: 2}

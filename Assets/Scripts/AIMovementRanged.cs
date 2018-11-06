@@ -26,7 +26,7 @@ public class AIMovementRanged : AIEnemy {
             if (!_pauseRef.GameIsPaused)
             {
                 ShowHealthBar();
-                if (_enemyAgent.enabled)
+                if(_enemyAgent.enabled)
                 {
                     switch (_myCurrState)
                     {
@@ -50,7 +50,7 @@ public class AIMovementRanged : AIEnemy {
                 {
                     Die();
                 }
-
+               
             }
         }
     }

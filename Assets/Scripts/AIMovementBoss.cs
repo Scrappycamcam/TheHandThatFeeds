@@ -446,7 +446,7 @@ public class AIMovementBoss : AIEnemy {
         }
     }
 
-    public override void GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos)
+    public override bool GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos)
     {
         transform.parent = null;
         if (_canTakeDamage && !_isShielded)
@@ -469,13 +469,16 @@ public class AIMovementBoss : AIEnemy {
             {
                 DeadActivate(_knockbackdir);
             }
+            return true;
         }
         else if (_isShielded && _damageRecieved > 15f)
         {
             transform.Find("Shield").gameObject.SetActive(false);
             _isShielded = false;
             Debug.Log("Shield Broken");
+            return true;
         }
+        return false;
     }
 
     public override void GotDashStruck(float _damageRecieved)

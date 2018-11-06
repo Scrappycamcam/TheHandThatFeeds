@@ -273,7 +273,7 @@ public class AIEnemy : MonoBehaviour {
     }
 
     //For Update 2
-    public virtual void GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos)
+    public virtual bool GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos)
     {
         transform.parent = null;
         if (_canTakeDamage)
@@ -296,7 +296,9 @@ public class AIEnemy : MonoBehaviour {
             {
                 DeadActivate(_knockbackdir);
             }
+            return true;
         }
+        return false;
     }
 
     protected virtual void ShowBlood(Vector3 _bloodShowPos)
@@ -385,21 +387,19 @@ public class AIEnemy : MonoBehaviour {
         if (_currentAttackTime >= 1)
         {
             _currentAttackTime = 1;
-            _canTakeDamage = true;
-
             ResetState();
             //_hit = false;
         }
 
         if (_currentAttackTime < 1)
         {
-            if (Physics.Raycast(transform.position, -transform.forward, _damageDistance))
+            /*if (Physics.Raycast(transform.position, -transform.forward, _damageDistance))
             {
                 ResetState();
                 _canTakeDamage = true;
                 //_hit = false;
                 _myCurrState = AIState.ALERTED;
-            }
+            }*/
         }
 
         Vector3 p01;

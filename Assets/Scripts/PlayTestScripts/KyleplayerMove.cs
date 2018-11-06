@@ -317,20 +317,24 @@ public class KyleplayerMove : MonoBehaviour
         if (!_cc.isGrounded && !_isDashing)
         { //if there is nothing below the player
             _cc.Move(Vector3.down * _gravity); //fall at rate gravity
-        }
-        else if(Physics.Raycast(transform.position, Vector3.down, out hit, 4f)) //if there is something below the player
+            //Debug.Log("I'M FREE FALLIN");
+        } 
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, 2f)) //if there is something below the player
         {
+            //Debug.Log("Hit Thing Below Me");
             if (hit.transform.tag == "Death") //if it is not meant to kill you
             {
+                //Debug.Log("Time to Reset");
                 checkPoint(); //teleport to last position
             }
             else //it is meant to kill you
             {
+                //Debug.Log("Set Checkpoint");
                 _lastPos = transform.position; //set the last position
             }
             if (hit.transform.tag == "DOT")
             {
-                Debug.Log("Ow");
+                //Debug.Log("Ow");
                 _pStats.PDamage(hit.transform.GetComponent<DOT>()._DamagePerTick);
             }
         }
@@ -560,25 +564,29 @@ public class KyleplayerMove : MonoBehaviour
                     {
                         if (!CycloneAlreadyHitEnemy(EnemyHit))
                         {
-                            Debug.Log("cyclone hit");
-                            _enemyHit.Add(EnemyHit);
-                            ContinueCombo();
-                            EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack, hit.point);
-                            if (_enemyHit.Count > 2)
+                            if(EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack, hit.point))
                             {
-                                _enemyHit = new List<AIEnemy>();
-                                Debug.Log("cyclone heal");
-                                _pStats.PHeal(_cycloneHeal);
+                                Debug.Log("cyclone hit");
+                                _enemyHit.Add(EnemyHit);
+                                ContinueCombo();
+                                if (_enemyHit.Count > 2)
+                                {
+                                    _enemyHit = new List<AIEnemy>();
+                                    Debug.Log("cyclone heal");
+                                    _pStats.PHeal(_cycloneHeal);
 
+                                }
                             }
                         }
                     }
                     else
                     {
-                        Debug.Log("cyclone hit");
-                        ContinueCombo();
-                        _enemyHit.Add(EnemyHit);
-                        EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack, hit.point);
+                        if(EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack, hit.point))
+                        {
+                            Debug.Log("cyclone hit");
+                            ContinueCombo();
+                            _enemyHit.Add(EnemyHit);
+                        }
                     }
                 }
             }
@@ -620,7 +628,10 @@ public class KyleplayerMove : MonoBehaviour
     //player reels back during this being called
     private void ChargingDashStrike()
     {
-        _currComboTime = (Time.time - _startComboTime) / _dashStrikeChargeUpDuration;
+        if (_dashStrikeChargeUpDuration > 0)
+        {
+            _currComboTime = (Time.time - _startComboTime) / _dashStrikeChargeUpDuration;
+        }
 
         Vector3 p01;
         p01 = (1 - _currComboTime) * c0 + _currComboTime * c1;
@@ -709,8 +720,10 @@ public class KyleplayerMove : MonoBehaviour
                             {
                                 _staggerDirection = transform.right * _dashStrikeKnockBack;
                             }
-                            thingHit.GetComponent<AIEnemy>().GotHit(_dashStrikeAttackDamage, _staggerDirection, hit.point);
-                            ContinueCombo();
+                            if(thingHit.GetComponent<AIEnemy>().GotHit(_dashStrikeAttackDamage, _staggerDirection, hit.point))
+                            {
+                                ContinueCombo();
+                            }
                         }
                         else if (!thingHit.GetComponent<projectileRanged>())
                         {
@@ -825,10 +838,12 @@ public class KyleplayerMove : MonoBehaviour
                 {
                     if (hit.collider.GetComponent<AIEnemy>())
                     {
-                        Debug.Log("hit");
-                        hit.collider.GetComponent<AIEnemy>().GotHit(_currDamage, transform.forward, hit.point);
-                        ContinueCombo();
-                        _hitSomething = true;
+                        if (hit.collider.GetComponent<AIEnemy>().GotHit(_currDamage, transform.forward, hit.point))
+                        {
+                            Debug.Log("hit");
+                            ContinueCombo();
+                            _hitSomething = true;
+                        }
                     }
                 }
             }
