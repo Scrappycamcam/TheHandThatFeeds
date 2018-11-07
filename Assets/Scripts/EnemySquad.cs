@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySquad : MonoBehaviour {
-    
+
+    [SerializeField]
     List<AIEnemy> _enemyList;
 
     AIOverlord _myOverlord;

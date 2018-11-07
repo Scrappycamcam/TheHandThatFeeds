@@ -87,10 +87,29 @@ public class InteractableObject : MonoBehaviour {
     [Header("If Step Puzzle")]
     [SerializeField]
     bool _HasBeenStepped = false;
-    
+
+    [Header("If Kill Puzzle")]
+    [SerializeField]
+    float _killWidth;
+    [SerializeField]
+    float _killDepth;
+    [SerializeField]
+    Vector3 _killAreaStart;
+    [SerializeField]
+    List<GameObject> _enemiesToDie;
+
+    Vector3 _boxStart;
+    Vector3 _midpoint1;
+    Vector3 _midpoint2;
+    Vector3 _boxEnd;
+
     bool _active = false;
 
     Camera _playerCam;
+    
+
+    //[Header("If Enemy Kill Puzzle")]
+    
 
     public void Start()
     {
@@ -120,6 +139,27 @@ public class InteractableObject : MonoBehaviour {
                 transform.parent = null;
                 break;
             case TypeOfObject.PUZZLE:
+                switch (_pzManager.GetPzType())
+                {
+                    case PzType.KillPz:
+                        _killAreaStart += transform.position;
+                        _boxStart = new Vector3(_killAreaStart.x - (_killWidth / 2), _killAreaStart.y, _killAreaStart.z + (_killDepth / 2));
+                        _boxEnd = new Vector3(_boxStart.x + _killWidth, _boxStart.y, _boxStart.z -_killDepth);
+                        _midpoint1 = _boxStart;
+                        _midpoint1.x += _killWidth;
+                        _midpoint2 = _boxStart;
+                        _midpoint2.z -= _killDepth;
+
+                        Debug.Log(_boxStart);
+                        Debug.Log(_boxEnd);
+                        for (int i = 0; i < _enemiesToDie.Count; i++)
+                        {
+                            _enemiesToDie[i].GetComponent<AIKillPuzzleMelee>().SetPuzzle = this;
+                        }
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case TypeOfObject.Mural:
                 _MuralObj.SetActive(false);
@@ -185,6 +225,19 @@ public class InteractableObject : MonoBehaviour {
                         _MuralObj.SetActive(false);
                         Time.timeScale = 1;
                     }
+                }
+                break;
+            case TypeOfObject.PUZZLE:
+                switch (_pzManager.GetPzType())
+                {
+                    case PzType.KillPz:
+                        Debug.DrawLine(_boxStart, _midpoint1);
+                        Debug.DrawLine(_boxStart, _midpoint2);
+                        Debug.DrawLine(_midpoint1, _boxEnd);
+                        Debug.DrawLine(_midpoint2, _boxEnd);
+                        break;
+                    default:
+                        break;
                 }
                 break;
             default:
@@ -292,8 +345,12 @@ public class InteractableObject : MonoBehaviour {
 
     public void ShowIcon()
     {
-        _myImage.SetActive(true);
-        _active = true;
+        if(_pzManager.GetPzType() != PzType.KillPz)
+        {
+            _myImage.SetActive(true);
+            _active = true;
+
+        }
         if(_whatAmI == TypeOfObject.UPGRADE)
         {
             if (_winRef.GetKilledEnemiesCount >= _NumOfEnemiesToKill)
@@ -316,9 +373,35 @@ public class InteractableObject : MonoBehaviour {
         {
             _KillsToUnlockText.SetActive(false);
         }
+        if (_pzManager.GetPzType() != PzType.KillPz)
+        {
+            _myImage.SetActive(false);
+            _active = false;
 
-        _myImage.SetActive(false);
-        _active = false;
+        }
+    }
+
+    public bool CheckForDeathArea(GameObject _enemyToDie, Vector3 _enemyToDiePos)
+    {
+        
+        if(_enemyToDiePos.x > _boxStart.x && _enemyToDiePos.x < _boxEnd.x && _enemyToDiePos.z < _boxStart.z && _enemyToDiePos.z > _boxEnd.z)
+        {
+            _enemiesToDie.Remove(_enemyToDie);
+            CheckForAllDeadEnemies();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void CheckForAllDeadEnemies()
+    {
+        if(_enemiesToDie.Count == 0)
+        {
+            _pzManager.moveFloor();
+        }
     }
 
     public void PuzzleReset()

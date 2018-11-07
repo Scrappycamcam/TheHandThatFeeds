@@ -413,7 +413,6 @@ public class AIEnemy : MonoBehaviour {
 
     protected virtual void DeadActivate(Vector3 _dirToDie)
     {
-
         Debug.Log("activating death");
         _showingTheTell = false;
         _attacking = false;
@@ -514,6 +513,8 @@ public class AIEnemy : MonoBehaviour {
         _enemyAgent.SetDestination(_BossPos);
     }
 
+
+    public bool GetDead { get { return _dead; } }
     public virtual AIState GetAIState { get{return _myCurrState;} set { _myCurrState = value; } }
     public virtual KyleplayerMove SetPlayer { set { _player = value; } }
 }

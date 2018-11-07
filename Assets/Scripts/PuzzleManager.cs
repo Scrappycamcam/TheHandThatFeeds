@@ -44,10 +44,6 @@ public class PuzzleManager : MonoBehaviour {
     [Tooltip("This is the players current kill count.")]
     [SerializeField]
     private uint _CurKillCount; 
-
-    [Tooltip("This Will set the required amount of Kills to get")]
-    [SerializeField]
-    private uint _KillsToGet;
     
     private bool _PzResetting = false;
     private Color DefaultColor = Color.white;
@@ -109,7 +105,17 @@ public class PuzzleManager : MonoBehaviour {
         StartCoroutine(Timer(1.0f));
     }
 
-    
+    public void CheckEnemiesLeft()
+    {
+        /*if (_CurKillCount >= _KillsToGet)
+        {
+            moveFloor();
+        }
+        else
+        {
+            Debug.Log("You Need " + (_KillsToGet - _CurKillCount) + " Kills left.");
+        }*/
+    }
 
     public void moveFloor()
     {
@@ -153,10 +159,11 @@ public class PuzzleManager : MonoBehaviour {
         _CurKillCount = value;
         return _CurKillCount;
     }
+    /*
     public uint KillsToGet()
     {
         return _KillsToGet;
     }
-
+    */
    
 }

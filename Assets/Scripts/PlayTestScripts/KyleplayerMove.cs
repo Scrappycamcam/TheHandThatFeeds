@@ -939,7 +939,7 @@ public class KyleplayerMove : MonoBehaviour
             _ComboPartsParent.SetActive(true);
         }
         _currTotalCombo++;
-        Debug.Log("Current combo = " + _currTotalCombo);
+        //Debug.Log("Current combo = " + _currTotalCombo);
         _TimeComboStart = Time.time + _TimeForComboToDecay;
         _ComboText.text = _currTotalCombo + " Hits";
     }
