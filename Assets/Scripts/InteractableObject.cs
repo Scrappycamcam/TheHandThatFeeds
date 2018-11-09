@@ -98,6 +98,8 @@ public class InteractableObject : MonoBehaviour {
     [SerializeField]
     List<GameObject> _enemiesToDie;
 
+    uint _killsLeft;
+
     Vector3 _boxStart;
     Vector3 _midpoint1;
     Vector3 _midpoint2;
@@ -106,10 +108,13 @@ public class InteractableObject : MonoBehaviour {
     bool _active = false;
 
     Camera _playerCam;
-    
+
+    [SerializeField]
+    private GameObject _CounterPopUp;
+
 
     //[Header("If Enemy Kill Puzzle")]
-    
+
 
     public void Start()
     {
@@ -155,6 +160,8 @@ public class InteractableObject : MonoBehaviour {
                         for (int i = 0; i < _enemiesToDie.Count; i++)
                         {
                             _enemiesToDie[i].GetComponent<AIKillPuzzleMelee>().SetPuzzle = this;
+                            _killsLeft++;
+                            //Add count to kill count.
                         }
                         break;
                     default:
@@ -235,6 +242,7 @@ public class InteractableObject : MonoBehaviour {
                         Debug.DrawLine(_boxStart, _midpoint2);
                         Debug.DrawLine(_midpoint1, _boxEnd);
                         Debug.DrawLine(_midpoint2, _boxEnd);
+                        ShowKillsLeft();
                         break;
                     default:
                         break;
@@ -246,6 +254,15 @@ public class InteractableObject : MonoBehaviour {
 
 
         
+    }
+
+    public void ShowKillsLeft()
+    {
+        if (KillsLeft > 0)
+        {
+            _CounterPopUp.SetActive(true);
+            _CounterPopUp.GetComponentInChildren<Text>().text = KillsLeft.ToString();
+        }
     }
 
     public void Interact()
@@ -345,39 +362,91 @@ public class InteractableObject : MonoBehaviour {
 
     public void ShowIcon()
     {
-        if(_pzManager.GetPzType() != PzType.KillPz)
+        switch (_whatAmI)
         {
-            _myImage.SetActive(true);
-            _active = true;
+            case TypeOfObject.DOOR:
+                break;
+            case TypeOfObject.POTION:
+                _myImage.SetActive(true);
+                _active = true;
+                break;
+            case TypeOfObject.UPGRADE:
+                if (_winRef.GetKilledEnemiesCount >= _NumOfEnemiesToKill)
+                {
+                    _killedEnough = true;
+                }
 
-        }
-        if(_whatAmI == TypeOfObject.UPGRADE)
-        {
-            if (_winRef.GetKilledEnemiesCount >= _NumOfEnemiesToKill)
-            {
-                _killedEnough = true;
-            }
-
-            if(!_killedEnough)
-            {
-                _KillsToUnlockText.SetActive(true);
-                _myImage.SetActive(false);
-            }
+                if (!_killedEnough)
+                {
+                    _KillsToUnlockText.SetActive(true);
+                    _myImage.SetActive(false);
+                }
+                else
+                {
+                    _KillsToUnlockText.SetActive(false);
+                    _myImage.SetActive(true);
+                }
+                break;
+            case TypeOfObject.PUZZLE:
+                switch (_pzManager.GetPzType())
+                {
+                    case PzType.LeverPz:
+                        _myImage.SetActive(true);
+                        _active = true;
+                        break;
+                    case PzType.KillPz:
+                        break;
+                    case PzType.StepPz:
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case TypeOfObject.Mural:
+                break;
+            default:
+                break;
         }
         
     }
 
     public void TurnOffIcon()
     {
-        if (_whatAmI == TypeOfObject.UPGRADE && !_killedEnough)
+        switch (_whatAmI)
         {
-            _KillsToUnlockText.SetActive(false);
-        }
-        if (_pzManager.GetPzType() != PzType.KillPz)
-        {
-            _myImage.SetActive(false);
-            _active = false;
-
+            case TypeOfObject.DOOR:
+                break;
+            case TypeOfObject.POTION:
+                _myImage.SetActive(false);
+                _active = false;
+                break;
+            case TypeOfObject.UPGRADE:
+                if(!_killedEnough)
+                {
+                    _KillsToUnlockText.SetActive(false);
+                }
+                _myImage.SetActive(false);
+                _active = false;
+                break;
+            case TypeOfObject.PUZZLE:
+                switch (_pzManager.GetPzType())
+                {
+                    case PzType.LeverPz:
+                        _myImage.SetActive(false);
+                        _active = false;
+                        break;
+                    case PzType.KillPz:
+                        break;
+                    case PzType.StepPz:
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case TypeOfObject.Mural:
+                break;
+            default:
+                break;
         }
     }
 
@@ -387,6 +456,7 @@ public class InteractableObject : MonoBehaviour {
         if(_enemyToDiePos.x > _boxStart.x && _enemyToDiePos.x < _boxEnd.x && _enemyToDiePos.z < _boxStart.z && _enemyToDiePos.z > _boxEnd.z)
         {
             _enemiesToDie.Remove(_enemyToDie);
+            _killsLeft--;
             CheckForAllDeadEnemies();
             return true;
         }
@@ -400,6 +470,9 @@ public class InteractableObject : MonoBehaviour {
     {
         if(_enemiesToDie.Count == 0)
         {
+
+            _CounterPopUp.SetActive(false);
+            //Turn Off Kill Counter.
             _pzManager.moveFloor();
         }
     }
@@ -448,4 +521,5 @@ public class InteractableObject : MonoBehaviour {
 
     public PuzzleManager GetPuzzleManager { get { return _pzManager; } }
     public bool SteppedOn { get { return _HasBeenStepped; } set { _HasBeenStepped = value; } }
+    public uint KillsLeft{ get { return _killsLeft; } }
 }
