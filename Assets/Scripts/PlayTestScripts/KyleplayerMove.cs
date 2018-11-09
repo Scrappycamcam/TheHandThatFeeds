@@ -73,6 +73,7 @@ public class KyleplayerMove : MonoBehaviour
     private PlayerStats _pStats;
     private Player _player; // The Rewired Player
     private CharacterController _cc;
+    private PlayerCamera _cameraRef;
     private PlayerCanvas _canvasRef;
     private PauseMenu _pauseRef;
     private Vector3 _moveVector = Vector3.zero;
@@ -228,6 +229,7 @@ public class KyleplayerMove : MonoBehaviour
         Debug.Log("level start called");
         transform.position = _startPos;
         _canvasRef = PlayerCanvas.Instance;
+        _cameraRef = PlayerCamera.Instance;
         _ComboPartsParent = _canvasRef.transform.GetChild(0).gameObject;
         _ComboText = _ComboPartsParent.transform.GetChild(0).GetComponent<Text>();
         _DecayBar = _ComboPartsParent.transform.GetChild(1).GetComponent<Image>();
@@ -568,7 +570,7 @@ public class KyleplayerMove : MonoBehaviour
                             {
                                 Debug.Log("cyclone hit");
                                 _enemyHit.Add(EnemyHit);
-                                ContinueCombo();
+                                ContinueCombo(hit.point);
                                 if (_enemyHit.Count > 2)
                                 {
                                     _enemyHit = new List<AIEnemy>();
@@ -584,7 +586,7 @@ public class KyleplayerMove : MonoBehaviour
                         if(EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack, hit.point))
                         {
                             Debug.Log("cyclone hit");
-                            ContinueCombo();
+                            ContinueCombo(hit.point);
                             _enemyHit.Add(EnemyHit);
                         }
                     }
@@ -683,7 +685,7 @@ public class KyleplayerMove : MonoBehaviour
                         _enemyIAmRamming = thingHit;
                         _enemyIAmRamming.transform.parent = _sword.transform;
                         _enemyIAmRamming.GetComponent<AIEnemy>().GotDashStruck(_dashStrikeAttackDamage);
-                        ContinueCombo();
+                        ContinueCombo(hit.point);
                     }
                     else
                     {
@@ -722,7 +724,7 @@ public class KyleplayerMove : MonoBehaviour
                             }
                             if(thingHit.GetComponent<AIEnemy>().GotHit(_dashStrikeAttackDamage, _staggerDirection, hit.point))
                             {
-                                ContinueCombo();
+                                ContinueCombo(hit.point);
                             }
                         }
                         else if (!thingHit.GetComponent<projectileRanged>())
@@ -754,7 +756,7 @@ public class KyleplayerMove : MonoBehaviour
                 Debug.Log("yup its not null");
                 _enemyIAmRamming.GetComponent<AIEnemy>().ResetState();
                 _enemyIAmRamming.GetComponent<AIEnemy>().GotHit(0, (transform.forward * _dashStrikeKnockBack), hit.point);
-                ContinueCombo();
+                ContinueCombo(hit.point);
                 _enemyIAmRamming = null;
             }
         }
@@ -841,7 +843,7 @@ public class KyleplayerMove : MonoBehaviour
                         if (hit.collider.GetComponent<AIEnemy>().GotHit(_currDamage, transform.forward, hit.point))
                         {
                             Debug.Log("hit");
-                            ContinueCombo();
+                            ContinueCombo(hit.point);
                             _hitSomething = true;
                         }
                     }
@@ -932,13 +934,17 @@ public class KyleplayerMove : MonoBehaviour
         _pStats.PDamage(missDamage);
     }
 
-    private void ContinueCombo()
+    private void ContinueCombo(Vector3 _EnemyHitPos)
     {
         if (!_ComboPartsParent.activeSelf)
         {
             _ComboPartsParent.SetActive(true);
         }
         _currTotalCombo++;
+        if(_currTotalCombo >= 1)
+        {
+            _cameraRef.StartHitCamera(_EnemyHitPos,_currTotalCombo);
+        }
         //Debug.Log("Current combo = " + _currTotalCombo);
         _TimeComboStart = Time.time + _TimeForComboToDecay;
         _ComboText.text = _currTotalCombo + " Hits";
@@ -950,7 +956,7 @@ public class KyleplayerMove : MonoBehaviour
         _DecayBar.fillAmount = ratio;
         if (ratio <= 0)
         {
-            Debug.Log("combo eneded");
+            //Debug.Log("combo eneded");
 
             EndCombo();
         }

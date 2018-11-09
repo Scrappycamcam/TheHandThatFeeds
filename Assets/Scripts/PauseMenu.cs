@@ -45,6 +45,7 @@ public class PauseMenu : MonoBehaviour {
     
     KyleplayerMove _playerRef;
     PlayerCanvas _canvasRef;
+    PlayerCamera _cameraRef;
 
     [SerializeField]
     float _menuMoveDelayDuration;
@@ -73,6 +74,7 @@ public class PauseMenu : MonoBehaviour {
         _canvasRef = PlayerCanvas.Instance;
         _player = ReInput.players.GetPlayer(_playerId);
         _playerRef = KyleplayerMove.Instance;
+        _cameraRef = PlayerCamera.Instance;
         
         _PauseMenu = transform.GetChild(0).gameObject;
         _ControlsMenu = transform.GetChild(1).gameObject;
@@ -226,7 +228,9 @@ public class PauseMenu : MonoBehaviour {
     public void BackToMainMenu()
     {
         Destroy(_playerRef.gameObject);
+        Destroy(_cameraRef.gameObject);
         SceneManager.LoadScene(0);
+        Destroy(_canvasRef.gameObject);
     }
 
     public bool GameIsPaused { get { return _paused; } set { _paused = value; } }

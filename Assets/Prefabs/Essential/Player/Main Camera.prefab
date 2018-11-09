@@ -35,8 +35,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1122245256668694}
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 8, z: -10}
+  m_LocalRotation: {x: 0.42261827, y: -0, z: -0, w: 0.9063079}
+  m_LocalPosition: {x: 0, y: 7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -50,7 +50,7 @@ Camera:
   m_GameObject: {fileID: 1122245256668694}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
@@ -104,3 +104,8 @@ MonoBehaviour:
   _offset: 6
   maxSpeed: 100
   camTime: 0.2
+  _zoomInOffset: 5.4
+  _divisibleOffsetLimit: 2.5
+  _zoomInIncrement: 0.1
+  _zoomDuration: 0.5
+  _slowDownChange: 0.7
