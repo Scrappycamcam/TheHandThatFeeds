@@ -48,6 +48,8 @@ public class PuzzleManager : MonoBehaviour {
     private bool _PzResetting = false;
     private Color DefaultColor = Color.white;
 
+
+
     private void Awake()
     {
         _Levers = new List<InteractableObject>();
@@ -93,6 +95,8 @@ public class PuzzleManager : MonoBehaviour {
             }
         } 
     }
+
+
 
     public void PzReset()
     {
