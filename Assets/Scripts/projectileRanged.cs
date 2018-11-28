@@ -19,26 +19,31 @@ public class projectileRanged : MonoBehaviour {
 
     private void Update()
     {
+        transform.position += transform.forward * _speed * Time.deltaTime;
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, _damageDistance))
+        for (int i = -1; i < 2; i++)
         {
-            //Debug.Log(hit);
-            if (!hit.collider.GetComponent<AIEnemy>())
+            Debug.DrawRay(transform.position - (transform.right * i/4), transform.forward, Color.cyan, _damageDistance);
+            if (Physics.Raycast(transform.position - (transform.right * i/4), transform.forward, out hit, _damageDistance))
             {
-                Debug.Log("Hit Something");
-                if (hit.collider.GetComponent<PlayerStats>())
+                //Debug.Log(hit);
+                if (!hit.collider.GetComponent<AIEnemy>())
                 {
-                    Debug.Log("Hit Player");
-                    hit.collider.gameObject.GetComponent<PlayerStats>().PDamage(_damage);
-                    Destroy(gameObject);
-                }
-                if (!hit.collider.GetComponent<ProgressionLighting>() && !hit.collider.GetComponent<projectileRanged>())
-                {
-                    Destroy(gameObject);
+                    Debug.Log("Hit Something");
+                    if (hit.collider.GetComponent<PlayerStats>())
+                    {
+                        Debug.Log("Hit Player");
+                        hit.collider.gameObject.GetComponent<PlayerStats>().PDamage(_damage);
+                        Destroy(gameObject);
+                    }
+                    if (!hit.collider.GetComponent<ProgressionLighting>() && !hit.collider.GetComponent<projectileRanged>())
+                    {
+                        Destroy(gameObject);
+                    }
                 }
             }
         }
-        transform.position += transform.forward * _speed * Time.deltaTime;
+        
         if(Vector3.Distance(_startPos, transform.position) >= _maxRange)
         {
             Destroy(gameObject);

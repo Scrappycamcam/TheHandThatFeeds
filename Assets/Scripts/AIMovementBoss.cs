@@ -119,7 +119,7 @@ public class AIMovementBoss : AIEnemy {
 
                 p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
 
-                transform.LookAt(_player.transform.position);
+                transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
                 _sword.transform.localPosition = p01;
             }
         }
@@ -267,8 +267,8 @@ public class AIMovementBoss : AIEnemy {
             }
             else
             {
-                transform.LookAt(c1);
-                if (Physics.Raycast(transform.position, transform.forward, out hit, _damageDistance))
+                transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
+                if (Physics.Raycast(transform.position + Vector3.down, transform.forward, out hit, _damageDistance))
                 {
                     if (hit.collider.GetComponent<PlayerStats>())
                     {
@@ -331,7 +331,7 @@ public class AIMovementBoss : AIEnemy {
             }
             else
             {
-                transform.LookAt(c1);
+                transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
 
                 projectileRanged _proj = Instantiate<GameObject>(_projectile, _launchPos.position, transform.rotation, null).GetComponent<projectileRanged>();
                 projectileRanged _proj2 = Instantiate<GameObject>(_projectile, _launchPos.position, transform.rotation * Quaternion.Euler(0, _shotSpread, 0), null).GetComponent<projectileRanged>();
@@ -364,7 +364,7 @@ public class AIMovementBoss : AIEnemy {
     {
         if (!_DotGameObj)
         {
-            _DotGameObj = Instantiate(DOTObj, transform.position + (Vector3.down / 2), DOTObj.transform.rotation, null);
+            _DotGameObj = Instantiate(DOTObj, transform.position + (2*Vector3.down), DOTObj.transform.rotation, null);
         }
         _waiting = false;
         _attacking = false;
