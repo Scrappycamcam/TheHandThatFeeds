@@ -31,6 +31,7 @@ public class PlayerStats : MonoBehaviour {
         _PcurrHealth = _PmaxHealth;
 
         _currentHealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
+        _currentHealthBar.fillAmount = 1f;
     }
 
     public void FindHealthBar()
