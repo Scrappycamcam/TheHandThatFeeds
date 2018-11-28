@@ -7,6 +7,7 @@ TagManager:
   - EndOfLevel
   - Death
   - Boss
+  - MuralOverlay
   layers:
   - Default
   - TransparentFX

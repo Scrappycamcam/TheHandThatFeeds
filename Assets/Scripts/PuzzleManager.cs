@@ -22,6 +22,10 @@ public class PuzzleManager : MonoBehaviour {
     [SerializeField]
     private GameObject InteractionObj;
 
+    [Tooltip("This Object is used to Lock the doors to a room.  If Working With Multiple Gameobjects Parent All Under One Object.")]
+    [SerializeField]
+    private GameObject _LockedObjects;
+
     [Tooltip("This Should be Empty This Is the Players Progress So Far.")]
     [SerializeField]
     public string _OrderProg;
@@ -64,6 +68,11 @@ public class PuzzleManager : MonoBehaviour {
             _Levers[i].Init();
         }
         PzReset();
+    }
+
+    private void Start()
+    {
+        _LockedObjects.SetActive(false);
     }
 
 
@@ -121,12 +130,21 @@ public class PuzzleManager : MonoBehaviour {
         }*/
     }
 
+    public void LockZone()
+    {
+        //Activate Doors 
+        _LockedObjects.SetActive(true);
+    }
+
     public void moveFloor()
     {
         Debug.Log("puzzle complete");
-        if(this.InteractionObj.activeSelf == true)
+        //Temp Disable Lock Zone.
+        //_LockedObjects.SetActive(false);
+        if (this.InteractionObj.activeSelf == true)
         {
             this.InteractionObj.SetActive(false);
+            
 
         }
         else

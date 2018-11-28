@@ -59,6 +59,7 @@ public class InteractableObject : MonoBehaviour {
     WinCondition _winRef;
 
     [Header("If a Mural")]
+    private GameObject _MuralSource;
     [SerializeField]
     private GameObject _MuralObj;
     [TextArea]
@@ -127,6 +128,8 @@ public class InteractableObject : MonoBehaviour {
         _myImage = _ImageRef;
         _myImage.SetActive(false);
 
+
+
         _playerRef = KyleplayerMove.Instance;
         switch (_whatAmI)
         {
@@ -169,6 +172,12 @@ public class InteractableObject : MonoBehaviour {
                 }
                 break;
             case TypeOfObject.Mural:
+                //Load Mural Object
+                _MuralSource = GameObject.Find("MuralCase");
+                Debug.Log(_MuralSource);
+                _MuralObj = _MuralSource.GetComponentInChildren<RectTransform>(true).gameObject;
+                Debug.Log(_MuralObj);
+                //Turn Mural Off
                 _MuralObj.SetActive(false);
                 _MuralState = false;
                 break;
@@ -191,6 +200,7 @@ public class InteractableObject : MonoBehaviour {
                 _pzManager = _pzManagerOBJ.GetComponent<PuzzleManager>();
                 break;
             case TypeOfObject.Mural:
+                //_MuralObj = GameObject.FindGameObjectWithTag("MuralOverlay");
                 _MuralObj.SetActive(false);
                 _MuralState = false;
                 break;
@@ -242,6 +252,7 @@ public class InteractableObject : MonoBehaviour {
                         Debug.DrawLine(_boxStart, _midpoint2);
                         Debug.DrawLine(_midpoint1, _boxEnd);
                         Debug.DrawLine(_midpoint2, _boxEnd);
+                        
                         ShowKillsLeft();
                         break;
                     default:
@@ -260,6 +271,8 @@ public class InteractableObject : MonoBehaviour {
     {
         if (KillsLeft > 0)
         {
+            //Temp Disable Lock Zone.
+            //_pzManager.LockZone();
             _CounterPopUp.SetActive(true);
             _CounterPopUp.GetComponentInChildren<Text>().text = KillsLeft.ToString();
         }
@@ -306,13 +319,22 @@ public class InteractableObject : MonoBehaviour {
 
                 if (_pzManager.GetPzType() == PzType.LeverPz)
                 {
-                    Debug.Log("Lever Pulled.");
-                    gameObject.GetComponent<MeshRenderer>().material.color = CorrectColor;
-                    if (_ParticleEffect != null)
+                    if (_HasBeenStepped)
                     {
-                        _ParticleEffect.SetActive(true);
 
+                        Debug.Log("Lever Pulled.");
+                        if (_ParticleEffect != null)
+                        {
+                            _ParticleEffect.SetActive(true);
+
+                        }
+                        else
+                        {
+                            gameObject.GetComponent<MeshRenderer>().material.color = CorrectColor;
+
+                        }
                     }
+                    this._HasBeenStepped = true;
                     _pzManager._OrderProg = _pzManager._OrderProg + leverNumber;
                     _pzManager.PzCheck();
 
@@ -492,6 +514,10 @@ public class InteractableObject : MonoBehaviour {
 
     public void MuralManager(uint _MuralNum)
     {
+        if(_MuralObj == null)
+        {
+            //_MuralObj = GameObject.FindGameObjectWithTag("Mural")
+        }
         _ImageToUse = Resources.Load<Sprite>("MuralImages/Mural" + _MuralNo);
         Debug.Log(_ImageToUse);
         _MuralObj.GetComponent<Image>().sprite = _ImageToUse;
