@@ -51,7 +51,7 @@ public class BerzerkMode : MonoBehaviour {
         _playerMove = KyleplayerMove.Instance;
         player = _playerMove.transform;
         _player = ReInput.players.GetPlayer(0);
-
+        
         _vertOffsetPercentage /= 100f;
     }
 

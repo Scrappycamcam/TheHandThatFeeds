@@ -32,16 +32,24 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
+    public enum BasicAttacks
+    {
+        NONE,
+        LIGHT,
+        HEAVY
+    }
+
     public enum SpecialAbility
     {
         NONE,
         CYCLONE,
-        THEGOODSUCC,
         DASHSTRIKE,
     }
 
     [Header("Base Player Variables")]
     private int _playerId = 0; // The Rewired player id of this character
+    [SerializeField]
+    bool _debugBaseAttack;
     [SerializeField]
     float _lightAttackDamage;
     [SerializeField]
@@ -111,6 +119,7 @@ public class KyleplayerMove : MonoBehaviour
     private Text _ComboText;
     private Image _DecayBar;
 
+    [SerializeField]
     GameObject _sword;
     Vector3 _swordReset;
     [SerializeField]
@@ -183,10 +192,11 @@ public class KyleplayerMove : MonoBehaviour
     bool _debugDashStrike;
     bool _chargingDashStrike;
     GameObject _enemyIAmRamming;
-
-    //[SerializeField]
-    float stealHealthBurden;
+    
     bool _usingSpecial = false;
+
+    BasicAttacks _currAttack = BasicAttacks.NONE;
+    BasicAttacks _nextAttack = BasicAttacks.NONE;
     SpecialAbility _myability = SpecialAbility.NONE;
 
     void Awake()
@@ -217,9 +227,9 @@ public class KyleplayerMove : MonoBehaviour
             _myAnimations = GetComponent<Animator>();
         }
 
-        _startPos = transform.position;
-        _sword = transform.GetChild(0).gameObject;
-        _swordReset = _sword.transform.localPosition;
+        //_startPos = transform.position;
+        //_sword = transform.GetChild(0).gameObject;
+        //_swordReset = _sword.transform.localPosition;
         _enemyHit = new List<AIEnemy>();
         PlayerLevelStart();
     }
@@ -265,7 +275,7 @@ public class KyleplayerMove : MonoBehaviour
             }
             else
             {
-                CheckForCombo();
+                //CheckForCombo();
                 Attack();
             }
 
@@ -298,10 +308,12 @@ public class KyleplayerMove : MonoBehaviour
 
         if (_menuMove > 0)
         {
+            Debug.Log("moving through Menu UP");
             _pauseRef.MenuMovement(true);
         }
         else if (_menuMove < 0)
         {
+            Debug.Log("moving through Menu DOWN");
             _pauseRef.MenuMovement(false);
         }
 
@@ -317,26 +329,28 @@ public class KyleplayerMove : MonoBehaviour
     {
         RaycastHit hit;
         if (!_cc.isGrounded && !_isDashing)
-        { //if there is nothing below the player
-            _cc.Move(Vector3.down * _gravity); //fall at rate gravity
-            //Debug.Log("I'M FREE FALLIN");
-        } 
-        if(Physics.Raycast(transform.position, Vector3.down, out hit, 2f)) //if there is something below the player
         {
-            //Debug.Log("Hit Thing Below Me");
+            
+            //if there is nothing below the player
+            _cc.Move(Vector3.down * _gravity); //fall at rate gravity
+            Debug.Log("I'M FREE FALLIN");
+        } 
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, .5f)) //if there is something below the player
+        {
+            Debug.Log("Hit Thing Below Me");
             if (hit.transform.tag == "Death") //if it is not meant to kill you
             {
-                //Debug.Log("Time to Reset");
+                Debug.Log("Time to Reset");
                 checkPoint(); //teleport to last position
             }
             else //it is meant to kill you
             {
-                //Debug.Log("Set Checkpoint");
+                Debug.Log("Set Checkpoint");
                 _lastPos = transform.position; //set the last position
             }
             if (hit.transform.tag == "DOT")
             {
-                //Debug.Log("Ow");
+                Debug.Log("Ow");
                 _pStats.PDamage(hit.transform.GetComponent<DOT>()._DamagePerTick);
             }
         }
@@ -357,6 +371,7 @@ public class KyleplayerMove : MonoBehaviour
     {   // Process movement
         if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 1f))
         {
+            Debug.Log("hitting something");
             if (hit.collider.GetComponent<ProgressionLighting>())
             {
                 hit.collider.GetComponent<ProgressionLighting>().TurnOnTorch();
@@ -382,6 +397,7 @@ public class KyleplayerMove : MonoBehaviour
                 //hit.collider.GetComponent<InteractableObject>().
             }
         }
+
         if (_moveVector == Vector3.zero) //set sprinting to 1 if not moving
         {
             _sprinting = false;
@@ -390,6 +406,10 @@ public class KyleplayerMove : MonoBehaviour
         {
             _sprinting = true;
         }
+
+        Debug.Log(_moveVector);
+        Debug.DrawLine(transform.position, transform.position + _moveVector);
+
         if (_moveVector.x != 0.0f || _moveVector.z != 0.0f) //move player
         {
             float _move = _moveSpeed;
@@ -439,20 +459,16 @@ public class KyleplayerMove : MonoBehaviour
 
         if (_LightAttack)
         {
-            if (_myAnimations)
-            {
-                _myAnimations.Play("LightAttack1", 0);
-            }
-            _currComboNum = 0;
-            _nextComboTransform = _myLightComboPos[_currComboNum];
+            //_currComboNum = 0;
+            _nextAttack = BasicAttacks.LIGHT;
             //Debug.Log(_nextComboTransform);
             _attacking = true;
             _canMove = false;
         }
         else if (_HeavyAttack)
         {
-            _currComboNum = 0;
-            _nextComboTransform = _myHeavyComboPos[_currComboNum];
+            //_currComboNum = 0;
+            _nextAttack = BasicAttacks.HEAVY;
             _attacking = true;
             _canMove = false;
         }
@@ -509,9 +525,6 @@ public class KyleplayerMove : MonoBehaviour
             case SpecialAbility.CYCLONE:
                 UsingCyclone();
                 break;
-            case SpecialAbility.THEGOODSUCC:
-                GiveEmTheGoodSucc();
-                break;
             case SpecialAbility.DASHSTRIKE:
                 if (_chargingDashStrike)
                 {
@@ -551,10 +564,10 @@ public class KyleplayerMove : MonoBehaviour
         {
             if (_debugCyclone)
             {
-                Debug.DrawLine(transform.position, transform.position + (transform.forward * _cycloneDetectionDistance));
+                Debug.DrawLine(transform.position + Vector3.up, transform.position + (transform.forward * _cycloneDetectionDistance));
             }
 
-            if (Physics.Raycast(_sword.transform.position, _sword.transform.up, out hit, _cycloneDetectionDistance))
+            if (Physics.Raycast(transform.position + Vector3.up, _sword.transform.forward, out hit, _cycloneDetectionDistance))
             {
                 if (hit.collider.GetComponent<AIEnemy>())
                 {
@@ -621,11 +634,6 @@ public class KyleplayerMove : MonoBehaviour
         return false;
     }
 
-    private void GiveEmTheGoodSucc()
-    {
-
-    }
-
     //start up of the charge dash ability
     //player reels back during this being called
     private void ChargingDashStrike()
@@ -676,7 +684,7 @@ public class KyleplayerMove : MonoBehaviour
                     Debug.DrawLine(transform.position + Vector3.up, transform.position + (transform.forward * _dashStrikeInitialDetectionDistance) + Vector3.up);
                 }
 
-                if (Physics.Raycast(transform.position + Vector3.up, _sword.transform.up, out hit, _dashStrikeInitialDetectionDistance))
+                if (Physics.Raycast(transform.position + Vector3.up, _sword.transform.forward, out hit, _dashStrikeInitialDetectionDistance))
                 {
                     GameObject thingHit = hit.collider.gameObject;
 
@@ -690,7 +698,7 @@ public class KyleplayerMove : MonoBehaviour
                     else
                     {
                         _myability = SpecialAbility.NONE;
-                        _sword.transform.localPosition = _swordReset;
+                        //_sword.transform.localPosition = _swordReset;
                         _enemyHit = new List<AIEnemy>();
                     }
                 }
@@ -707,7 +715,7 @@ public class KyleplayerMove : MonoBehaviour
                         Debug.DrawLine(RayPos, RayPos + (transform.forward * _dashStrikeDetectionDistanceWhileRammingAnEnemy));
                     }
 
-                    if (Physics.Raycast(RayPos, _sword.transform.up, out hit, _dashStrikeDetectionDistanceWhileRammingAnEnemy))
+                    if (Physics.Raycast(RayPos, _sword.transform.forward, out hit, _dashStrikeDetectionDistanceWhileRammingAnEnemy))
                     {
 
                         GameObject thingHit = hit.collider.gameObject;
@@ -730,7 +738,7 @@ public class KyleplayerMove : MonoBehaviour
                         else if (!thingHit.GetComponent<projectileRanged>())
                         {
                             _myability = SpecialAbility.NONE;
-                            _sword.transform.localPosition = _swordReset;
+                            //_sword.transform.localPosition = _swordReset;
                             _enemyHit = new List<AIEnemy>();
                             if (_enemyIAmRamming != null)
                             {
@@ -749,7 +757,7 @@ public class KyleplayerMove : MonoBehaviour
             _currComboTime = 1;
 
             _myability = SpecialAbility.NONE;
-            _sword.transform.localPosition = _swordReset;
+            //_sword.transform.localPosition = _swordReset;
             _enemyHit = new List<AIEnemy>();
             if (_enemyIAmRamming != null)
             {
@@ -768,7 +776,7 @@ public class KyleplayerMove : MonoBehaviour
     }
 
     //checks to see if the player is comboing so that it can move the sword accordingly
-    private void CheckForCombo()
+    /*private void CheckForCombo()
     {
         _LightAttack = _player.GetButtonDown("LightAttack");
         _HeavyAttack = _player.GetButtonDown("HeavyAttack");
@@ -788,34 +796,37 @@ public class KyleplayerMove : MonoBehaviour
                 _nextComboTransform = _myHeavyComboPos[_currComboNum];
             }
         }
-    }
+    }*/
 
     //processes basic attacks
     private void Attack()
     {
         if (!_swinging)
         {
-            if (_nextComboTransform == _myLightComboPos[_currComboNum])
+            switch (_nextAttack)
             {
-                _currSwingDuration = _lightSwingDuration;
-                _currDamage = _lightAttackDamage;
-            }
-            else if (_nextComboTransform == _myHeavyComboPos[_currComboNum])
-            {
-                _currSwingDuration = _heavySwingDuration;
-                _currDamage = _heavyAttackDamage;
+                case BasicAttacks.NONE:
+                    break;
+                case BasicAttacks.LIGHT:
+                    _currSwingDuration = _lightSwingDuration;
+                    _currDamage = _lightAttackDamage;
+                    _myAnimations.Play("LightAttack1", 0);
+                    break;
+                case BasicAttacks.HEAVY:
+                    _currSwingDuration = _heavySwingDuration;
+                    _currDamage = _heavyAttackDamage;
+                    break;
+                default:
+                    break;
             }
 
             //Debug.Log(_currSwingDuration);
 
-            _currComboNum++;
-            if (_nextComboTransform != null)
+            //_currComboNum++;
+            if (_nextAttack != BasicAttacks.NONE)
             {
-                _currComboTransform = _nextComboTransform;
-                c0 = _sword.transform.localPosition;
-                c1 = ((_sword.transform.localPosition + _currComboTransform.localPosition) / 2) + transform.forward;
-                c2 = _currComboTransform.localPosition;
-                _nextComboTransform = null;
+                _currAttack = _nextAttack;
+                _nextAttack = BasicAttacks.NONE;
                 //Debug.Log(_currComboTransform);
                 _startComboTime = Time.time;
                 _swinging = true;
@@ -825,20 +836,16 @@ public class KyleplayerMove : MonoBehaviour
         {
             _currComboTime = (Time.time - _startComboTime) / _currSwingDuration;
 
-            Vector3 p01, p12, p012;
-            p01 = (1 - _currComboTime) * c0 + _currComboTime * c1;
-            p12 = (1 - _currComboTime) * c1 + _currComboTime * c2;
-
-            p012 = (1 - _currComboTime) * p01 + _currComboTime * p12;
-
-            _sword.transform.localPosition = p012;
-            _sword.transform.localRotation = _currComboTransform.localRotation;
-
-            if (_currComboTime < 1)
+            if(_debugBaseAttack)
             {
-                if (Physics.Raycast(_sword.transform.position, _sword.transform.up, out hit, _swordDetectDistance))
+                Debug.DrawLine(transform.position + Vector3.up, _sword.transform.position + _sword.transform.forward * _swordDetectDistance);
+            }
+
+            if (Physics.Raycast(transform.position + Vector3.up, _sword.transform.forward, out hit, _swordDetectDistance))
+            {
+                if (hit.collider.GetComponent<AIEnemy>())
                 {
-                    if (hit.collider.GetComponent<AIEnemy>())
+                    if(_currAttack == BasicAttacks.HEAVY)
                     {
                         if (hit.collider.GetComponent<AIEnemy>().GotHit(_currDamage, transform.forward, hit.point))
                         {
@@ -849,32 +856,18 @@ public class KyleplayerMove : MonoBehaviour
                     }
                 }
             }
-            else
+
+            if (_myAnimations.IsInTransition(0))
             {
-                _currComboTime = 1;
                 if (!_hitSomething)
                 {
                     Debug.Log("missed");
                     _pStats.PDamage(missDamage);
                 }
 
-                if (_nextComboTransform == null || _currComboNum > _myLightComboPos.Count)
-                {
-                    ResetSword();
-                }
-                _swinging = false;
-
-
+                ResetSword();
             }
-
-            if (_currComboTime >= .6f && _currComboTime <= .95f)
-            {
-                _comboing = true;
-            }
-            else
-            {
-                _comboing = false;
-            }
+           
         }
     }
 
@@ -886,39 +879,11 @@ public class KyleplayerMove : MonoBehaviour
         _comboing = false;
         _swinging = false;
         _hitSomething = false;
-        _sword.transform.localPosition = _swordReset;
+        //_sword.transform.localPosition = _swordReset;
         _currComboNum = 0;
-        _nextComboTransform = null;
-        _currComboTransform = null;
         _canMove = true;
+        _myAnimations.Play("Idle", 0);
     }
-
-
-    /*private void GetAttack()
-    {
-        _LightAttack = _player.GetButtonDown("LightAttack");
-        _HeavyAttack = _player.GetButtonDown("HeavyAttack");
-    }
-    private void ProcessAttack()
-    {
-        if (_HeavyAttack)
-        {
-            if (!_LastAttack.MakeAttack(_LastMove))
-            {
-                _pStats.PDamage(missDamage);
-            }
-            _canMove = false;
-        }
-        else if (_LightAttack)
-        {
-            if (!_LastAttack.MakeAttack(_LastMove))
-            {
-                _pStats.PDamage(missDamage);
-            }
-            _canMove = false;
-        }
-        _canMove = true;
-    }*/
 
     public PlayerStats GetPlayerStats
     {
