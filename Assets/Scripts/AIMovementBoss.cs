@@ -462,13 +462,13 @@ public class AIMovementBoss : AIEnemy {
             if (collision.gameObject.GetComponent<AIEnemy>())
             {
                 collision.gameObject.GetComponent<AIEnemy>().ResetState();
-                collision.gameObject.GetComponent<AIEnemy>().GotHit(1000f, transform.forward, hit.point);
+                collision.gameObject.GetComponent<AIEnemy>().GotHit(1000f, transform.forward, hit.point, BasicAttacks.HEAVY);
                 UpdateHealth(-_sacrificeHeal);
             }
         }
     }
 
-    public override bool GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos)
+    public override bool GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos, BasicAttacks _attackIGotHitBy)
     {
         transform.parent = null;
         if (_canTakeDamage && !_isShielded)
@@ -482,7 +482,23 @@ public class AIMovementBoss : AIEnemy {
 
             _startAttackTime = Time.time;
             //_hit = true;
-            _myCurrState = AIState.HIT;
+            switch (_attackIGotHitBy)
+            {
+                case BasicAttacks.NONE:
+                    break;
+                case BasicAttacks.LIGHT:
+                    ResetState();
+                    break;
+                case BasicAttacks.HEAVY:
+                    _myCurrState = AIState.HIT;
+                    break;
+                default:
+                    break;
+            }
+            if (_attackIGotHitBy == BasicAttacks.HEAVY)
+            {
+                _myCurrState = AIState.HIT;
+            }
 
             UpdateHealth(_damageRecieved);
             ShowBlood(_particleHitPos);
