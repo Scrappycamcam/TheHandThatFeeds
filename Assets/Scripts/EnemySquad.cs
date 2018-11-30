@@ -9,7 +9,7 @@ public class EnemySquad : MonoBehaviour {
 
     AIOverlord _myOverlord;
 
-    private void Awake()
+    public void Awake()
     {
         _myOverlord = AIOverlord.Instance;
         _myOverlord.AddSquad = this;
