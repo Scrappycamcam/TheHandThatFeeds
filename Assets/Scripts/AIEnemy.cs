@@ -275,7 +275,7 @@ public class AIEnemy : MonoBehaviour {
     }
 
     //For Update 2
-    public virtual bool GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos)
+    public virtual bool GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos, BasicAttacks _attackIGotHitBy)
     {
         transform.parent = null;
         if (_canTakeDamage)
@@ -289,7 +289,23 @@ public class AIEnemy : MonoBehaviour {
 
             _startAttackTime = Time.time;
             //_hit = true;
-            _myCurrState = AIState.HIT;
+            switch (_attackIGotHitBy)
+            {
+                case BasicAttacks.NONE:
+                    break;
+                case BasicAttacks.LIGHT:
+                    ResetState();
+                    break;
+                case BasicAttacks.HEAVY:
+                    _myCurrState = AIState.HIT;
+                    break;
+                default:
+                    break;
+            }
+            if(_attackIGotHitBy == BasicAttacks.HEAVY)
+            {
+                _myCurrState = AIState.HIT;
+            }
 
             UpdateHealth(_damageRecieved);
             ShowBlood(_particleHitPos);
@@ -395,13 +411,13 @@ public class AIEnemy : MonoBehaviour {
 
         if (_currentAttackTime < 1)
         {
-            /*if (Physics.Raycast(transform.position, -transform.forward, _damageDistance))
+            if (Physics.Raycast(transform.position, -transform.forward, _damageDistance))
             {
                 ResetState();
                 _canTakeDamage = true;
                 //_hit = false;
                 _myCurrState = AIState.ALERTED;
-            }*/
+            }
         }
 
         Vector3 p01;
