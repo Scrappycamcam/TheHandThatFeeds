@@ -39,6 +39,10 @@ public class AIMovementBoss : AIEnemy {
     float _sacrificeHeal;
     [SerializeField]
     float _durationOfHealMove;
+    [SerializeField]
+    Transform[] _SpawnPoints;
+    [SerializeField]
+    GameObject _EnemyPrefab;
 
     private float _healTimer;
 
@@ -170,7 +174,19 @@ public class AIMovementBoss : AIEnemy {
                         }
                     }
                 }
-                if (!_attacking)
+                if(_myAtk == whichAttack.Ring && _DotGameObj)
+                {
+                    _myAtk = whichAttack.Ranged;
+                }
+                if(_myAtk == whichAttack.Shield && _isShielded)
+                {
+                    _myAtk = whichAttack.Melee;
+                }
+                if (_myAtk == whichAttack.Heal && _currEnemyHealth >= _enemyHealth)
+                {
+                    _myAtk = whichAttack.Ranged;
+                }
+                    if (!_attacking)
                 {
                     AttackTell();
                 }
@@ -195,19 +211,8 @@ public class AIMovementBoss : AIEnemy {
                             ShieldAttack();
                             break;
                         case whichAttack.Heal:
-                            if (_currEnemyHealth < _enemyHealth)
-                            {
-                                Debug.Log("Heal");
-                                HealAttack();
-                            }
-                            else
-                            {
-                                _waiting = false;
-                                _attacking = false;
-                                _showingTheTell = false;
-                                _myCurrState = AIState.ALERTED;
-                                _myAtk = whichAttack.None;
-                            }
+                            Debug.Log("Heal");
+                            HealAttack();
                             break;
                         case whichAttack.None:
                             Debug.Log("Something Went Wrong With Boss Attack Selection");
@@ -387,6 +392,14 @@ public class AIMovementBoss : AIEnemy {
 
     private void HealAttack()
     {
+        //if (_mySquad.GetEnemySquad.Count < 6)
+        {
+            foreach (Transform t in _SpawnPoints)
+            {
+                Instantiate(_EnemyPrefab, t.position, _EnemyPrefab.transform.rotation, _mySquad.transform).GetComponent<AIEnemy>().Init();
+            }
+        }
+        _mySquad.Awake();
         List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
         if (MyEnemies.Count > 1)
         {
@@ -395,10 +408,12 @@ public class AIMovementBoss : AIEnemy {
                 if (enemy.isActiveAndEnabled)
                 {
                     enemy.Sacrifice(transform.position);
+                    enemy.GetComponent<Rigidbody>().isKinematic = false;
                 }
             }
             _healTimer = Time.time + _durationOfHealMove;
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            _myCurrState = AIState.SACRIFICING;
         }
         else
         {
@@ -410,16 +425,7 @@ public class AIMovementBoss : AIEnemy {
     {
         if(Time.time >= _healTimer || _currEnemyHealth >= _enemyHealth)
         {
-            ResetState();
-            List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            foreach (AIEnemy enemy in MyEnemies)
-            {
-                if (enemy.isActiveAndEnabled)
-                {
-                    enemy.ResetState();
-                }
-            }
+            ResetSac();
         }
         else
         {
@@ -434,19 +440,35 @@ public class AIMovementBoss : AIEnemy {
         }
     }
 
+    private void ResetSac()
+    {
+        ResetState();
+        List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        foreach (AIEnemy enemy in MyEnemies)
+        {
+            if (enemy)
+            {
+                enemy.GetComponent<Rigidbody>().isKinematic = true;
+                enemy.ResetState();
+            }
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(_myCurrState == AIState.SACRIFICING)
         {
             if (collision.gameObject.GetComponent<AIEnemy>())
             {
-                collision.gameObject.GetComponent<AIEnemy>().GotHit(1000f, transform.forward, hit.point);
+                collision.gameObject.GetComponent<AIEnemy>().ResetState();
+                collision.gameObject.GetComponent<AIEnemy>().GotHit(1000f, transform.forward, hit.point, BasicAttacks.HEAVY);
                 UpdateHealth(-_sacrificeHeal);
             }
         }
     }
 
-    public override bool GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos)
+    public override bool GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos, BasicAttacks _attackIGotHitBy)
     {
         transform.parent = null;
         if (_canTakeDamage && !_isShielded)
@@ -460,13 +482,30 @@ public class AIMovementBoss : AIEnemy {
 
             _startAttackTime = Time.time;
             //_hit = true;
-            _myCurrState = AIState.HIT;
+            switch (_attackIGotHitBy)
+            {
+                case BasicAttacks.NONE:
+                    break;
+                case BasicAttacks.LIGHT:
+                    ResetState();
+                    break;
+                case BasicAttacks.HEAVY:
+                    _myCurrState = AIState.HIT;
+                    break;
+                default:
+                    break;
+            }
+            if (_attackIGotHitBy == BasicAttacks.HEAVY)
+            {
+                _myCurrState = AIState.HIT;
+            }
 
             UpdateHealth(_damageRecieved);
             ShowBlood(_particleHitPos);
 
             if (_currEnemyHealth <= 0)
             {
+                ResetSac();
                 DeadActivate(_knockbackdir);
             }
             return true;
