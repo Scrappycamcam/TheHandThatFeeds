@@ -109,7 +109,6 @@ public class InteractableObject : MonoBehaviour {
     bool _active = false;
 
     Camera _playerCam;
-
     [SerializeField]
     private GameObject _CounterPopUp;
 
@@ -186,6 +185,16 @@ public class InteractableObject : MonoBehaviour {
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (GameObject.FindGameObjectWithTag("Player"))
+        {
+            Debug.Log("Entered Zone");
+            StartPuzzleRoom();
+
+        }
+    }
+
     // Use this for initialization
     public void Init () {
         
@@ -198,6 +207,7 @@ public class InteractableObject : MonoBehaviour {
             case TypeOfObject.PUZZLE:
                 _pzManagerOBJ = transform.parent.transform.gameObject;
                 _pzManager = _pzManagerOBJ.GetComponent<PuzzleManager>();
+
                 break;
             case TypeOfObject.Mural:
                 //_MuralObj = GameObject.FindGameObjectWithTag("MuralOverlay");
@@ -208,6 +218,22 @@ public class InteractableObject : MonoBehaviour {
                 break;
         }
         transform.parent = null;
+    }
+
+    public void StartPuzzleRoom()
+    {
+        switch (_pzManager.GetPzType())
+        {
+            case PzType.LeverPz:
+                break;
+            case PzType.StepPz:
+                break;
+            case PzType.KillPz:
+                _pzManager.LockZone();
+                break;
+            default:
+                break;
+        }
     }
 
     private void Update()
@@ -253,6 +279,8 @@ public class InteractableObject : MonoBehaviour {
                         Debug.DrawLine(_midpoint1, _boxEnd);
                         Debug.DrawLine(_midpoint2, _boxEnd);
                         
+
+                        //Add Ingame Visual Effects
                         ShowKillsLeft();
                         break;
                     default:
@@ -275,6 +303,10 @@ public class InteractableObject : MonoBehaviour {
             //_pzManager.LockZone();
             _CounterPopUp.SetActive(true);
             _CounterPopUp.GetComponentInChildren<Text>().text = KillsLeft.ToString();
+        }
+        else
+        {
+            _CounterPopUp.SetActive(false);
         }
     }
 
@@ -487,6 +519,7 @@ public class InteractableObject : MonoBehaviour {
             return false;
         }
     }
+
 
     private void CheckForAllDeadEnemies()
     {

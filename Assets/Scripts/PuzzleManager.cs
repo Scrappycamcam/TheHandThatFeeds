@@ -72,7 +72,11 @@ public class PuzzleManager : MonoBehaviour {
 
     private void Start()
     {
-        _LockedObjects.SetActive(false);
+        if (TypeOfPuzzle == PzType.KillPz)
+        {
+            _LockedObjects.SetActive(false);
+
+        }
     }
 
 
@@ -140,7 +144,19 @@ public class PuzzleManager : MonoBehaviour {
     {
         Debug.Log("puzzle complete");
         //Temp Disable Lock Zone.
-        //_LockedObjects.SetActive(false);
+        switch (TypeOfPuzzle)
+        {
+            case PzType.LeverPz:
+                break;
+            case PzType.StepPz:
+                break;
+            case PzType.KillPz:
+                Debug.Log("Unlocked Doors");
+                _LockedObjects.SetActive(false);
+                break;
+            default:
+                break;
+        }
         if (this.InteractionObj.activeSelf == true)
         {
             this.InteractionObj.SetActive(false);
