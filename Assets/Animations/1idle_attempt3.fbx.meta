@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 6e7a5bbed9e14f74ba1852ac329a798f
+guid: 0b0d6535d13f3b345b34c5292fa9095d
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Ctrl_L_Foot
-    100002: Ctrl_L_Hand
-    100004: Ctrl_L_Leg
-    100006: Ctrl_R_Foot
-    100008: Ctrl_R_Hand
-    100010: Ctrl_R_Leg
-    100012: //RootNode
+    100000: //RootNode
+    100002: Ctrl_L_Foot
+    100004: Ctrl_L_Hand
+    100006: Ctrl_L_Leg
+    100008: Ctrl_R_Foot
+    100010: Ctrl_R_Hand
+    100012: Ctrl_R_Leg
     100014: ikHandle8
     100016: ikHandle9
     100018: joint1
@@ -91,13 +91,13 @@ ModelImporter:
     100170: Sword_Grp
     100172: Sword_Offset
     100174: Whole
-    400000: Ctrl_L_Foot
-    400002: Ctrl_L_Hand
-    400004: Ctrl_L_Leg
-    400006: Ctrl_R_Foot
-    400008: Ctrl_R_Hand
-    400010: Ctrl_R_Leg
-    400012: //RootNode
+    400000: //RootNode
+    400002: Ctrl_L_Foot
+    400004: Ctrl_L_Hand
+    400006: Ctrl_L_Leg
+    400008: Ctrl_R_Foot
+    400010: Ctrl_R_Hand
+    400012: Ctrl_R_Leg
     400014: ikHandle8
     400016: ikHandle9
     400018: joint1
@@ -185,7 +185,7 @@ ModelImporter:
     3300000: Sword
     4300000: low_forUV_oPP
     4300002: Sword
-    7400000: Idle_UV
+    7400000: idle_attempt3
     9500000: //RootNode
     13700000: low_forUV_oPP
   externalObjects: {}

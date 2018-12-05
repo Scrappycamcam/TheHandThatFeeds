@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 90532288d380b2448a1a428875e43a4c
+guid: b124a90d2dae8564489eb78ed7ad282d
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -185,7 +185,7 @@ ModelImporter:
     3300000: low
     4300000: low_forUV_oPP
     4300002: low
-    7400000: Player Attack
+    7400000: Idel_Text
     9500000: //RootNode
     13700000: low_forUV_oPP
   externalObjects: {}
@@ -215,35 +215,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Player Attack
-      takeName: Player Attack
-      firstFrame: 1
-      lastFrame: 26
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
