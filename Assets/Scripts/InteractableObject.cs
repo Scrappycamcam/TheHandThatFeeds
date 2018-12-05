@@ -159,12 +159,14 @@ public class InteractableObject : MonoBehaviour {
 
                         Debug.Log(_boxStart);
                         Debug.Log(_boxEnd);
+                        
                         for (int i = 0; i < _enemiesToDie.Count; i++)
                         {
                             _enemiesToDie[i].GetComponent<AIKillPuzzleMelee>().SetPuzzle = this;
                             _killsLeft++;
                             //Add count to kill count.
                         }
+                        
                         break;
                     default:
                         break;
@@ -187,10 +189,11 @@ public class InteractableObject : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (GameObject.FindGameObjectWithTag("Player"))
+        if (other.tag == "Player")
         {
             Debug.Log("Entered Zone");
             StartPuzzleRoom();
+            
 
         }
     }
@@ -222,6 +225,7 @@ public class InteractableObject : MonoBehaviour {
 
     public void StartPuzzleRoom()
     {
+        Debug.Log("Started Puzzle Room.");
         switch (_pzManager.GetPzType())
         {
             case PzType.LeverPz:
@@ -229,7 +233,21 @@ public class InteractableObject : MonoBehaviour {
             case PzType.StepPz:
                 break;
             case PzType.KillPz:
-                _pzManager.LockZone();
+                if (!_pzManager.GetPuzzleComplete())
+                {
+                    _pzManager.LockZone();
+                    //Over Adds to Current Kills left
+                    /*
+                    for (int i = 0; i < _enemiesToDie.Count; i++)
+                    {
+                        _enemiesToDie[i].GetComponent<AIKillPuzzleMelee>().SetPuzzle = this;
+                        _killsLeft++;
+                        //Add count to kill count.
+                    }
+                    */
+                    //Reset all Kill Puzzle Components HERE!
+
+                }
                 break;
             default:
                 break;
@@ -278,9 +296,10 @@ public class InteractableObject : MonoBehaviour {
                         Debug.DrawLine(_boxStart, _midpoint2);
                         Debug.DrawLine(_midpoint1, _boxEnd);
                         Debug.DrawLine(_midpoint2, _boxEnd);
-                        
+
 
                         //Add Ingame Visual Effects
+                        //Debug.Log(KillsLeft);
                         ShowKillsLeft();
                         break;
                     default:
@@ -302,10 +321,12 @@ public class InteractableObject : MonoBehaviour {
             //Temp Disable Lock Zone.
             //_pzManager.LockZone();
             _CounterPopUp.SetActive(true);
+            Debug.Log("Kill Counter Should Be Active " + KillsLeft);
             _CounterPopUp.GetComponentInChildren<Text>().text = KillsLeft.ToString();
         }
         else
         {
+            //Check Enemy On Death.
             _CounterPopUp.SetActive(false);
         }
     }
@@ -554,6 +575,7 @@ public class InteractableObject : MonoBehaviour {
         _ImageToUse = Resources.Load<Sprite>("MuralImages/Mural" + _MuralNo);
         Debug.Log(_ImageToUse);
         _MuralObj.GetComponent<Image>().sprite = _ImageToUse;
+        _MuralObj.GetComponentInChildren<Text>().text = MuralText;
 
     }
 

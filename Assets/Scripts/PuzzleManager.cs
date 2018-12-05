@@ -45,9 +45,13 @@ public class PuzzleManager : MonoBehaviour {
     [SerializeField]
     private bool _HasTimer = false;
 
-    [Tooltip("This is the players current kill count.")]
+   // [Tooltip("This is the players current kill count.")]
+   // [SerializeField]
+   // private uint _CurKillCount;
+
+    [Tooltip("This sets the puzzle Completion.")]
     [SerializeField]
-    private uint _CurKillCount; 
+    private bool _PuzzleComplete = false;
     
     private bool _PzResetting = false;
     private Color DefaultColor = Color.white;
@@ -137,7 +141,11 @@ public class PuzzleManager : MonoBehaviour {
     public void LockZone()
     {
         //Activate Doors 
-        _LockedObjects.SetActive(true);
+        if (!_PuzzleComplete)
+        {
+            _LockedObjects.SetActive(true);
+
+        }
     }
 
     public void moveFloor()
@@ -153,6 +161,8 @@ public class PuzzleManager : MonoBehaviour {
             case PzType.KillPz:
                 Debug.Log("Unlocked Doors");
                 _LockedObjects.SetActive(false);
+                _PuzzleComplete = true;
+                //Enemies Killed.
                 break;
             default:
                 break;
@@ -182,7 +192,7 @@ public class PuzzleManager : MonoBehaviour {
     {
         return TypeOfPuzzle;
     }
-
+    /*
     public uint GetCurKillCount()
     {
         return _CurKillCount;
@@ -196,6 +206,11 @@ public class PuzzleManager : MonoBehaviour {
     {
         _CurKillCount = value;
         return _CurKillCount;
+    }
+    */
+    public bool GetPuzzleComplete()
+    {
+        return _PuzzleComplete;
     }
     /*
     public uint KillsToGet()
