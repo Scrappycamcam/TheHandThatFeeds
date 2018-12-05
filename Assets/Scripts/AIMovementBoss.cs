@@ -119,7 +119,7 @@ public class AIMovementBoss : AIEnemy {
         transform.Find("Shield").gameObject.SetActive(false);
         _isShielded = false;
 
-        transform.rotation.SetEulerAngles(0, 0, 0);
+        transform.rotation = Quaternion.Euler(0,0,0);
 
         List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
 

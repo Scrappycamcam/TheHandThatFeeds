@@ -4243,6 +4243,11 @@ Prefab:
       propertyPath: _stunDuration
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 114040949806995124, guid: 4143977bbf52cc64fb1c7f7f2d783d5b,
+        type: 2}
+      propertyPath: _durationOfHealMove
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4143977bbf52cc64fb1c7f7f2d783d5b, type: 2}
   m_IsPrefabAsset: 0
@@ -4664,10 +4669,6 @@ Prefab:
     - target: {fileID: 4040083118452392, guid: 6b1f6e5e8c8b02e48a9cca7c7f81a8e5, type: 2}
       propertyPath: m_RootOrder
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1122245256668694, guid: 6b1f6e5e8c8b02e48a9cca7c7f81a8e5, type: 2}
-      propertyPath: m_Name
-      value: Main Camera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b1f6e5e8c8b02e48a9cca7c7f81a8e5, type: 2}

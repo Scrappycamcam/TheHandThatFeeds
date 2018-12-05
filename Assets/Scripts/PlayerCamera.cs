@@ -11,9 +11,7 @@ public enum CameraSetting
 
 
 public class PlayerCamera : MonoBehaviour {
-
-   
-
+    
     private static PlayerCamera _instance;
     public static PlayerCamera Instance
     {

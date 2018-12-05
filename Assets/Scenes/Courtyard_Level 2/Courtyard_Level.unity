@@ -1199,6 +1199,11 @@ MonoBehaviour:
   leverNumber: 1
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &24145126
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1407,6 +1412,11 @@ MonoBehaviour:
   leverNumber: 1
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &28566214
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3224,6 +3234,11 @@ MonoBehaviour:
   leverNumber: 4
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &65424371
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4525,6 +4540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1001 &97202091
 Prefab:
   m_ObjectHideFlags: 0
@@ -7498,6 +7514,11 @@ MonoBehaviour:
   leverNumber: 1
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &161265551
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10914,6 +10935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1001 &230523233
 Prefab:
   m_ObjectHideFlags: 0
@@ -22145,12 +22167,12 @@ MonoBehaviour:
   TypeOfPuzzle: 2
   _Pressed: 0
   InteractionObj: {fileID: 1755543367}
+  _LockedObjects: {fileID: 0}
   _OrderProg: 
   _SequenceToSolvePuzzle: 12
   _PzTime: 0
   _HasTimer: 0
   _CurKillCount: 0
-  _KillsToGet: 0
 --- !u!1001 &467794468
 Prefab:
   m_ObjectHideFlags: 0
@@ -22375,6 +22397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1 &470301237 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1677111033323878, guid: 816307529b071e24db40486528057ef8,
@@ -23263,6 +23286,11 @@ MonoBehaviour:
   leverNumber: 1
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!1 &492834726
 GameObject:
   m_ObjectHideFlags: 0
@@ -23308,6 +23336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1001 &494024486
 Prefab:
   m_ObjectHideFlags: 0
@@ -23935,6 +23964,11 @@ MonoBehaviour:
   leverNumber: 2
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &512084951
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24526,6 +24560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1001 &522829189
 Prefab:
   m_ObjectHideFlags: 0
@@ -30644,6 +30679,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1256920918456574, guid: bdd791e773f5797488166d99287bde38, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdd791e773f5797488166d99287bde38, type: 2}
   m_IsPrefabAsset: 0
@@ -31142,12 +31181,12 @@ MonoBehaviour:
   TypeOfPuzzle: 2
   _Pressed: 0
   InteractionObj: {fileID: 683206126}
+  _LockedObjects: {fileID: 0}
   _OrderProg: 
   _SequenceToSolvePuzzle: 231
   _PzTime: 0
   _HasTimer: 0
   _CurKillCount: 0
-  _KillsToGet: 0
 --- !u!1001 &666619011
 Prefab:
   m_ObjectHideFlags: 0
@@ -35698,6 +35737,11 @@ MonoBehaviour:
   leverNumber: 2
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &774880356
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36472,12 +36516,12 @@ MonoBehaviour:
   TypeOfPuzzle: 0
   _Pressed: 0
   InteractionObj: {fileID: 1747769560}
+  _LockedObjects: {fileID: 0}
   _OrderProg: 
   _SequenceToSolvePuzzle: 1
   _PzTime: 0
   _HasTimer: 0
   _CurKillCount: 0
-  _KillsToGet: 0
 --- !u!1001 &795752086
 Prefab:
   m_ObjectHideFlags: 0
@@ -37410,6 +37454,11 @@ MonoBehaviour:
   leverNumber: 1
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &811706742
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38161,6 +38210,11 @@ MonoBehaviour:
   leverNumber: 1
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &835770498
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39482,6 +39536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1001 &868839089
 Prefab:
   m_ObjectHideFlags: 0
@@ -40672,6 +40727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1 &891928631 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1124995702924210, guid: 3c373982b6586c24e88b788738109ca0,
@@ -50535,6 +50591,11 @@ MonoBehaviour:
   leverNumber: 1
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!1 &1132075973
 GameObject:
   m_ObjectHideFlags: 0
@@ -54682,12 +54743,12 @@ MonoBehaviour:
   TypeOfPuzzle: 0
   _Pressed: 0
   InteractionObj: {fileID: 300428497}
+  _LockedObjects: {fileID: 0}
   _OrderProg: 
   _SequenceToSolvePuzzle: 1
   _PzTime: 0
   _HasTimer: 0
   _CurKillCount: 0
-  _KillsToGet: 0
 --- !u!4 &1222775132
 Transform:
   m_ObjectHideFlags: 0
@@ -55349,6 +55410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1001 &1239946947
 Prefab:
   m_ObjectHideFlags: 0
@@ -59060,6 +59122,11 @@ MonoBehaviour:
   leverNumber: 2
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!1001 &1321762066
 Prefab:
   m_ObjectHideFlags: 0
@@ -64602,6 +64669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!4 &1439576634 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4552953917845488, guid: 976ad6da884cd9049a150512ef885eed,
@@ -67309,6 +67377,11 @@ MonoBehaviour:
   leverNumber: 3
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!1001 &1510425625
 Prefab:
   m_ObjectHideFlags: 0
@@ -68460,12 +68533,12 @@ MonoBehaviour:
   TypeOfPuzzle: 0
   _Pressed: 0
   InteractionObj: {fileID: 569223473}
+  _LockedObjects: {fileID: 0}
   _OrderProg: 
   _SequenceToSolvePuzzle: 21
   _PzTime: 0
   _HasTimer: 0
   _CurKillCount: 0
-  _KillsToGet: 0
 --- !u!4 &1547467960
 Transform:
   m_ObjectHideFlags: 0
@@ -70266,6 +70339,11 @@ MonoBehaviour:
   leverNumber: 2
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &1588141235
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70489,12 +70567,12 @@ MonoBehaviour:
   TypeOfPuzzle: 0
   _Pressed: 0
   InteractionObj: {fileID: 1334203735}
+  _LockedObjects: {fileID: 0}
   _OrderProg: 
   _SequenceToSolvePuzzle: 1
   _PzTime: 0
   _HasTimer: 0
   _CurKillCount: 0
-  _KillsToGet: 0
 --- !u!1001 &1597712605
 Prefab:
   m_ObjectHideFlags: 0
@@ -71034,6 +71112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1 &1613461061 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1677111033323878, guid: 816307529b071e24db40486528057ef8,
@@ -71633,6 +71712,11 @@ MonoBehaviour:
   leverNumber: 3
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &1640936210
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72663,6 +72747,11 @@ MonoBehaviour:
   leverNumber: 1
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &1661670016
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -74249,12 +74338,12 @@ MonoBehaviour:
   TypeOfPuzzle: 2
   _Pressed: 0
   InteractionObj: {fileID: 1132075973}
+  _LockedObjects: {fileID: 0}
   _OrderProg: 
   _SequenceToSolvePuzzle: 1234
   _PzTime: 0
   _HasTimer: 0
   _CurKillCount: 0
-  _KillsToGet: 0
 --- !u!4 &1699514737
 Transform:
   m_ObjectHideFlags: 0
@@ -79074,6 +79163,11 @@ MonoBehaviour:
   leverNumber: 1
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &1804112559
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -79726,6 +79820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1 &1820273565 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1731400967955754, guid: 976ad6da884cd9049a150512ef885eed,
@@ -80950,6 +81045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1 &1852314954
 GameObject:
   m_ObjectHideFlags: 0
@@ -81114,6 +81210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1 &1853613485 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1153135206553154, guid: 816307529b071e24db40486528057ef8,
@@ -81453,6 +81550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!4 &1855944439 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4579224059473664, guid: 816307529b071e24db40486528057ef8,
@@ -82555,12 +82653,12 @@ MonoBehaviour:
   TypeOfPuzzle: 2
   _Pressed: 0
   InteractionObj: {fileID: 425810994}
+  _LockedObjects: {fileID: 0}
   _OrderProg: 
   _SequenceToSolvePuzzle: 1
   _PzTime: 0
   _HasTimer: 0
   _CurKillCount: 0
-  _KillsToGet: 0
 --- !u!4 &1889926283
 Transform:
   m_ObjectHideFlags: 0
@@ -84824,6 +84922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!4 &1940249782 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4851572673209722, guid: 070b4b6e0514ffc419e2f0709737ce77,
@@ -85161,6 +85260,11 @@ MonoBehaviour:
   leverNumber: 1
   _ParticleEffect: {fileID: 0}
   _HasBeenStepped: 0
+  _killWidth: 0
+  _killDepth: 0
+  _killAreaStart: {x: 0, y: 0, z: 0}
+  _enemiesToDie: []
+  _CounterPopUp: {fileID: 0}
 --- !u!65 &1946234417
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -86645,6 +86749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!1001 &1987496946
 Prefab:
   m_ObjectHideFlags: 0
@@ -91259,12 +91364,12 @@ MonoBehaviour:
   TypeOfPuzzle: 0
   _Pressed: 0
   InteractionObj: {fileID: 1100501427}
+  _LockedObjects: {fileID: 0}
   _OrderProg: 
   _SequenceToSolvePuzzle: 1
   _PzTime: 0
   _HasTimer: 0
   _CurKillCount: 0
-  _KillsToGet: 0
 --- !u!1001 &2080035972
 Prefab:
   m_ObjectHideFlags: 0
@@ -91927,6 +92032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc472556214ea0b45916c96fbfa696d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyList: []
 --- !u!4 &2095812080 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4306442160344652, guid: 50a2ee81fc2f89c4786555efdde3c324,
@@ -93979,12 +94085,12 @@ MonoBehaviour:
   TypeOfPuzzle: 2
   _Pressed: 0
   InteractionObj: {fileID: 1251115154}
+  _LockedObjects: {fileID: 0}
   _OrderProg: 
   _SequenceToSolvePuzzle: 1
   _PzTime: 0
   _HasTimer: 0
   _CurKillCount: 0
-  _KillsToGet: 0
 --- !u!1001 &2137412018
 Prefab:
   m_ObjectHideFlags: 0
