@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 20260636569440114}
   - component: {fileID: 81523161933975304}
   - component: {fileID: 114252826585648554}
+  - component: {fileID: 114795746902659228}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -35,8 +36,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1122245256668694}
-  m_LocalRotation: {x: 0.42261827, y: -0, z: -0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 7, z: -10}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalPosition: {x: 0, y: 7, z: -14.467}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -109,3 +110,19 @@ MonoBehaviour:
   _zoomInIncrement: 0.1
   _zoomDuration: 0.5
   _slowDownChange: 0.7
+--- !u!114 &114795746902659228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1122245256668694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af47456ad3698b04a821cddba5ddf5f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WatchTarget: {fileID: 0}
+  OccluderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  HiderMaterial: {fileID: 2100000, guid: 48f0bbebd6b3b77438e60c6980a0cc7e, type: 2}
