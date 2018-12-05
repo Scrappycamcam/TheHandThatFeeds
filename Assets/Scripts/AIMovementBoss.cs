@@ -91,6 +91,49 @@ public class AIMovementBoss : AIEnemy {
         }
     }
 
+    public override void MyReset()
+    {
+        _myCurrState = AIState.NOTALERTED;
+        transform.parent = null;
+        gameObject.SetActive(true);
+        //_dead = false;
+        //_hit = false;
+        _showingTheTell = false;
+        _attacking = false;
+        _waiting = false;
+        //_stunned = false;
+        // _slammed = false;
+        _canTakeDamage = true;
+
+        _enemyAgent.enabled = true;
+        _enemyAgent.isStopped = false;
+        _currPath = 0;
+
+        transform.position = _startPoint;
+        _sword.transform.localPosition = _swordPos;
+        _sword.SetActive(false);
+        _actualHealthBar.fillAmount = 1;
+        _currEnemyHealth = _enemyHealth;
+        _actualHealthBar.gameObject.SetActive(true);
+
+        transform.Find("Shield").gameObject.SetActive(false);
+        _isShielded = false;
+
+        transform.rotation.SetEulerAngles(0, 0, 0);
+
+        List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
+
+        foreach (AIEnemy enem in MyEnemies)
+        {
+            if (enem)
+            {
+                enem.GotHit(1000f, transform.forward, hit.point, BasicAttacks.HEAVY);
+                //Destroy(enem.gameObject);
+            }
+        }
+        _enemyAgent.SetDestination(_patrolRoute[_currPath]);
+        _init = true;
+    }
     protected override void AttackTell()
     {
         //lerpingWeapon

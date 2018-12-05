@@ -1105,6 +1105,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1132877587820102, guid: 14baed1b375d11146822334dab2f6445, type: 2}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 114824768998679482, guid: 14baed1b375d11146822334dab2f6445,
+        type: 2}
+      propertyPath: _lightAttackSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114824768998679482, guid: 14baed1b375d11146822334dab2f6445,
+        type: 2}
+      propertyPath: _heavyAttackSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114824768998679482, guid: 14baed1b375d11146822334dab2f6445,
+        type: 2}
+      propertyPath: _maxAnimationCombo
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14baed1b375d11146822334dab2f6445, type: 2}
   m_IsPrefabAsset: 0

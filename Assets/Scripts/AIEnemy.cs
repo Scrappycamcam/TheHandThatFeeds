@@ -110,7 +110,7 @@ public class AIEnemy : MonoBehaviour {
     protected AIState _myCurrState;
     protected AIState _myPreviousState;
 
-    protected Vector3 _BossPos;
+    protected Vector3 _BossPos = Vector3.zero;
 
     public virtual void Init()
     {
@@ -289,6 +289,10 @@ public class AIEnemy : MonoBehaviour {
 
             _startAttackTime = Time.time;
             //_hit = true;
+            
+            UpdateHealth(_damageRecieved);
+            ShowBlood(_particleHitPos);
+
             switch (_attackIGotHitBy)
             {
                 case BasicAttacks.NONE:
@@ -302,14 +306,6 @@ public class AIEnemy : MonoBehaviour {
                 default:
                     break;
             }
-            if(_attackIGotHitBy == BasicAttacks.HEAVY)
-            {
-                _myCurrState = AIState.HIT;
-            }
-
-            UpdateHealth(_damageRecieved);
-            ShowBlood(_particleHitPos);
-
             if (_currEnemyHealth <= 0)
             {
                 DeadActivate(_knockbackdir);
@@ -473,6 +469,10 @@ public class AIEnemy : MonoBehaviour {
             transform.parent = _mySquad.transform;
             gameObject.SetActive(false);
             _actualHealthBar.gameObject.SetActive(false);
+            if(_BossPos != Vector3.zero)
+            {
+                Destroy(this.gameObject);
+            }
         }
 
         Vector3 p01, p12, p012;
@@ -509,6 +509,11 @@ public class AIEnemy : MonoBehaviour {
         _actualHealthBar.fillAmount = 1;
         _currEnemyHealth = _enemyHealth;
         _actualHealthBar.gameObject.SetActive(true);
+
+        if (_BossPos != Vector3.zero)
+        {
+            GotHit(1000f, transform.forward, hit.point, BasicAttacks.HEAVY);
+        }
 
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
         _init = true;
