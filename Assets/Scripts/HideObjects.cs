@@ -33,22 +33,23 @@ public class HideObjects : MonoBehaviour
         //Cast a ray from this object's transform the the watch target's transform.
         RaycastHit[] hits = Physics.RaycastAll(
           transform.position,
-          WatchTarget.transform.position - transform.position,
-          Vector3.Distance(WatchTarget.transform.position, transform.position),
+          WatchTarget.transform.position + Vector3.up - transform.position,
+          Vector3.Distance(WatchTarget.transform.position + Vector3.up, transform.position) - 1,
           OccluderMask
         );
 
         //Loop through all overlapping objects and disable their mesh renderer
         if (hits.Length > 0)
         {
-            RaycastHit hit = hits[0];
+            foreach (RaycastHit hit in hits)
+            {
                 if (hit.collider.gameObject.transform != WatchTarget && hit.collider.transform.root != WatchTarget && !hit.collider.GetComponent<AIEnemy>())
                 {
                     _LastTransforms.Add(hit.collider.gameObject.transform, hit.collider.gameObject.GetComponent<Renderer>().material);
-                    HiderMaterial.mainTexture = hit.collider.gameObject.GetComponent<Renderer>().material.mainTexture;
+                    //HiderMaterial.mainTexture = hit.collider.gameObject.GetComponent<Renderer>().material.mainTexture;
                     hit.collider.gameObject.GetComponent<Renderer>().material = HiderMaterial;
                 }
-            
+            }
         }
     }
 }
