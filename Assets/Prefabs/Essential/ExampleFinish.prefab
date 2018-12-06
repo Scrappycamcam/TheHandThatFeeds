@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4791040095010714}
   - component: {fileID: 33386532735869370}
   - component: {fileID: 23680934847837622}
-  - component: {fileID: 65719186897113928}
+  - component: {fileID: 135157106959803404}
   - component: {fileID: 114563546803033814}
   m_Layer: 0
   m_Name: ExampleFinish
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1036183982603634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 125.03, y: 1.41, z: 60.54}
+  m_LocalPosition: {x: 32.869827, y: 1.4168565, z: 251.53}
   m_LocalScale: {x: 14.981607, y: 2.7044, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,18 +85,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1036183982603634}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65719186897113928
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1036183982603634}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114563546803033814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,5 +96,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5125a5ea05f6b6c499a7e06faecf3718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _percentToWin: 0.65
-  _FinalDoor: {fileID: 1036183982603634}
+  _percentToWin: 0.05
+  BossDead: 0
+  _EndLevelDoor: {fileID: 0}
+--- !u!135 &135157106959803404
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1036183982603634}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

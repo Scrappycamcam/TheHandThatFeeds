@@ -11,9 +11,15 @@ public class MenuSelection_Script : MonoBehaviour {
     [SerializeField]
     private GameObject _ControlsMap;
     [SerializeField]
+    private GameObject _CreditsPage;
+    [SerializeField]
     private GameObject _StartBtn;
     [SerializeField]
     private GameObject _QuitBtn;
+    [SerializeField]
+    private GameObject _ControlsBtn;
+    [SerializeField]
+    private GameObject _CreditsBtn;
     private Player _player;
     private bool _buttonSelected;
     private int _MSelect;
@@ -82,12 +88,33 @@ public class MenuSelection_Script : MonoBehaviour {
             _ControlsMap.SetActive(true);
             _StartBtn.SetActive(false);
             _QuitBtn.SetActive(false);
+            _CreditsBtn.SetActive(false);
         }
         else
         {
             _ControlsMap.SetActive(false);
             _StartBtn.SetActive(true);
             _QuitBtn.SetActive(true);
+            _CreditsBtn.SetActive(true);
+        }
+    }
+
+    public void Credits()
+    {
+        if (_CreditsPage.activeSelf == false)
+        {
+            _CreditsPage.SetActive(true);
+            _StartBtn.SetActive(false);
+            _QuitBtn.SetActive(false);
+            _ControlsBtn.SetActive(false);
+            
+        }
+        else
+        {
+            _CreditsPage.SetActive(false);
+            _StartBtn.SetActive(true);
+            _QuitBtn.SetActive(true);
+            _ControlsBtn.SetActive(true);
         }
     }
 

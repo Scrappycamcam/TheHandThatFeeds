@@ -193,7 +193,8 @@ public class InteractableObject : MonoBehaviour {
         {
             Debug.Log("Entered Zone");
             StartPuzzleRoom();
-            
+            _CounterPopUp.SetActive(true);
+
 
         }
     }
@@ -316,19 +317,23 @@ public class InteractableObject : MonoBehaviour {
 
     public void ShowKillsLeft()
     {
-        if (KillsLeft > 0)
+        if (KillsLeft > 1)
         {
             //Temp Disable Lock Zone.
             //_pzManager.LockZone();
-            _CounterPopUp.SetActive(true);
+            
             Debug.Log("Kill Counter Should Be Active " + KillsLeft);
-            _CounterPopUp.GetComponentInChildren<Text>().text = KillsLeft.ToString();
+            _CounterPopUp.GetComponentInChildren<Text>().text = KillsLeft.ToString() + " Kills Left";
+        }
+        else if(KillsLeft == 1)
+        {
+            _CounterPopUp.GetComponentInChildren<Text>().text = KillsLeft.ToString() + " Kill Left";
         }
         else
         {
-            //Check Enemy On Death.
-            _CounterPopUp.SetActive(false);
+            _CounterPopUp.GetComponentInChildren<Text>().text = "";
         }
+
     }
 
     public void Interact()
@@ -478,6 +483,8 @@ public class InteractableObject : MonoBehaviour {
                 }
                 break;
             case TypeOfObject.Mural:
+                _myImage.SetActive(true);
+                _active = true;
                 break;
             default:
                 break;
@@ -519,6 +526,8 @@ public class InteractableObject : MonoBehaviour {
                 }
                 break;
             case TypeOfObject.Mural:
+                _myImage.SetActive(false);
+                _active = false;
                 break;
             default:
                 break;
