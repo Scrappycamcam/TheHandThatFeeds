@@ -119,13 +119,13 @@ public class AIMovementBoss : AIEnemy {
         transform.Find("Shield").gameObject.SetActive(false);
         _isShielded = false;
 
-        transform.rotation = Quaternion.Euler(0,0,0);
+        transform.rotation = Quaternion.Euler(0,180,0);
 
         List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
 
         foreach (AIEnemy enem in MyEnemies)
         {
-            if (enem)
+            if (enem.name != this.name)
             {
                 enem.GotHit(1000f, transform.forward, hit.point, BasicAttacks.HEAVY);
                 //Destroy(enem.gameObject);
@@ -166,10 +166,55 @@ public class AIMovementBoss : AIEnemy {
 
                 p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
 
+
+
                 transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
                 _sword.transform.localPosition = p01;
             }
         }
+    }
+
+    protected override void Die()
+    {
+        Debug.Log("dying");
+        _currentAttackTime = (Time.time - _startAttackTime) / _deathDuration;
+
+        if (_currentAttackTime >= 1)
+        {
+            Debug.Log("done dying");
+            _berserkRef.EnemyDied(1);
+            _winRef.BossDied();
+            _currentAttackTime = 1;
+
+            List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
+
+            foreach (AIEnemy enem in MyEnemies)
+            {
+                if (enem)
+                {
+                    enem.GotHit(1000f, transform.forward, hit.point, BasicAttacks.HEAVY);
+                    //Destroy(enem.gameObject);
+                }
+            }
+
+            _init = false;
+            transform.parent = _mySquad.transform;
+            gameObject.SetActive(false);
+            _actualHealthBar.gameObject.SetActive(false);
+            if (_BossPos != Vector3.zero)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
+        Vector3 p01, p12, p012;
+
+        p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
+        p12 = (1 - _currentAttackTime) * c1 + _currentAttackTime * c2;
+        p012 = (1 - _currentAttackTime) * p01 + _currentAttackTime * p12;
+
+        transform.position = p012;
+        transform.rotation = Quaternion.Euler(-90, transform.rotation.y, transform.rotation.z);
     }
 
     protected override void CombatStrats()
@@ -386,13 +431,13 @@ public class AIMovementBoss : AIEnemy {
                 projectileRanged _proj3 = Instantiate<GameObject>(_projectile, _launchPos.position, transform.rotation * Quaternion.Euler(0, -_shotSpread, 0), null).GetComponent<projectileRanged>();
                 _proj._speed = _projSpeed;
                 _proj._maxRange = _maxRange;
-                _proj._damage = _enemyDamage;
+                _proj._damage = _enemyDamage/3;
                 _proj2._speed = _projSpeed;
                 _proj2._maxRange = _maxRange;
-                _proj2._damage = _enemyDamage;
+                _proj2._damage = _enemyDamage/3;
                 _proj3._speed = _projSpeed;
                 _proj3._maxRange = _maxRange;
-                _proj3._damage = _enemyDamage;
+                _proj3._damage = _enemyDamage/3;
                 _waiting = true;
                 c0 = transform.position;
                 c1 = transform.position;
@@ -435,7 +480,7 @@ public class AIMovementBoss : AIEnemy {
 
     private void HealAttack()
     {
-        //if (_mySquad.GetEnemySquad.Count < 6)
+        if (_mySquad.GetEnemySquad.Count < 5)
         {
             foreach (Transform t in _SpawnPoints)
             {
@@ -475,7 +520,7 @@ public class AIMovementBoss : AIEnemy {
             List<AIEnemy> MyEnemies = _mySquad.GetEnemySquad;
             foreach (AIEnemy enemy in MyEnemies)
             {
-                if (enemy.isActiveAndEnabled)
+                if (enemy)
                 {
                     enemy.Sacrifice(transform.position);
                 }
@@ -509,6 +554,28 @@ public class AIMovementBoss : AIEnemy {
                 UpdateHealth(-_sacrificeHeal);
             }
         }
+    }
+
+    protected override bool LookingForPlayer()
+    {
+        for (int currCast = 0; currCast < _numOfCasts; currCast++)
+        {
+            Vector3 _castDir = transform.forward + (transform.right * ((_sightArea - ((_sightArea / ((_numOfCasts - 1) / 2)) * currCast)) / 100));
+            if (_debugVision)
+            {
+                Debug.DrawLine(transform.position + Vector3.down, transform.position + (_castDir * _sightDistance));
+            }
+
+            if (Physics.Raycast(transform.position + Vector3.down, _castDir, out hit, _sightDistance))
+            {
+                if (hit.collider.GetComponent<KyleplayerMove>())
+                {
+                    _mySquad.AlertSquad(_player);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public override bool GotHit(float _damageRecieved, Vector3 _knockbackdir, Vector3 _particleHitPos, BasicAttacks _attackIGotHitBy)

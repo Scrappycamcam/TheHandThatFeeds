@@ -20,6 +20,19 @@ public class EnemySquad : MonoBehaviour {
             AIEnemy _enemyToAdd = transform.GetChild(i).gameObject.GetComponent<AIEnemy>();
             _enemyList.Add(_enemyToAdd);
         }
+
+        PlayerCanvas.Instance.SetGameReset += MyReset;
+    }
+
+    public void MyReset()
+    {
+        foreach(AIEnemy enem in _enemyList)
+        {
+            if (enem)
+            {
+                enem.GetAIState = AIState.NOTALERTED;
+            }
+        }
     }
 
     public void Init()

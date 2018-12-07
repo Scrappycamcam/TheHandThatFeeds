@@ -108,5 +108,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5125a5ea05f6b6c499a7e06faecf3718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _percentToWin: 0.65
-  _FinalDoor: {fileID: 1036183982603634}
+  _percentToWin: 1

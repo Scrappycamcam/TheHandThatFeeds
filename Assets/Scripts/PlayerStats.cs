@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Rewired;
 
 public class PlayerStats : MonoBehaviour {
 
@@ -18,10 +19,15 @@ public class PlayerStats : MonoBehaviour {
     GameObject _DefeatDisplay;
     float _PcurrHealth;
 
+    private bool _defeated = false;
+    private bool _victorious = false;
+
     LevelSelection_Script myscript;
 
     KyleplayerMove _playerRef;
     PlayerCanvas _canvasRef;
+
+    private Player _player;
  
     private void Awake()
     {
@@ -29,9 +35,30 @@ public class PlayerStats : MonoBehaviour {
         _playerRef = GetComponent<KyleplayerMove>();
         _canvasRef = PlayerCanvas.Instance;
         _PcurrHealth = _PmaxHealth;
+        _player = ReInput.players.GetPlayer(0);
 
         _currentHealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
         _currentHealthBar.fillAmount = 1f;
+
+        MyReset();
+        PlayerCanvas.Instance.SetGameReset += MyReset;
+    }
+
+    public void Update()
+    {
+        if (_defeated && _player.GetButtonDown("Dash"))
+        {
+            Defeat();
+        }else if(_victorious && _player.GetButtonDown("Dash"))
+        {
+            Victory();
+        }
+    }
+
+    public void MyReset()
+    {
+        _PcurrHealth = _PmaxHealth;
+        DisplayHealth();
     }
 
     public void FindHealthBar()
@@ -64,7 +91,7 @@ public class PlayerStats : MonoBehaviour {
 
         DisplayHealth();
 
-        if (_PcurrHealth <= 0)
+        if (_PcurrHealth <= 0 && !_defeated)
         {
             Defeat();
         }
@@ -87,19 +114,58 @@ public class PlayerStats : MonoBehaviour {
 
     public void Victory()
     {
-        //_VictoryDisplay.SetActive(true);
-        GameObject.Find("SceneManager").GetComponent<LevelSelection_Script>().LoadScene();
+        if (GameObject.Find("SceneManager").GetComponent<LevelSelection_Script>()._CurLevel > 2)
+        {
+            WinGame();
+        }
+        else
+        {
+            GameObject.Find("SceneManager").GetComponent<LevelSelection_Script>().LoadScene();
+        }
+    }
+
+    public void WinGame()
+    {
+        if (!_victorious)
+        {
+            _victorious = true;
+            _VictoryDisplay.SetActive(true);
+            Time.timeScale = 0f;
+            _canvasRef.ResetGame();
+        }
+        else
+        {
+            _victorious = false;
+            _VictoryDisplay.SetActive(false);
+            Time.timeScale = 1f;
+
+            GameObject.Find("SceneManager").GetComponent<LevelSelection_Script>()._CurLevel = 1;
+
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     public void Defeat()
     {
-        _PcurrHealth = _PmaxHealth;
-        DisplayHealth();
-        _canvasRef.ResetGame();
+        if (!_defeated)
+        {
+            _defeated = true;
+            _DefeatDisplay.SetActive(true);
+            Time.timeScale = 0f;
+            _canvasRef.ResetGame();
+        }
+        else
+        {
+            _defeated = false;
+            _DefeatDisplay.SetActive(false);
+            Time.timeScale = 1f;
+            MyReset();
+        }
     }
 
     public float GetHealth()
     {
         return _PcurrHealth;
     }
+    
 }
