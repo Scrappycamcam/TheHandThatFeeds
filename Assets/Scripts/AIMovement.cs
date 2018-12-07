@@ -52,8 +52,8 @@ public class AIMovement : AIEnemy {
         if (!_showingTheTell)
         {
             _enemyAgent.isStopped = true;
-            c0 = _swordPos;
-            c1 = _swordPos + Vector3.up;
+            //c0 = _swordPos;
+            //c1 = _swordPos + Vector3.up;
             _startAttackTime = Time.time;
             _showingTheTell = true;
         }
@@ -66,10 +66,10 @@ public class AIMovement : AIEnemy {
                 _currentAttackTime = 1;
 
                 c0 = transform.position;
-                c1 = _player.transform.position - transform.forward;
+                c1 = _player.transform.position;
                 c1.y = transform.position.y;
                 _attacking = true;
-                _sword.transform.localPosition = _swordPos;
+                //_sword.transform.localPosition = _swordPos;
                 _startAttackTime = Time.time;
             }
             else
@@ -78,8 +78,10 @@ public class AIMovement : AIEnemy {
 
                 p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
 
-                transform.LookAt(_player.transform.position + Vector3.up);
-                _sword.transform.localPosition = p01;
+                Vector3 LookPos = _player.transform.position;
+                LookPos.y = transform.position.y;
+                transform.LookAt(LookPos);
+                //_sword.transform.localPosition = p01;
             }
         }
     }

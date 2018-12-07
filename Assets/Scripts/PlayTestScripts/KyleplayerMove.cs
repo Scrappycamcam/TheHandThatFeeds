@@ -172,6 +172,7 @@ public class KyleplayerMove : MonoBehaviour
     bool _debugCyclone;
     List<AIEnemy> _enemyHit;
     float _cycloneHits;
+    bool _endingCyclone;
 
     [Header("Dash Strike")]
     [SerializeField]
@@ -200,6 +201,7 @@ public class KyleplayerMove : MonoBehaviour
     [SerializeField]
     bool _debugDashStrike;
     bool _chargingDashStrike;
+    bool _endingDashStrike;
     GameObject _enemyIAmRamming;
     
     bool _usingSpecial = false;
@@ -345,7 +347,7 @@ public class KyleplayerMove : MonoBehaviour
             _cc.Move(Vector3.down * _gravity); //fall at rate gravity
             //Debug.Log("I'M FREE FALLIN");
         } 
-        if(Physics.Raycast(transform.position, Vector3.down, out hit, .5f)) //if there is something below the player
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, 2f)) //if there is something below the player
         {
             //Debug.Log("Hit Thing Below Me");
             if (hit.transform.tag == "Death") //if it is not meant to kill you
@@ -434,7 +436,10 @@ public class KyleplayerMove : MonoBehaviour
         }
         else
         {
-            _myAnimations.Play("Idle", 0);
+            if(!_myAnimations.IsInTransition(0))
+            {
+                _myAnimations.Play("Idle", 0);
+            }
         }
     }
 
@@ -445,7 +450,7 @@ public class KyleplayerMove : MonoBehaviour
         {
             _canMove = false;
             _isDashing = true;
-            _myAnimations.Play("Dash", 0);
+            //_myAnimations.Play("Dash", 0);
             _lastMove = _moveVector;
             _nextDash = Time.time + _dashDelay;
         }
@@ -497,7 +502,7 @@ public class KyleplayerMove : MonoBehaviour
             if (_pStats.GetHealth() > _cycloneHealthBurden || !_AbilitiesCostHealth)
             {
                 //Debug.Log("cyclone Active");
-                _myAnimations.Play("Cyclone", 0);
+                _myAnimations.Play("Cyclone2", 0);
                 if (_AbilitiesCostHealth)
                 {
                     _pStats.PDamage(_cycloneHealthBurden);
@@ -517,7 +522,7 @@ public class KyleplayerMove : MonoBehaviour
             if (_pStats.GetHealth() > _dashStrikeHealthBurden || !_AbilitiesCostHealth)
             {
                 //Debug.Log("Dash Strike Active");
-                _myAnimations.Play("DashStrike", 0);
+                _myAnimations.Play("DashStrike1", 0);
                 if (_AbilitiesCostHealth)
                 {
                     _pStats.PDamage(_dashStrikeHealthBurden);
@@ -540,17 +545,29 @@ public class KyleplayerMove : MonoBehaviour
         switch (_myability)
         {
             case SpecialAbility.NONE:
+                Debug.Log("no ability");
                 _canMove = true;
                 _attacking = false;
                 _usingSpecial = false;
                 break;
             case SpecialAbility.CYCLONE:
-                UsingCyclone();
+                if(!_endingCyclone)
+                {
+                    UsingCyclone();
+                }
+                else
+                {
+                    EndCyclone();
+                }
                 break;
             case SpecialAbility.DASHSTRIKE:
                 if (_chargingDashStrike)
                 {
                     ChargingDashStrike();
+                }
+                else if(_endingDashStrike)
+                {
+                    EndDashStrike();
                 }
                 else
                 {
@@ -584,12 +601,16 @@ public class KyleplayerMove : MonoBehaviour
 
         if (_currComboTime < 1)
         {
+
+            Vector3 _swordRay = _sword.transform.forward;
+            _swordRay.y = 0;
+
             if (_debugCyclone)
             {
-                Debug.DrawLine(transform.position + Vector3.up, transform.position + (transform.forward * _cycloneDetectionDistance));
+                Debug.DrawRay(transform.position + Vector3.up, (_swordRay * _cycloneDetectionDistance));
             }
 
-            if (Physics.Raycast(transform.position + Vector3.up, _sword.transform.forward, out hit, _cycloneDetectionDistance))
+            if (Physics.Raycast(transform.position + Vector3.up, _swordRay, out hit, _cycloneDetectionDistance))
             {
                 if (hit.collider.GetComponent<AIEnemy>())
                 {
@@ -633,9 +654,13 @@ public class KyleplayerMove : MonoBehaviour
         {
             _currComboTime = 1;
 
-            _myability = SpecialAbility.NONE;
-            _sword.transform.localPosition = _swordReset;
-            _enemyHit = new List<AIEnemy>();
+            
+
+            _myAnimations.Play("Cyclone3", 0);
+            _myAnimations.speed = _defaultAnimationSpeed;
+
+            _endingCyclone = true;
+            _startComboTime = Time.time;
         }
     }
 
@@ -654,6 +679,65 @@ public class KyleplayerMove : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private void EndCyclone()
+    {
+        _currComboTime = (Time.time - _startComboTime) / _myAnimations.speed;
+
+        if(_currComboTime >= 1)
+        {
+            _myability = SpecialAbility.NONE;
+            _enemyHit = new List<AIEnemy>();
+            _endingCyclone = false;
+        }
+
+        Vector3 _swordRay = _sword.transform.forward;
+        _swordRay.y = 0;
+
+        if (_debugCyclone)
+        {
+            Debug.DrawRay(transform.position + Vector3.up, (_swordRay * _cycloneDetectionDistance));
+        }
+
+        if (Physics.Raycast(transform.position + Vector3.up, _swordRay, out hit, _cycloneDetectionDistance))
+        {
+            if (hit.collider.GetComponent<AIEnemy>())
+            {
+                AIEnemy EnemyHit = hit.collider.GetComponent<AIEnemy>();
+
+                //Debug.Log("hit");
+
+                if (_enemyHit.Count > 0)
+                {
+                    if (!CycloneAlreadyHitEnemy(EnemyHit))
+                    {
+                        if (EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack, hit.point, BasicAttacks.HEAVY))
+                        {
+                            Debug.Log("cyclone hit");
+                            _enemyHit.Add(EnemyHit);
+                            ContinueCombo(hit.point);
+                            if (_enemyHit.Count > 2)
+                            {
+                                _enemyHit = new List<AIEnemy>();
+                                Debug.Log("cyclone heal");
+                                _pStats.PHeal(_cycloneHeal);
+
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (EnemyHit.GotHit(_cycloneAttackDamage, transform.forward * _cycloneKnockBack, hit.point, BasicAttacks.HEAVY))
+                    {
+                        Debug.Log("cyclone hit");
+                        ContinueCombo(hit.point);
+                        _enemyHit.Add(EnemyHit);
+                    }
+                }
+            }
+        }
     }
 
     //start up of the charge dash ability
@@ -679,6 +763,7 @@ public class KyleplayerMove : MonoBehaviour
             _startComboTime = Time.time;
             _chargingDashStrike = false;
             _invincible = true;
+            _myAnimations.Play("DashStrike2", 0);
         }
         else
         {
@@ -686,6 +771,20 @@ public class KyleplayerMove : MonoBehaviour
             {
                 c1 = transform.position;
             }
+        }
+    }
+
+    private void EndDashStrike()
+    {
+        _currComboTime = (Time.time - _startComboTime) / _myAnimations.speed;
+
+        if(_currComboTime >= 1)
+        {
+            _currComboTime = 1;
+            _myability = SpecialAbility.NONE;
+            //_sword.transform.localPosition = _swordReset;
+            _enemyHit = new List<AIEnemy>();
+            _endingDashStrike = false;
         }
     }
 
@@ -699,18 +798,21 @@ public class KyleplayerMove : MonoBehaviour
 
         if (_currComboTime < 1)
         {
+            Vector3 _swordRay = _sword.transform.forward;
+            _swordRay.y = 0;
+
             if (_enemyIAmRamming == null)
             {
                 if (_debugDashStrike)
                 {
-                    Debug.DrawLine(transform.position + Vector3.up, transform.position + (transform.forward * _dashStrikeInitialDetectionDistance) + Vector3.up);
+                    Debug.DrawRay(transform.position + Vector3.up, (_swordRay * _dashStrikeInitialDetectionDistance));
                 }
 
-                if (Physics.Raycast(transform.position + Vector3.up, _sword.transform.forward, out hit, _dashStrikeInitialDetectionDistance))
+                if (Physics.Raycast(transform.position + Vector3.up, _swordRay, out hit, _dashStrikeInitialDetectionDistance))
                 {
                     GameObject thingHit = hit.collider.gameObject;
 
-                    if (thingHit.GetComponent<AIEnemy>())
+                    if (thingHit.GetComponent<AIEnemy>() && !thingHit.GetComponent<KyleplayerMove>())
                     {
                         _enemyIAmRamming = thingHit;
                         _enemyIAmRamming.transform.parent = _sword.transform;
@@ -719,9 +821,10 @@ public class KyleplayerMove : MonoBehaviour
                     }
                     else
                     {
-                        _myability = SpecialAbility.NONE;
-                        //_sword.transform.localPosition = _swordReset;
-                        _enemyHit = new List<AIEnemy>();
+                        _myAnimations.Play("DashStrike3", 0);
+                        _myAnimations.speed = _defaultAnimationSpeed;
+                        _endingDashStrike = true;
+                        _startComboTime = Time.time;
                     }
                 }
 
@@ -730,18 +833,18 @@ public class KyleplayerMove : MonoBehaviour
             {
                 for (int i = -1; i < 2; i++)
                 {
-                    Vector3 RayPos = new Vector3(transform.position.x + ((transform.right.x * _swordReset.x) * i), transform.position.y + 1f, transform.position.z);
+                    Vector3 RayPos = new Vector3(transform.position.x + ((transform.right.x * _swordRay.x) * i), transform.position.y + 1f, transform.position.z);
 
                     if (_debugDashStrike)
                     {
-                        Debug.DrawLine(RayPos, RayPos + (transform.forward * _dashStrikeDetectionDistanceWhileRammingAnEnemy));
+                        Debug.DrawRay(RayPos, (transform.forward * _dashStrikeDetectionDistanceWhileRammingAnEnemy));
                     }
 
                     if (Physics.Raycast(RayPos, _sword.transform.forward, out hit, _dashStrikeDetectionDistanceWhileRammingAnEnemy))
                     {
 
                         GameObject thingHit = hit.collider.gameObject;
-                        if (thingHit.GetComponent<AIEnemy>())
+                        if (thingHit.GetComponent<AIEnemy>() && !thingHit.GetComponent<KyleplayerMove>())
                         {
                             Vector3 _staggerDirection;
                             if (i == -1)
@@ -759,15 +862,18 @@ public class KyleplayerMove : MonoBehaviour
                         }
                         else if (!thingHit.GetComponent<projectileRanged>())
                         {
-                            _myability = SpecialAbility.NONE;
-                            //_sword.transform.localPosition = _swordReset;
-                            _enemyHit = new List<AIEnemy>();
+                            
                             if (_enemyIAmRamming != null)
                             {
                                 _enemyIAmRamming.GetComponent<AIEnemy>().GotPinned(_dashStrikeAttackDamage);
                                 _pStats.PHeal(_dashStrikeHeal);
                                 _enemyIAmRamming = null;
                             }
+
+                            _myAnimations.Play("DashStrike3", 0);
+                            _myAnimations.speed = _defaultAnimationSpeed;
+                            _endingDashStrike = true;
+                            _startComboTime = Time.time;
                         }
                     }
 
@@ -778,9 +884,6 @@ public class KyleplayerMove : MonoBehaviour
         {
             _currComboTime = 1;
 
-            _myability = SpecialAbility.NONE;
-            //_sword.transform.localPosition = _swordReset;
-            _enemyHit = new List<AIEnemy>();
             if (_enemyIAmRamming != null)
             {
                 Debug.Log("yup its not null");
@@ -789,6 +892,11 @@ public class KyleplayerMove : MonoBehaviour
                 ContinueCombo(hit.point);
                 _enemyIAmRamming = null;
             }
+
+            _myAnimations.Play("DashStrike3", 0);
+            _myAnimations.speed = _defaultAnimationSpeed;
+            _endingDashStrike = true;
+            _startComboTime = Time.time;
         }
 
         Vector3 p01;

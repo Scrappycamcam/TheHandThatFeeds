@@ -126,7 +126,9 @@ public class AIMovementRanged : AIEnemy {
             }
             else
             {
-                transform.LookAt(_player.transform.position);
+                Vector3 _lookPos = _player.transform.position;
+                _lookPos.y = transform.position.y;
+                transform.LookAt(_lookPos);
 
                 projectileRanged _proj = Instantiate<GameObject>(_projectile, _launchPos.position, transform.rotation, null).GetComponent<projectileRanged>();
                 _proj._speed = _projSpeed;

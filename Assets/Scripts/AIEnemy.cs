@@ -90,8 +90,8 @@ public class AIEnemy : MonoBehaviour {
     protected float _TimeOffsetDuringPause;
     protected float _UnpauseTimeOffset;
 
-    protected GameObject _sword;
-    protected Vector3 _swordPos;
+    //protected GameObject _sword;
+    //protected Vector3 _swordPos;
 
     [Header("Patrol Variables")]
     [SerializeField]
@@ -106,6 +106,7 @@ public class AIEnemy : MonoBehaviour {
     protected EnemySquad _mySquad;
     protected BerzerkMode _berserkRef;
     protected WinCondition _winRef;
+    protected Animator _myAnimations;
 
     protected AIState _myCurrState;
     protected AIState _myPreviousState;
@@ -122,6 +123,11 @@ public class AIEnemy : MonoBehaviour {
         _enemyAgent = GetComponent<NavMeshAgent>();
         _mySquad = GetComponentInParent<EnemySquad>();
         _pauseRef = PauseMenu.Instance;
+        if(GetComponent<Animator>())
+        {
+            _myAnimations = GetComponent<Animator>();
+            _myAnimations.Play("Idle", 0);
+        }
 
         _patrolRoute = new List<Vector3>();
             for (int point = 0; point < _patrolPoints.Count; point++)
@@ -135,9 +141,9 @@ public class AIEnemy : MonoBehaviour {
         _patrolRoute.Add(_startPoint);
         _currPath = 0;
 
-        _sword = transform.GetChild(0).gameObject;
-        _swordPos = _sword.transform.localPosition;
-        _sword.SetActive(false);
+        //_sword = transform.GetChild(0).gameObject;
+        //_swordPos = _sword.transform.localPosition;
+        //_sword.SetActive(false);
         _bloodParticle = transform.GetChild(1).gameObject;
 
         _mainCam = PlayerCamera.Instance.gameObject.GetComponent<Camera>();
@@ -163,7 +169,7 @@ public class AIEnemy : MonoBehaviour {
 
         if (LookingForPlayer())
         {
-            _sword.SetActive(true);
+           // _sword.SetActive(true);
             _myCurrState = AIState.ALERTED;
             //_alerted = true;
         }
@@ -209,10 +215,10 @@ public class AIEnemy : MonoBehaviour {
 
         if (Vector3.Distance(transform.position, _player.transform.position) <= _followDistanceThreshold)
         {
-            if (!_sword.activeInHierarchy)
+            /*if (!_sword.activeInHierarchy)
             {
                 _sword.SetActive(true);
-            }
+            }*/
             if (Vector3.Distance(transform.position, _player.transform.position) <= _attackDistanceThreshold)
             {
                 if (!_attacking)
@@ -262,7 +268,7 @@ public class AIEnemy : MonoBehaviour {
 
     public virtual void ResetState()
     {
-        _sword.transform.localPosition = _swordPos;
+        //_sword.transform.localPosition = _swordPos;
         GetComponent<CapsuleCollider>().enabled = true;
         _showingTheTell = false;
         _attacking = false;
@@ -504,8 +510,8 @@ public class AIEnemy : MonoBehaviour {
         _currPath = 0;
 
         transform.position = _startPoint;
-        _sword.transform.localPosition = _swordPos;
-        _sword.SetActive(false);
+        //_sword.transform.localPosition = _swordPos;
+        //_sword.SetActive(false);
         _actualHealthBar.fillAmount = 1;
         _currEnemyHealth = _enemyHealth;
         _actualHealthBar.gameObject.SetActive(true);
