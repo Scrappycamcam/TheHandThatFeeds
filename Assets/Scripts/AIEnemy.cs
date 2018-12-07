@@ -449,6 +449,7 @@ public class AIEnemy : MonoBehaviour {
         Debug.Log(_myCurrState);
         Debug.Log(_init);
 
+        _myAnimations.Play("Idle", 0);
         //_dead = true;
     }
 

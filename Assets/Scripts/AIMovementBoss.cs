@@ -110,8 +110,8 @@ public class AIMovementBoss : AIEnemy {
         _currPath = 0;
 
         transform.position = _startPoint;
-        _sword.transform.localPosition = _swordPos;
-        _sword.SetActive(false);
+        //_sword.transform.localPosition = _swordPos;
+        //_sword.SetActive(false);
         _actualHealthBar.fillAmount = 1;
         _currEnemyHealth = _enemyHealth;
         _actualHealthBar.gameObject.SetActive(true);
@@ -140,8 +140,8 @@ public class AIMovementBoss : AIEnemy {
         if (!_showingTheTell)
         {
             _enemyAgent.isStopped = true;
-            c0 = _swordPos;
-            c1 = _swordPos + Vector3.up;
+            //c0 = _swordPos;
+            //c1 = _swordPos + Vector3.up;
             _startAttackTime = Time.time;
             _showingTheTell = true;
         }
@@ -157,7 +157,7 @@ public class AIMovementBoss : AIEnemy {
                 c1 = _player.transform.position - transform.forward;
                 c1.y = transform.position.y;
                 _attacking = true;
-                _sword.transform.localPosition = _swordPos;
+                //_sword.transform.localPosition = _swordPos;
                 _startAttackTime = Time.time;
             }
             else
@@ -169,7 +169,7 @@ public class AIMovementBoss : AIEnemy {
 
 
                 transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
-                _sword.transform.localPosition = p01;
+                //_sword.transform.localPosition = p01;
             }
         }
     }
@@ -222,10 +222,10 @@ public class AIMovementBoss : AIEnemy {
 
         if (Vector3.Distance(transform.position, _player.transform.position) <= _followDistanceThreshold)
         {
-            if (!_sword.activeInHierarchy)
-            {
-                _sword.SetActive(true);
-            }
+            //if (!_sword.activeInHierarchy)
+            //{
+                //_sword.SetActive(true);
+            //}
             if (Vector3.Distance(transform.position, _player.transform.position) <= _attackDistanceThreshold)
             {
                 if(_myAtk == whichAttack.None)

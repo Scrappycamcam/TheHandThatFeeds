@@ -127,6 +127,7 @@ public class AIMovement : AIEnemy {
             else
             {
                 transform.LookAt(c1);
+                _myAnimations.Play("Attack", 0);
                 if (Physics.Raycast(transform.position, transform.forward, out hit, _damageDistance))
                 {
                     if (hit.collider.GetComponent<PlayerStats>())

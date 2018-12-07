@@ -39,8 +39,6 @@ public class KyleplayerMove : MonoBehaviour
         }
     }
 
-
-
     public enum SpecialAbility
     {
         NONE,
@@ -522,7 +520,7 @@ public class KyleplayerMove : MonoBehaviour
             if (_pStats.GetHealth() > _dashStrikeHealthBurden || !_AbilitiesCostHealth)
             {
                 //Debug.Log("Dash Strike Active");
-                _myAnimations.Play("DashStrike1", 0);
+                _myAnimations.Play("DashStrike2", 0);
                 if (_AbilitiesCostHealth)
                 {
                     _pStats.PDamage(_dashStrikeHealthBurden);
