@@ -67,6 +67,8 @@ public class PlayerCamera : MonoBehaviour {
     [SerializeField]
     private float _slowDownChange;
 
+    private Vector3 _startPos;
+
     CameraSetting _mySetting = CameraSetting.NONE;
 
     public void Start()
@@ -84,6 +86,17 @@ public class PlayerCamera : MonoBehaviour {
         _p = KyleplayerMove.Instance.transform;
         _vertOffset = transform.position.y;
         _mySetting = CameraSetting.FOLLOW;
+
+        _startPos = new Vector3(_p.position.x, _vertOffset, _p.position.z - _offset);
+
+        transform.position = _startPos;
+
+        PlayerCanvas.Instance.SetGameReset += MyReset;
+    }
+
+    public void MyReset()
+    {
+        transform.position = _startPos;
     }
 
     private void Update()
