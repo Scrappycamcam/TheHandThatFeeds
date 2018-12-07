@@ -9,8 +9,10 @@ public class WinCondition : MonoBehaviour {
 
     private float enemiesKilled;
     private float totalEnemies;
+    [SerializeField]
     private bool BossDead;
-
+    [SerializeField]
+    private GameObject _EndLevelDoor;
     private SphereCollider _mycollider;
     private MeshRenderer _myRenderer;
 
@@ -23,7 +25,7 @@ public class WinCondition : MonoBehaviour {
 
         _mycollider.enabled = false;
         _myRenderer.enabled = false;
-
+        _EndLevelDoor.SetActive(true);
         ResetWin();
 
         PlayerCanvas.Instance.SetGameReset += ResetWin;
@@ -33,6 +35,7 @@ public class WinCondition : MonoBehaviour {
     {
         AIEnemy[] _enemies = FindObjectsOfType<AIEnemy>();
         totalEnemies = _enemies.Length;
+        Debug.Log(totalEnemies);
     }
 
 	// Update is called once per frame
@@ -58,6 +61,7 @@ public class WinCondition : MonoBehaviour {
     {
         _myRenderer.enabled = true;
         _mycollider.enabled = true;
+        _EndLevelDoor.SetActive(false);
     }
 
     public void ResetWin()
@@ -65,6 +69,7 @@ public class WinCondition : MonoBehaviour {
         enemiesKilled = 0;
         BossDead = false;
         CountEnemies();
+        _EndLevelDoor.SetActive(true);
     }
 
     public float GetKilledEnemiesCount { get { return enemiesKilled; } }

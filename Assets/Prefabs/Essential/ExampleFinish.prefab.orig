@@ -96,6 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5125a5ea05f6b6c499a7e06faecf3718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+  _percentToWin: 1
+=======
   _percentToWin: 0.05
   BossDead: 0
   _EndLevelDoor: {fileID: 0}
@@ -111,3 +114,4 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+>>>>>>> 0c4f81036f45d1c995c08d2a359447e10aad30ec
