@@ -115,8 +115,10 @@ public class AIMovementBoss : AIEnemy {
         _actualHealthBar.fillAmount = 1;
         _currEnemyHealth = _enemyHealth;
         _actualHealthBar.gameObject.SetActive(true);
-
-        transform.Find("Shield").gameObject.SetActive(false);
+        if (transform.Find("Shield"))
+        {
+            transform.Find("Shield").gameObject.SetActive(false);
+        }
         _isShielded = false;
 
         transform.rotation = Quaternion.Euler(0,180,0);
@@ -131,6 +133,8 @@ public class AIMovementBoss : AIEnemy {
                 //Destroy(enem.gameObject);
             }
         }
+        _myAnimations.Play("Idle", 0);
+
         _enemyAgent.SetDestination(_patrolRoute[_currPath]);
         _init = true;
     }
@@ -162,11 +166,10 @@ public class AIMovementBoss : AIEnemy {
             }
             else
             {
+                _myAnimations.Play("Attack", 0);
                 Vector3 p01;
 
                 p01 = (1 - _currentAttackTime) * c0 + _currentAttackTime * c1;
-
-
 
                 transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
                 //_sword.transform.localPosition = p01;
@@ -563,10 +566,10 @@ public class AIMovementBoss : AIEnemy {
             Vector3 _castDir = transform.forward + (transform.right * ((_sightArea - ((_sightArea / ((_numOfCasts - 1) / 2)) * currCast)) / 100));
             if (_debugVision)
             {
-                Debug.DrawLine(transform.position + Vector3.down, transform.position + (_castDir * _sightDistance));
+                Debug.DrawLine(transform.position + Vector3.up, transform.position + (_castDir * _sightDistance));
             }
 
-            if (Physics.Raycast(transform.position + Vector3.down, _castDir, out hit, _sightDistance))
+            if (Physics.Raycast(transform.position + Vector3.up, _castDir, out hit, _sightDistance))
             {
                 if (hit.collider.GetComponent<KyleplayerMove>())
                 {

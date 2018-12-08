@@ -61,15 +61,17 @@ public class WinCondition : MonoBehaviour {
     {
         _myRenderer.enabled = true;
         _mycollider.enabled = true;
-        _EndLevelDoor.SetActive(false);
+        //_EndLevelDoor.SetActive(false);
     }
 
     public void ResetWin()
     {
+        _myRenderer.enabled = false;
+        _mycollider.enabled = false;
         enemiesKilled = 0;
         BossDead = false;
         CountEnemies();
-        _EndLevelDoor.SetActive(true);
+        //_EndLevelDoor.SetActive(true);
     }
 
     public float GetKilledEnemiesCount { get { return enemiesKilled; } }
